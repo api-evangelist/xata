@@ -1,0 +1,37 @@
+---
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Xata
+providerId: xata
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Database
+  - Postgres
+description: Xata Management API enforces per-key rate limits; the SQL Gateway throughput scales with the compute instance size of each database branch.
+sources:
+  - https://xata.io/docs/overview
+  - https://api.xata.tech/openapi.json
+headers:
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+limits:
+  - name: Management API
+    scope: key
+    metric: requests_per_minute
+    limit: 60
+    timeFrame: minute
+  - name: SQL Gateway
+    scope: key
+    metric: requests_per_minute
+    limit: 1000
+    timeFrame: minute
+  - name: Bulk API Key Deletion
+    scope: key
+    metric: requests_per_minute
+    limit: 60
+    timeFrame: minute

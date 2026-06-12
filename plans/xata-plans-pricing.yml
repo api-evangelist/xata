@@ -1,0 +1,147 @@
+---
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Xata
+providerId: xata
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+tags:
+  - Database
+  - Postgres
+  - Serverless
+description: Xata pricing is usage-based, centered on compute hours and storage GB; a free open-source tier plus metered SaaS and BYOC plans are available.
+sources:
+  - https://xata.io/pricing
+plans:
+  - id: xata-open-source
+    name: Open Source
+    type: free
+    description: Self-managed deployment; community support; OpenEBS/Mayastor storage; ~10s wake-up time; single-region; no compliance certifications.
+    entries:
+      - label: Compute
+        name: compute
+        type: metered
+        metric: instance-hours
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.00'
+        userMultiplied: false
+      - label: Storage
+        name: storage
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.00'
+        userMultiplied: false
+  - id: xata-cloud-saas
+    name: Xata Cloud
+    type: freemium
+    description: Fully managed SaaS on AWS/GCP; subsecond wake-up; multi-region; SOC 2 and GDPR compliant; standard support; Xatastor storage.
+    entries:
+      - label: Compute (micro instance)
+        name: compute-micro
+        type: metered
+        metric: instance-hours
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '$0.012'
+        userMultiplied: false
+      - label: Compute (8xlarge instance)
+        name: compute-8xlarge
+        type: metered
+        metric: instance-hours
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '$1.536'
+        userMultiplied: false
+      - label: Storage
+        name: storage
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.28'
+        userMultiplied: false
+  - id: xata-byoc
+    name: BYOC (Bring Your Own Cloud)
+    type: paid
+    description: Deploy in customer's own AWS, Azure, or GCP account; 24/7 dedicated support; SOC 2, GDPR, BAA/HIPAA-eligible; advanced PII anonymization.
+    entries:
+      - label: Compute (micro instance)
+        name: compute-micro
+        type: metered
+        metric: instance-hours
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '$0.012'
+        userMultiplied: false
+      - label: Compute (8xlarge instance)
+        name: compute-8xlarge
+        type: metered
+        metric: instance-hours
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '$1.536'
+        userMultiplied: false
+      - label: Storage
+        name: storage
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.28'
+        userMultiplied: false
+      - label: Concurrent Branches (Team)
+        name: concurrent-branches-team
+        type: quota
+        metric: branches
+        limit: 1000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.00'
+        userMultiplied: false
+      - label: Concurrent Branches (Company)
+        name: concurrent-branches-company
+        type: quota
+        metric: branches
+        limit: 10000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.00'
+        userMultiplied: false
+  - id: xata-enterprise
+    name: Enterprise
+    type: enterprise
+    description: BYOC with Hyperscale tier; 100,000+ concurrent branches; dedicated infrastructure; custom compliance and support agreements.
+    entries:
+      - label: Concurrent Branches
+        name: concurrent-branches
+        type: quota
+        metric: branches
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'custom'
+        userMultiplied: false

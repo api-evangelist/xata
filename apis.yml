@@ -1,0 +1,93 @@
+---
+aid: xata
+name: Xata
+description: >-
+  Xata is a serverless Postgres platform designed for modern development and
+  agentic workloads, offering instant database branching with copy-on-write
+  storage so teams can clone any Postgres database in under one second. The
+  platform provides a managed REST API, CLI, TypeScript and Python SDKs, and
+  a WebSocket wire-protocol proxy for direct Postgres connections. Xata
+  supports schema migrations, built-in PII anonymization, and scale-to-zero
+  compute, with deployment options spanning Xata Cloud (SaaS), BYOC, and
+  open-source self-hosted. An open-source AI agent (Xata Agent) monitors and
+  optimizes PostgreSQL performance with MCP server extensibility.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Database
+  - Postgres
+  - Serverless
+  - Developer Tools
+  - Branching
+  - AI Agent
+url: https://raw.githubusercontent.com/api-evangelist/xata/refs/heads/main/apis.yml
+created: '2026-06-12'
+modified: '2026-06-12'
+specificationVersion: '0.19'
+apis:
+  - aid: xata:management-api
+    name: Xata Management API
+    description: >-
+      REST API for managing Xata organizations, projects, database branches,
+      API keys, billing, metrics, GitHub integrations, and infrastructure
+      configuration. Authenticated via API keys and served from
+      https://api.xata.tech.
+    humanURL: https://xata.io/docs/overview
+    baseURL: https://api.xata.tech
+    tags:
+      - Database
+      - Postgres
+      - Branching
+      - Organizations
+      - Projects
+    properties:
+      - type: Documentation
+        url: https://xata.io/docs/overview
+      - type: OpenAPI
+        url: https://api.xata.tech/openapi.json
+  - aid: xata:sql-gateway
+    name: Xata SQL Gateway
+    description: >-
+      HTTP endpoint for executing single or batched SQL queries against a
+      Postgres branch, and a WebSocket wire-protocol proxy that enables direct
+      binary PostgreSQL protocol connections over WebSocket.
+    humanURL: https://xata.io/docs/overview
+    baseURL: https://api.xata.tech
+    tags:
+      - Database
+      - SQL
+      - Postgres
+      - WebSocket
+    properties:
+      - type: Documentation
+        url: https://xata.io/docs/overview
+      - type: OpenAPI
+        url: https://api.xata.tech/openapi.json
+common:
+  - type: Website
+    url: https://xata.io/
+  - type: Documentation
+    url: https://xata.io/docs/overview
+  - type: GitHubOrganization
+    url: https://github.com/xataio
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/xataio
+  - type: X
+    url: https://twitter.com/xata
+  - type: Blog
+    url: https://xata.io/blog
+  - type: Pricing
+    url: https://xata.io/pricing
+  - type: StatusPage
+    url: https://www.xatastatus.com/
+  - type: OpenAPI
+    url: https://api.xata.tech/openapi.json
+  - type: Plans
+    url: plans/xata-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/xata-rate-limits.yml
+  - type: FinOps
+    url: finops/xata-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
