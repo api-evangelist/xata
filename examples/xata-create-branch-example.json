@@ -1,0 +1,12 @@
+{
+  "name": "feature-auth",
+  "region": "us-east-1",
+  "parentBranchID": "branch_main_id",
+  "configuration": {
+    "instanceType": "shared",
+    "scaleToZero": {
+      "enabled": true,
+      "idleTimeout": 300
+    }
+  }
+}

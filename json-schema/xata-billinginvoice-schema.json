@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BillingInvoice",
+  "description": "Xata BillingInvoice object",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "invoice_number": {
+      "type": "string"
+    },
+    "amount_due": {
+      "description": "Decimal amount due.",
+      "type": "number",
+      "format": "double"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "invoice_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "issued",
+        "paid",
+        "void",
+        "synced"
+      ]
+    },
+    "invoice_pdf": {
+      "type": "string",
+      "nullable": true
+    }
+  },
+  "required": [
+    "id",
+    "invoice_number",
+    "amount_due",
+    "currency",
+    "invoice_date",
+    "status",
+    "invoice_pdf"
+  ]
+}

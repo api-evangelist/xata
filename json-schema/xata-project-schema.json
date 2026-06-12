@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project",
+  "description": "Details of a project including its ID, name, and creation/update timestamps",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the project",
+      "type": "string"
+    },
+    "name": {
+      "description": "Human-readable name of the project",
+      "type": "string"
+    },
+    "createdAt": {
+      "description": "Timestamp when the project was created",
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "description": "Timestamp when the project was last updated",
+      "type": "string",
+      "format": "date-time"
+    },
+    "configuration": {
+      "$ref": "#/components/schemas/ProjectConfiguration"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "createdAt",
+    "updatedAt",
+    "configuration"
+  ]
+}

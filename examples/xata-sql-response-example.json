@@ -1,0 +1,45 @@
+{
+  "results": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamptz"
+        }
+      ],
+      "rows": [
+        [
+          "usr_01",
+          "Alice",
+          "2025-01-15T10:00:00Z"
+        ],
+        [
+          "usr_02",
+          "Bob",
+          "2025-02-20T14:30:00Z"
+        ]
+      ]
+    },
+    {
+      "columns": [
+        {
+          "name": "count",
+          "type": "int8"
+        }
+      ],
+      "rows": [
+        [
+          "5"
+        ]
+      ]
+    }
+  ]
+}

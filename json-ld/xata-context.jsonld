@@ -1,0 +1,86 @@
+{
+  "@context": {
+    "@vocab": "https://xata.io/vocab#",
+    "schema": "https://schema.org/",
+    "xata": "https://xata.io/vocab#",
+
+    "Organization": "schema:Organization",
+    "id": "@id",
+    "name": "schema:name",
+    "displayName": "schema:alternateName",
+    "description": "schema:description",
+    "createdAt": "schema:dateCreated",
+    "updatedAt": "schema:dateModified",
+    "status": "xata:status",
+
+    "Project": "xata:Project",
+    "projectID": "@id",
+    "region": "xata:region",
+    "instanceType": "xata:instanceType",
+    "configuration": "xata:configuration",
+
+    "Branch": "xata:Branch",
+    "branchID": "@id",
+    "parentBranchID": "xata:parentBranch",
+    "host": "xata:host",
+    "port": "xata:port",
+    "database": "xata:database",
+    "username": "xata:username",
+    "connectionString": "xata:connectionString",
+    "directConnectionString": "xata:directConnectionString",
+
+    "SQLRequest": "xata:SQLRequest",
+    "statements": "xata:statements",
+    "statement": "xata:statement",
+    "params": "xata:params",
+
+    "QueryResult": "xata:QueryResult",
+    "columns": "xata:columns",
+    "rows": "xata:rows",
+    "type": "xata:columnType",
+
+    "APIKey": "xata:APIKey",
+    "keyID": "@id",
+    "preview": "xata:keyPreview",
+
+    "BillingInvoice": "schema:Invoice",
+    "invoiceID": "@id",
+    "amount": "schema:price",
+    "currency": "schema:priceCurrency",
+    "periodStart": "schema:startDate",
+    "periodEnd": "schema:endDate",
+    "invoiceURL": "schema:url",
+
+    "BackupMetadata": "xata:BackupMetadata",
+    "backupID": "@id",
+    "retentionDays": "xata:retentionDays",
+
+    "BranchMetrics": "xata:BranchMetrics",
+    "metricName": "xata:metricName",
+    "series": "xata:series",
+    "timestamps": "xata:timestamps",
+    "values": "xata:values",
+
+    "GithubInstallation": "xata:GithubInstallation",
+    "installationID": "@id",
+    "repositories": "xata:repositories",
+
+    "Extension": "xata:Extension",
+    "extensionName": "xata:extensionName",
+    "version": "schema:version",
+
+    "IPFilteringConfiguration": "xata:IPFilteringConfiguration",
+    "enabled": "xata:enabled",
+    "allowedCidrs": "xata:allowedCidrs",
+
+    "OrganizationInvitation": "xata:OrganizationInvitation",
+    "invitationID": "@id",
+    "email": "schema:email",
+    "role": "xata:role",
+    "expiresAt": "xata:expiresAt",
+
+    "ErrorResponse": "xata:ErrorResponse",
+    "message": "schema:description",
+    "code": "xata:errorCode"
+  }
+}

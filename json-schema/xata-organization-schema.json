@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Organization",
+  "description": "Organization details including ID and name",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the organization",
+      "$ref": "#/components/schemas/OrganizationID"
+    },
+    "name": {
+      "description": "Human-readable name of the organization",
+      "type": "string"
+    },
+    "status": {
+      "description": "Current status of the organization",
+      "$ref": "#/components/schemas/OrganizationStatus"
+    },
+    "marketplace": {
+      "description": "Marketplace provider for this organization (e.g. \"aws\"), if billed through a marketplace",
+      "type": "string",
+      "nullable": true
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "status"
+  ]
+}

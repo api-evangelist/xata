@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QueryResult",
+  "description": "Result of a single SQL query execution.",
+  "type": "object",
+  "properties": {
+    "fields": {
+      "description": "Column metadata for the result set.",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/FieldDefinition"
+      }
+    },
+    "command": {
+      "description": "PostgreSQL command tag (e.g. `SELECT`, `INSERT`, `UPDATE`, `DELETE`).",
+      "type": "string"
+    },
+    "rowCount": {
+      "description": "Number of rows affected by the command.",
+      "type": "integer",
+      "nullable": true
+    },
+    "rows": {
+      "description": "Result rows. Each row is an object (column-name keys) or an array (when array mode is enabled).",
+      "type": "array",
+      "items": {},
+      "x-go-type": "any"
+    },
+    "rowAsArray": {
+      "description": "Whether rows are returned as arrays (`true`) or objects (`false`).",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "fields",
+    "command",
+    "rowCount",
+    "rows",
+    "rowAsArray"
+  ]
+}

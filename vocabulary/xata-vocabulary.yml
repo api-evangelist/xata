@@ -1,0 +1,97 @@
+vocabulary:
+  name: Xata API Vocabulary
+  description: >-
+    Core terms and concepts used in the Xata serverless Postgres platform API,
+    covering organizations, projects, database branching, SQL gateway, credentials,
+    billing, and infrastructure configuration.
+  version: "1.0"
+  terms:
+    - name: Organization
+      description: >-
+        The top-level account container in Xata. An organization owns projects,
+        manages members and invitations, holds billing information, and sets
+        membership limits. Identified by an organizationID.
+    - name: Project
+      description: >-
+        A logical grouping of database branches within an organization. A project
+        corresponds to one Postgres database deployment and holds configuration
+        such as instance type, region, backup schedule, and scale-to-zero settings.
+    - name: Branch
+      description: >-
+        An isolated copy-on-write snapshot of a Postgres database within a project.
+        Branches enable instant database cloning (under one second) for development,
+        testing, or feature work. The main branch is the production branch.
+    - name: BranchCredentials
+      description: >-
+        PostgreSQL connection details for a specific branch, including host, port,
+        database name, username, password, and pre-formed connection strings for
+        pooled and direct connections.
+    - name: SQLRequest
+      description: >-
+        A batch of one or more SQL statements (with optional parameterized values)
+        submitted to the /sql HTTP endpoint for execution against a Postgres branch.
+    - name: QueryResult
+      description: >-
+        The result set returned for a single SQL statement, consisting of a list
+        of column definitions (name + Postgres type) and a list of rows (arrays
+        of serialized values).
+    - name: APIKey
+      description: >-
+        A bearer token issued by Xata for authenticating requests to the Management
+        API. Keys are scoped to an organization and can be created, listed, or
+        deleted via /api-keys.
+    - name: Region
+      description: >-
+        A cloud-provider geographic zone (e.g. us-east-1, eu-west-1) where Xata
+        compute and storage resources for a project are provisioned.
+    - name: InstanceType
+      description: >-
+        The compute tier assigned to a database branch, ranging from shared (free
+        tier) to dedicated instance sizes (e.g. 2vCPU/4 GB RAM).
+    - name: ScaleToZero
+      description: >-
+        A configuration option that suspends a branch's compute after a configurable
+        idle timeout, reducing cost to zero when the branch is not in use. The
+        branch resumes on the next connection.
+    - name: BackupMetadata
+      description: >-
+        Metadata describing a point-in-time backup of a project branch, including
+        backup ID, creation timestamp, retention window, and restore status.
+    - name: BranchMetrics
+      description: >-
+        Time-series performance data for a branch, such as CPU utilization, memory
+        usage, active connections, and query throughput, returned as named metric
+        series over a requested time range.
+    - name: BranchLogs
+      description: >-
+        Postgres log entries for a branch filtered by level, keyword, or time range.
+        Useful for debugging slow queries, errors, and lock contention.
+    - name: PostgresConfig
+      description: >-
+        Named Postgres GUC (Grand Unified Configuration) parameters that can be
+        inspected and tuned per branch (e.g. work_mem, max_connections, log_min_duration_statement).
+    - name: GithubInstallation
+      description: >-
+        A link between a Xata organization and a GitHub App installation, enabling
+        automatic branch creation and preview deployments tied to pull requests.
+    - name: BillingInvoice
+      description: >-
+        A billing document representing charges incurred by an organization for
+        compute, storage, and data transfer during a billing period.
+    - name: OrganizationInvitation
+      description: >-
+        An email invitation sent to a user to join an organization with a specified
+        role. Invitations can be resent or cancelled before acceptance.
+    - name: Extension
+      description: >-
+        A Postgres extension (e.g. pgvector, pg_cron) available for installation
+        on project branches within an organization's infrastructure tier.
+    - name: WebSocketProxy
+      description: >-
+        The /v2 endpoint that accepts binary PostgreSQL wire-protocol messages
+        tunneled over WebSocket, enabling direct psql and driver connections without
+        a dedicated TCP port.
+    - name: IPFiltering
+      description: >-
+        A security configuration that restricts branch access to a list of allowed
+        CIDR blocks, preventing connections from unauthorized IP ranges.

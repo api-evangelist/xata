@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BranchMetadata",
+  "description": "Detailed metadata about a branch, including its status and configuration",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the branch",
+      "type": "string"
+    },
+    "name": {
+      "description": "Human-readable name of the branch",
+      "type": "string"
+    },
+    "description": {
+      "description": "Optional description of the branch purpose or contents",
+      "type": "string"
+    },
+    "createdAt": {
+      "description": "Timestamp when the branch was created",
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "description": "Timestamp when the branch was last updated",
+      "type": "string",
+      "format": "date-time"
+    },
+    "parentID": {
+      "description": "Identifier of the parent branch if this is a derived branch, null otherwise",
+      "type": "string",
+      "nullable": true
+    },
+    "region": {
+      "description": "Geographic region where the branch is deployed",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/components/schemas/BranchStatus"
+    },
+    "connectionString": {
+      "description": "Database connection string for accessing this branch",
+      "type": "string",
+      "nullable": true
+    },
+    "publicAccess": {
+      "description": "Whether the branch allows public access without authentication",
+      "type": "boolean"
+    },
+    "backupsEnabled": {
+      "description": "Whether the branch is in a region that supports backups",
+      "type": "boolean"
+    },
+    "scaleToZero": {
+      "$ref": "#/components/schemas/ScaleToZeroConfiguration"
+    },
+    "configuration": {
+      "$ref": "#/components/schemas/ClusterConfiguration"
+    },
+    "backupConfiguration": {
+      "$ref": "#/components/schemas/BackupConfiguration"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "createdAt",
+    "updatedAt",
+    "region",
+    "status",
+    "connectionString",
+    "configuration",
+    "publicAccess",
+    "backupsEnabled",
+    "scaleToZero"
+  ]
+}

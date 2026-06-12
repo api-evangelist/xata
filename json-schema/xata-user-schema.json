@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "User",
+  "description": "User information including email, full name, and profile image",
+  "type": "object",
+  "properties": {
+    "email": {
+      "description": "Email address associated with the user account",
+      "type": "string",
+      "format": "email"
+    },
+    "name": {
+      "description": "Name of the user",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "email"
+  ]
+}

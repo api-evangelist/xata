@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "APIKeyPreview",
+  "description": "Xata APIKeyPreview object",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "preview": {
+      "type": "string"
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "projects": {
+      "description": "Projects this API key has access to",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "branches": {
+      "description": "Branches this API key has access to",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiry": {
+      "description": "Date when the API key expires (null if no expiry)",
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
+    },
+    "last_used": {
+      "description": "Timestamp of the last time the key was used (null if never)",
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
+    },
+    "created_by": {
+      "description": "ID of the user that created this API key",
+      "type": "string",
+      "nullable": true
+    },
+    "created_by_key": {
+      "description": "ID of the API key that created this API key",
+      "type": "string",
+      "nullable": true
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "preview",
+    "created_at",
+    "expiry",
+    "last_used",
+    "scopes",
+    "projects",
+    "branches"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ErrorResponse",
+  "description": "Error response with PostgreSQL error fields.",
+  "type": "object",
+  "properties": {
+    "message": {
+      "description": "Human-readable error message.",
+      "type": "string"
+    },
+    "code": {
+      "description": "PostgreSQL error code (SQLSTATE) or application error code.",
+      "type": "string"
+    },
+    "severity": {
+      "description": "PostgreSQL error severity (e.g. `ERROR`, `FATAL`).",
+      "type": "string"
+    },
+    "detail": {
+      "description": "Optional detail message.",
+      "type": "string"
+    },
+    "hint": {
+      "description": "Optional hint for resolving the error.",
+      "type": "string"
+    },
+    "position": {
+      "description": "Character position in the query where the error occurred.",
+      "type": "string"
+    },
+    "internalPosition": {
+      "description": "Position in an internally-generated query.",
+      "type": "string"
+    },
+    "internalQuery": {
+      "description": "Text of the internally-generated query.",
+      "type": "string"
+    },
+    "where": {
+      "description": "Context in which the error occurred.",
+      "type": "string"
+    },
+    "schema": {
+      "description": "Schema name related to the error.",
+      "type": "string"
+    },
+    "table": {
+      "description": "Table name related to the error.",
+      "type": "string"
+    },
+    "column": {
+      "description": "Column name related to the error.",
+      "type": "string"
+    },
+    "dataType": {
+      "description": "Data type name related to the error.",
+      "type": "string"
+    },
+    "constraint": {
+      "description": "Constraint name related to the error.",
+      "type": "string"
+    },
+    "file": {
+      "description": "Source file where the error was reported (server-side).",
+      "type": "string"
+    },
+    "line": {
+      "description": "Source line where the error was reported (server-side).",
+      "type": "string"
+    },
+    "routine": {
+      "description": "Source routine where the error was reported (server-side).",
+      "type": "string"
+    }
+  },
+  "required": [
+    "message"
+  ]
+}

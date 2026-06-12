@@ -1,0 +1,16 @@
+{
+  "statements": [
+    {
+      "statement": "SELECT id, name, created_at FROM users WHERE org_id = $1 LIMIT 10",
+      "params": [
+        "org_abc123"
+      ]
+    },
+    {
+      "statement": "SELECT COUNT(*) FROM projects WHERE org_id = $1",
+      "params": [
+        "org_abc123"
+      ]
+    }
+  ]
+}
