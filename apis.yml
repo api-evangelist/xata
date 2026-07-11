@@ -64,6 +64,10 @@ apis:
       - type: OpenAPI
         url: https://api.xata.tech/openapi.json
 common:
+  - type: Authentication
+    url: authentication/xata-authentication.yml
+  - type: OAuthScopes
+    url: scopes/xata-scopes.yml
   - type: Website
     url: https://xata.io/
   - type: Documentation

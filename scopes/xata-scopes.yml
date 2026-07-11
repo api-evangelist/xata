@@ -1,0 +1,94 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/xata-management-api-openapi.yml
+schemes:
+- name: xata
+  source: openapi/xata-management-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://auth.xata.io/realms/xata/protocol/openid-connect/auth
+scopes:
+- scope: branch:read
+  description: Read branch information
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: branch:write
+  description: Create and modify branches
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: credentials:read
+  description: Read credentials
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: credentials:write
+  description: Rotate credentials
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: invite:read
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: invite:write
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: keys:read
+  description: Read API keys
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: keys:write
+  description: Create and manage API keys
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: logs:read
+  description: Read logs data
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: marketplace:write
+  description: Register with cloud marketplaces
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: metrics:read
+  description: Read metrics data
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: org:read
+  description: Read organization information
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: org:write
+  description: Create and modify organizations
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: project:read
+  description: Read project information
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
+- scope: project:write
+  description: Create and modify projects
+  flows:
+  - implicit
+  sources:
+  - openapi/xata-management-api-openapi.yml
