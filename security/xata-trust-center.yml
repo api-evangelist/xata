@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://xata.io/security
+url: https://xata.io/security
+certifications:
+- HIPAA
+- GDPR
+evidence:
+- source: https://xata.io/security
+  keywords:
+  - hipaa
+  - compliance certification
+  - gdpr

@@ -64,6 +64,12 @@ apis:
       - type: OpenAPI
         url: https://api.xata.tech/openapi.json
 common:
+  - type: TrustCenter
+    url: security/xata-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/xata-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/xata-domain-security.yml
   - type: Authentication
     url: authentication/xata-authentication.yml
   - type: OAuthScopes
