@@ -64,6 +64,8 @@ apis:
       - type: OpenAPI
         url: https://api.xata.tech/openapi.json
 common:
+  - type: AgenticAccess
+    url: agentic-access/xata-agentic-access.yml
   - type: TrustCenter
     url: security/xata-trust-center.yml
   - type: VulnerabilityDisclosure
