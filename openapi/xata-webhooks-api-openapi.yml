@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Xata API Keys Webhooks API
+  description: Xata API
+  version: '1.0'
+  contact:
+    name: help@xata.io
+servers:
+- url: https://api.xata.tech
+  description: Xata API
+tags:
+- name: Webhooks
+  x-displayName: Webhooks
+paths:
+  /webhooks/orb:
+    post:
+      operationId: orbWebhook
+      summary: Orb billing webhook
+      description: 'Endpoint used by Orb to deliver billing-related webhook events.
+
+        This endpoint is authenticated via Orb''s HMAC signature headers,
+
+        not via the normal API authentication.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              description: Orb webhook event payload
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Webhook received and processed successfully
+        '400':
+          description: Invalid signature or malformed request
+        '500':
+          description: Internal error while handling the webhook
+      tags:
+      - Webhooks
+      x-excluded: true
+  /webhooks/stripe:
+    post:
+      operationId: stripeWebhook
+      summary: Stripe webhook
+      description: 'Endpoint used by Stripe to deliver webhook events.
+
+        This endpoint is authenticated via Stripe''s signature headers,
+
+        not via the normal API authentication.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              description: Stripe webhook event payload
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Webhook received and processed successfully
+        '400':
+          description: Invalid signature or malformed request
+        '500':
+          description: Internal error while handling the webhook
+      tags:
+      - Webhooks
+      x-excluded: true
+components:
+  securitySchemes:
+    oidc:
+      type: openIdConnect
+      openIdConnectUrl: https://auth.xata.io/realms/xata/.well-known/openid-configuration
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API key authentication using Bearer token format: Bearer <api_key>'
+    xata:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://auth.xata.io/realms/xata/protocol/openid-connect/auth
+          scopes:
+            org:read: Read organization information
+            org:write: Create and modify organizations
+            keys:read: Read API keys
+            keys:write: Create and manage API keys
+            project:read: Read project information
+            project:write: Create and modify projects
+            branch:read: Read branch information
+            branch:write: Create and modify branches
+            metrics:read: Read metrics data
+            logs:read: Read logs data
+            credentials:read: Read credentials
+            credentials:write: Rotate credentials
+            marketplace:write: Register with cloud marketplaces
+    branchConnectionString:
+      type: apiKey
+      in: header
+      name: Connection-String
+      description: Branch PostgreSQL connection string (`postgres://user:pass@{branch}.{region}.xata.tech/db`), including the embedded password. The hostname selects the target branch, region, and endpoint type (the `-rw`/`-ro` suffix, see `EndpointType`), and must match the request host. Obtain it from the Xata dashboard or the control-plane API. This is the only credential the gateway accepts; the control-plane API key (Bearer token) is rejected here. For the WebSocket endpoint (`GET /v2`) the same connection string is conveyed via the PostgreSQL startup message instead of this header.
+externalDocs:
+  url: https://xata.io/docs/api
+x-tagGroups:
+- name: Authentication API
+  tags:
+  - Organizations
+  - Users
+  - API Keys
+  - Marketplace
+  - Billing
+  - Webhooks
+- name: Gateway API
+  tags:
+  - Gateway
+- name: Projects API
+  tags:
+  - Projects Webhooks
+  - Projects
+  - Branches
+  - GitHub App
+  - Metrics
+  - Logs

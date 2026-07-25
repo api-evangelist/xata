@@ -1,0 +1,478 @@
+openapi: 3.0.0
+info:
+  title: Xata API Keys API
+  description: Xata API
+  version: '1.0'
+  contact:
+    name: help@xata.io
+servers:
+- url: https://api.xata.tech
+  description: Xata API
+tags:
+- name: API Keys
+  description: Operations for managing API keys, including creation, listing, and deletion
+  x-displayName: API Keys
+paths:
+  /organizations/{organizationID}/api-keys:
+    get:
+      operationId: listOrganizationAPIKeys
+      summary: List API Keys for an organization
+      description: Retrieve a list of API keys for a specific organization.
+      parameters:
+      - $ref: '#/components/parameters/OrganizationIDParam'
+      responses:
+        '200':
+          description: List of API keys retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keys:
+                    description: Array of API keys for the organization
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/APIKeyPreview'
+                required:
+                - keys
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthError'
+        '403':
+          $ref: '#/components/responses/AuthError'
+        '404':
+          $ref: '#/components/responses/SimpleError'
+        5XX:
+          description: Unexpected Error
+      security:
+      - xata:
+        - keys:read
+      tags:
+      - API Keys
+    post:
+      operationId: createOrganizationAPIKey
+      summary: Create an Organization API Key
+      description: Create a new API key for an organization.
+      parameters:
+      - $ref: '#/components/parameters/OrganizationIDParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAPIKeyRequest'
+      responses:
+        '201':
+          description: API Key created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key:
+                    $ref: '#/components/schemas/FullAPIKey'
+                required:
+                - key
+        '400':
+          description: API key limit reached or invalid request
+      security:
+      - xata:
+        - keys:write
+      tags:
+      - API Keys
+    delete:
+      operationId: deleteOrganizationAPIKeys
+      summary: Bulk delete API Keys for an organization
+      description: Delete multiple API keys in a single request.
+      parameters:
+      - $ref: '#/components/parameters/OrganizationIDParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  description: Array of API key IDs to delete
+                  type: array
+                  items:
+                    type: string
+                  maxItems: 50
+              required:
+              - ids
+      responses:
+        '204':
+          description: API Keys deleted successfully
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthError'
+        '404':
+          $ref: '#/components/responses/SimpleError'
+      security:
+      - xata:
+        - keys:write
+      tags:
+      - API Keys
+  /api-keys:
+    get:
+      operationId: listUserAPIKeys
+      summary: List API Keys for the authenticated user
+      description: Retrieve a list of API keys for the authenticated user.
+      responses:
+        '200':
+          description: List of API keys retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keys:
+                    description: Array of API keys for the user
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/APIKeyPreview'
+                required:
+                - keys
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthError'
+        5XX:
+          description: Unexpected Error
+      security:
+      - xata:
+        - keys:read
+      tags:
+      - API Keys
+    post:
+      operationId: createUserAPIKey
+      summary: Create a User API Key
+      description: Create a new API key for the authenticated user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAPIKeyRequest'
+      responses:
+        '201':
+          description: API Key created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key:
+                    $ref: '#/components/schemas/FullAPIKey'
+                required:
+                - key
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthError'
+        5XX:
+          description: Unexpected Error
+      security:
+      - xata:
+        - keys:write
+      tags:
+      - API Keys
+    delete:
+      operationId: deleteUserAPIKeys
+      summary: Bulk delete API Keys for the authenticated user
+      description: Delete multiple API keys in a single request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  description: Array of API key IDs to delete (maximum 50 keys per request)
+                  type: array
+                  items:
+                    type: string
+                  maxItems: 50
+              required:
+              - ids
+      responses:
+        '204':
+          description: API Keys deleted successfully
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthError'
+        '404':
+          $ref: '#/components/responses/SimpleError'
+        5XX:
+          description: Unexpected Error
+      security:
+      - xata:
+        - keys:write
+      tags:
+      - API Keys
+components:
+  responses:
+    AuthError:
+      description: Error returned when authentication or authorization fails
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            example:
+              message: invalid API key
+            required:
+            - message
+    BadRequestError:
+      description: Error returned when the request is malformed or contains invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    SimpleError:
+      description: Generic error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+  schemas:
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    CreateAPIKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        expiry:
+          description: Expiration date for the API key, null for no expiry
+          type: string
+          format: date-time
+          nullable: true
+        scopes:
+          description: Optional scopes assigned to the API key
+          type: array
+          items:
+            type: string
+          maxItems: 50
+        projects:
+          description: Limit access to these projects
+          type: array
+          items:
+            type: string
+          maxItems: 50
+        branches:
+          description: Limit access to these branches
+          type: array
+          items:
+            type: string
+          maxItems: 50
+      required:
+      - name
+    FullAPIKey:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        preview:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        projects:
+          description: Projects this API key has access to
+          type: array
+          items:
+            type: string
+        branches:
+          description: Branches this API key has access to
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        expiry:
+          description: Date when the API key expires (null if no expiry)
+          type: string
+          format: date-time
+          nullable: true
+        last_used:
+          description: Timestamp of the last time the key was used (null if never)
+          type: string
+          format: date-time
+          nullable: true
+        token:
+          description: The actual API key token
+          type: string
+        created_by:
+          description: ID of the user that created this API key
+          type: string
+          nullable: true
+        created_by_key:
+          description: ID of the API key that created this API key
+          type: string
+          nullable: true
+      required:
+      - id
+      - name
+      - preview
+      - created_at
+      - expiry
+      - last_used
+      - token
+      - scopes
+      - projects
+      - branches
+    APIKeyPreview:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        preview:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        projects:
+          description: Projects this API key has access to
+          type: array
+          items:
+            type: string
+        branches:
+          description: Branches this API key has access to
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        expiry:
+          description: Date when the API key expires (null if no expiry)
+          type: string
+          format: date-time
+          nullable: true
+        last_used:
+          description: Timestamp of the last time the key was used (null if never)
+          type: string
+          format: date-time
+          nullable: true
+        created_by:
+          description: ID of the user that created this API key
+          type: string
+          nullable: true
+        created_by_key:
+          description: ID of the API key that created this API key
+          type: string
+          nullable: true
+      required:
+      - id
+      - name
+      - preview
+      - created_at
+      - expiry
+      - last_used
+      - scopes
+      - projects
+      - branches
+  parameters:
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
+  securitySchemes:
+    oidc:
+      type: openIdConnect
+      openIdConnectUrl: https://auth.xata.io/realms/xata/.well-known/openid-configuration
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API key authentication using Bearer token format: Bearer <api_key>'
+    xata:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://auth.xata.io/realms/xata/protocol/openid-connect/auth
+          scopes:
+            org:read: Read organization information
+            org:write: Create and modify organizations
+            keys:read: Read API keys
+            keys:write: Create and manage API keys
+            project:read: Read project information
+            project:write: Create and modify projects
+            branch:read: Read branch information
+            branch:write: Create and modify branches
+            metrics:read: Read metrics data
+            logs:read: Read logs data
+            credentials:read: Read credentials
+            credentials:write: Rotate credentials
+            marketplace:write: Register with cloud marketplaces
+    branchConnectionString:
+      type: apiKey
+      in: header
+      name: Connection-String
+      description: Branch PostgreSQL connection string (`postgres://user:pass@{branch}.{region}.xata.tech/db`), including the embedded password. The hostname selects the target branch, region, and endpoint type (the `-rw`/`-ro` suffix, see `EndpointType`), and must match the request host. Obtain it from the Xata dashboard or the control-plane API. This is the only credential the gateway accepts; the control-plane API key (Bearer token) is rejected here. For the WebSocket endpoint (`GET /v2`) the same connection string is conveyed via the PostgreSQL startup message instead of this header.
+externalDocs:
+  url: https://xata.io/docs/api
+x-tagGroups:
+- name: Authentication API
+  tags:
+  - Organizations
+  - Users
+  - API Keys
+  - Marketplace
+  - Billing
+  - Webhooks
+- name: Gateway API
+  tags:
+  - Gateway
+- name: Projects API
+  tags:
+  - Projects Webhooks
+  - Projects
+  - Branches
+  - GitHub App
+  - Metrics
+  - Logs

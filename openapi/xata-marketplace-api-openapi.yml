@@ -1,0 +1,190 @@
+openapi: 3.0.0
+info:
+  title: Xata API Keys Marketplace API
+  description: Xata API
+  version: '1.0'
+  contact:
+    name: help@xata.io
+servers:
+- url: https://api.xata.tech
+  description: Xata API
+tags:
+- name: Marketplace
+  description: Operations for linking user accounts to cloud marketplace subscriptions
+  x-displayName: Marketplace
+paths:
+  /marketplace/register:
+    post:
+      operationId: registerMarketplace
+      summary: Register with a cloud marketplace
+      description: Links the authenticated user to a cloud marketplace subscription. Only one marketplace registration is allowed per user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketplaceRegisterRequest'
+      responses:
+        '200':
+          description: Marketplace registration successful
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthError'
+        '409':
+          $ref: '#/components/responses/SimpleError'
+        '502':
+          description: Marketplace registration provider failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+      security:
+      - xata:
+        - marketplace:write
+      tags:
+      - Marketplace
+      x-excluded: true
+components:
+  responses:
+    SimpleError:
+      description: Generic error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    BadRequestError:
+      description: Error returned when the request is malformed or contains invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    AuthError:
+      description: Error returned when authentication or authorization fails
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            example:
+              message: invalid API key
+            required:
+            - message
+  schemas:
+    MarketplaceRegisterRequest:
+      description: Request to register with a cloud marketplace
+      type: object
+      properties:
+        marketplace:
+          description: The cloud marketplace provider
+          type: string
+          enum:
+          - aws
+        company_name:
+          description: Company name for the marketplace registration
+          type: string
+        aws:
+          description: AWS-specific marketplace details
+          type: object
+          properties:
+            customer_id:
+              description: AWS Marketplace customer ID
+              type: string
+            product_id:
+              description: AWS Marketplace product ID
+              type: string
+            account_id:
+              description: AWS account ID
+              type: string
+          required:
+          - customer_id
+          - product_id
+          - account_id
+      required:
+      - marketplace
+      - company_name
+      - aws
+  securitySchemes:
+    oidc:
+      type: openIdConnect
+      openIdConnectUrl: https://auth.xata.io/realms/xata/.well-known/openid-configuration
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API key authentication using Bearer token format: Bearer <api_key>'
+    xata:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://auth.xata.io/realms/xata/protocol/openid-connect/auth
+          scopes:
+            org:read: Read organization information
+            org:write: Create and modify organizations
+            keys:read: Read API keys
+            keys:write: Create and manage API keys
+            project:read: Read project information
+            project:write: Create and modify projects
+            branch:read: Read branch information
+            branch:write: Create and modify branches
+            metrics:read: Read metrics data
+            logs:read: Read logs data
+            credentials:read: Read credentials
+            credentials:write: Rotate credentials
+            marketplace:write: Register with cloud marketplaces
+    branchConnectionString:
+      type: apiKey
+      in: header
+      name: Connection-String
+      description: Branch PostgreSQL connection string (`postgres://user:pass@{branch}.{region}.xata.tech/db`), including the embedded password. The hostname selects the target branch, region, and endpoint type (the `-rw`/`-ro` suffix, see `EndpointType`), and must match the request host. Obtain it from the Xata dashboard or the control-plane API. This is the only credential the gateway accepts; the control-plane API key (Bearer token) is rejected here. For the WebSocket endpoint (`GET /v2`) the same connection string is conveyed via the PostgreSQL startup message instead of this header.
+externalDocs:
+  url: https://xata.io/docs/api
+x-tagGroups:
+- name: Authentication API
+  tags:
+  - Organizations
+  - Users
+  - API Keys
+  - Marketplace
+  - Billing
+  - Webhooks
+- name: Gateway API
+  tags:
+  - Gateway
+- name: Projects API
+  tags:
+  - Projects Webhooks
+  - Projects
+  - Branches
+  - GitHub App
+  - Metrics
+  - Logs

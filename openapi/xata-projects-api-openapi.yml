@@ -1,0 +1,1039 @@
+openapi: 3.0.0
+info:
+  title: Xata API Keys Projects API
+  description: Xata API
+  version: '1.0'
+  contact:
+    name: help@xata.io
+servers:
+- url: https://api.xata.tech
+  description: Xata API
+tags:
+- name: Projects
+  description: Operations for creating, retrieving, updating, and deleting projects within an organization
+  x-displayName: Projects
+paths:
+  /organizations/{organizationID}/regions:
+    summary: Region Operations
+    description: Endpoints for retrieving available regions for deploying projects within an organization.
+    get:
+      operationId: listRegions
+      summary: Get available regions
+      description: Retrieves a list of all regions where new branches can be deployed for the specified organization.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization to check region availability for
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      responses:
+        '200':
+          description: List of regions available for the organization
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  regions:
+                    description: Array of available regions with their properties
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          description: Unique identifier for the region
+                          type: string
+                        publicAccess:
+                          description: Whether data plane is public-facing to the internet in this region
+                          type: boolean
+                        backupsEnabled:
+                          description: Whether backups are enabled for branches created in this region
+                          type: boolean
+                        provider:
+                          description: Cloud provider the region runs on
+                          type: string
+                          enum:
+                          - aws
+                          - gcp
+                          - custom
+                        organizationId:
+                          description: Organization that owns this region, if set the region is only available to this organization
+                          type: string
+                          nullable: true
+                      required:
+                      - id
+                      - publicAccess
+                      - backupsEnabled
+                      - provider
+                      - organizationId
+                required:
+                - regions
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - project:read
+      tags:
+      - Projects
+  /organizations/{organizationID}/instanceTypes:
+    summary: Instance Types Operations
+    description: Endpoints for retrieving available instance types for creating branches within an organization.
+    get:
+      operationId: listInstanceTypes
+      summary: Get available instance types
+      description: Retrieves a list of all instance types for the specified organization and region
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization to check instance type availability for
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      - name: region
+        in: query
+        description: Region to check instance type availability for
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of instance types available for the organization
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  instanceTypes:
+                    description: Array of available instance types with their properties
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          description: Instance type name
+                          type: string
+                        vcpus:
+                          description: number of vCPUs
+                          type: integer
+                        ram:
+                          description: memory in Gi
+                          type: integer
+                        hourlyRate:
+                          description: price per hour for this instance type and region
+                          type: number
+                          format: double
+                        storageMonthlyRate:
+                          description: price per month for a GB of storage for this region
+                          type: number
+                          format: double
+                        region:
+                          description: region where this instance type is available
+                          type: string
+                      required:
+                      - name
+                      - vcpus
+                      - ram
+                      - hourlyRate
+                      - region
+                      - storageMonthlyRate
+                required:
+                - instanceTypes
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - org:read
+      tags:
+      - Projects
+  /organizations/{organizationID}/images:
+    summary: Images Operations
+    description: Endpoints for retrieving available images for creating branches within an organization.
+    get:
+      operationId: listImages
+      summary: Get available images
+      description: Retrieves a list of all images for the specified organization and region
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization to check image availability
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      - name: region
+        in: query
+        description: Region to check image availability for organization
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of images available for the organization
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  images:
+                    description: Array of available images with their properties
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Image'
+                required:
+                - images
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - org:read
+      tags:
+      - Projects
+  /organizations/{organizationID}/extensions:
+    summary: Extensions Operations
+    description: Endpoints for retrieving available extensions of images used for creating branches within an organization.
+    get:
+      operationId: listExtensions
+      summary: Get available extensions for image
+      description: Retrieves a list of all extensions for the specified image in the organization and region given
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization to check instance type availability for
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      - name: image
+        in: query
+        description: Image for which we list extensions
+        required: true
+        schema:
+          type: string
+      - name: region
+        in: query
+        description: Region to list extensions for image in
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of extensions available for the image in the organization
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  extensions:
+                    description: Array of available images with their properties
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Extension'
+                required:
+                - extensions
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - org:read
+      tags:
+      - Projects
+      x-excluded: true
+      x-internal: true
+  /organizations/{organizationID}/limits:
+    summary: Organization Limits
+    description: Endpoint for retrieving the effective resource limits for an organization. Call this before creating a project or branch to know what constraints apply.
+    get:
+      operationId: getOrganizationLimits
+      summary: Get organization resource limits
+      description: Retrieves the effective org-level limits, including project creation limits and branch configuration defaults. Project-specific overrides are not applied here.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      responses:
+        '200':
+          description: Effective resource limits for the organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationLimits'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '403':
+          $ref: '#/components/responses/AuthorizationError'
+        5XX:
+          description: Unexpected Error
+      security:
+      - xata:
+        - org:read
+      tags:
+      - Projects
+  /organizations/{organizationID}/projects/limits:
+    summary: Project Limits
+    description: Endpoint for retrieving the default resource limits for projects within an organization.
+    get:
+      operationId: getDefaultProjectLimits
+      summary: Get project resource limits
+      description: Retrieves the default resource limits for projects in the specified organization, including maximum instances, storage, and allowed regions.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization to get project limits for
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      responses:
+        '200':
+          description: Default resource limits for projects in the organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectLimits'
+      security:
+      - xata:
+        - project:read
+      tags:
+      - Projects
+  /organizations/{organizationID}/projects:
+    summary: Projects Management
+    description: Endpoints for listing and creating projects within an organization.
+    get:
+      operationId: listProjects
+      summary: List all projects
+      description: Retrieves a list of all projects within the specified organization that the authenticated user has access to.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization to list projects from
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      responses:
+        '200':
+          description: A list of projects within the organization
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    description: Array of project objects with their metadata
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
+                required:
+                - projects
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - project:read
+      tags:
+      - Projects
+    post:
+      operationId: createProject
+      summary: Create a new project
+      description: Creates a new project within the specified organization. Projects are containers for database branches and resources.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization to create the project in
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: Human-readable name for the new project
+                  type: string
+                configuration:
+                  $ref: '#/components/schemas/ProjectConfiguration'
+              required:
+              - name
+      responses:
+        '201':
+          description: Project successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - project:write
+      tags:
+      - Projects
+  /organizations/{organizationID}/projects/{projectID}:
+    summary: Project Operations
+    description: Endpoints for retrieving, updating, and deleting a specific project by ID.
+    get:
+      operationId: getProject
+      summary: Get project details
+      description: Retrieves detailed information about a specific project by its ID within the specified organization.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization containing the project
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      - name: projectID
+        in: path
+        description: Unique identifier of the project to retrieve
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Project details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/GenericError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - project:read
+      tags:
+      - Projects
+    patch:
+      operationId: updateProject
+      summary: Update project details
+      description: Updates the details of a specific project by its ID, such as changing its name.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization containing the project
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      - name: projectID
+        in: path
+        description: Unique identifier of the project to update
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: New name for the project
+                  type: string
+                configuration:
+                  $ref: '#/components/schemas/UpdateProjectConfiguration'
+      responses:
+        '200':
+          description: Project successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/GenericError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - project:write
+      tags:
+      - Projects
+    delete:
+      operationId: deleteProject
+      summary: Delete a project
+      description: Permanently deletes a specific project by its ID and all associated resources including branches and databases. This action cannot be undone.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization containing the project
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      - name: projectID
+        in: path
+        description: Unique identifier of the project to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Project successfully deleted
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/GenericError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - project:write
+      tags:
+      - Projects
+  /organizations/{organizationID}/projects/{projectID}/limits:
+    summary: Project Limits
+    description: Endpoint for retrieving the effective resource limits for a specific project.
+    get:
+      operationId: getProjectLimits
+      summary: Get project resource limits
+      description: Retrieves the effective resource limits for the specified project, merging organization-level overrides with any project-specific overrides.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      - name: projectID
+        in: path
+        description: Unique identifier of the project to get limits for
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Effective resource limits for the project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EffectiveProjectLimits'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - project:read
+      tags:
+      - Projects
+  /organizations/{organizationID}/projects/{projectID}/backups:
+    summary: Backups Operations
+    description: Endpoints for managing project backups.
+    get:
+      operationId: listBackups
+      summary: List project backups
+      description: Retrieves a list of backups for the specified project.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization containing the project
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      - name: projectID
+        in: path
+        description: Unique identifier of the project to retrieve backups for
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of backups within the project
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  backups:
+                    description: list of backups within the project
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackupMetadata'
+                required:
+                - backups
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/GenericError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - project:read
+      tags:
+      - Projects
+      x-excluded: true
+      x-internal: true
+  /organizations/{organizationID}/projects/{projectID}/backups/{backupID}:
+    summary: Backup Operations
+    description: Endpoints for getting project backup.
+    get:
+      operationId: getBackup
+      summary: Get project backup by ID
+      description: Retrieves a backup by ID for the specified project.
+      parameters:
+      - name: organizationID
+        in: path
+        description: Unique identifier of the organization containing the project
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationID'
+      - name: projectID
+        in: path
+        description: Unique identifier of the project to retrieve backups for
+        required: true
+        schema:
+          type: string
+      - name: backupID
+        in: path
+        description: Unique identifier of the backup for the project
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The backup metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackupMetadata'
+        '400':
+          $ref: '#/components/responses/GenericError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/GenericError'
+        5XX:
+          description: Unexpected Error
+        default:
+          description: Unexpected Error
+      security:
+      - xata:
+        - project:read
+      tags:
+      - Projects
+      x-excluded: true
+      x-internal: true
+components:
+  schemas:
+    OrganizationLimits:
+      description: Effective resource limits for an organization, covering org-level defaults for all projects plus organization-specific constraints
+      allOf:
+      - $ref: '#/components/schemas/EffectiveProjectLimits'
+      - type: object
+        properties:
+          maxProjects:
+            description: Maximum number of projects allowed in the organization
+            type: integer
+            minimum: 1
+            title: Maximum number of projects
+          maxProjectsPerHour:
+            description: Maximum number of projects that can be created in a rolling one-hour window
+            type: integer
+            minimum: 1
+            title: Maximum project creation rate per hour
+          maxBranchesPerOrg:
+            description: Maximum number of active branches allowed across all projects in the organization
+            type: integer
+            minimum: 1
+            title: Maximum number of branches per organization
+        required:
+        - maxProjects
+        - maxProjectsPerHour
+        - maxBranchesPerOrg
+    EffectiveProjectLimits:
+      description: Full set of resource limits applicable to a project and its branches
+      type: object
+      properties:
+        maxDescriptionLength:
+          description: Maximum character length allowed for project descriptions
+          type: integer
+          minimum: 25
+          title: Maximum length of a project description
+        maxBranchesPerProject:
+          description: Maximum number of branches allowed per project
+          type: integer
+          title: Maximum number of branches per project
+        maxInstancesPerBranch:
+          description: Maximum number of database instances allowed per branch
+          type: integer
+          minimum: 1
+          title: Maximum number of instances per branch
+        minInstancesPerBranch:
+          description: Minimum number of database instances required per branch
+          type: integer
+          minimum: 1
+          title: Minimum number of instances per branch
+        maxAllowedInstanceType:
+          description: Maximum VCPUs (in millicores) allowed per instance; instance types with a higher VCPUsRequest are unavailable
+          type: integer
+          minimum: 1
+          title: Maximum allowed instance type (VCPUs in millicores)
+        maxBranchesPerHour:
+          description: Maximum number of branches that can be created in a rolling one-hour window
+          type: integer
+          minimum: 1
+          title: Maximum branch creation rate per hour
+      required:
+      - maxDescriptionLength
+      - maxBranchesPerProject
+      - maxInstancesPerBranch
+      - minInstancesPerBranch
+      - maxAllowedInstanceType
+      - maxBranchesPerHour
+    Image:
+      description: Details of a postgres image
+      type: object
+      properties:
+        name:
+          description: Image name
+          type: string
+        majorVersion:
+          description: major postgres version
+          type: string
+        fullVersion:
+          description: full postgres version
+          type: string
+        region:
+          description: region where this instance type is available
+          type: array
+          items:
+            type: string
+            minItems: 1
+      required:
+      - name
+      - majorVersion
+      - fullVersion
+    ProjectLimits:
+      description: Resource limits and constraints for projects within an organization
+      type: object
+      properties:
+        maxInstances:
+          description: Maximum number of database instances allowed per branch
+          type: integer
+          minimum: 1
+          title: Maximum number of instances in a branch
+        minInstances:
+          description: Minimum number of database instances required per branch
+          type: integer
+          minimum: 1
+          title: Minimum number of instances in a branch
+        maxDescriptionLength:
+          description: Maximum character length allowed for project descriptions
+          type: integer
+          minimum: 25
+          title: Maximum length of a project description
+        maxBranches:
+          description: Maximum number of branches allowed per project
+          type: integer
+          title: Maximum number of branches per project
+      required:
+      - maxInstances
+      - minInstances
+      - maxDescriptionLength
+      - maxBranches
+    BackupMetadata:
+      description: metadata about a continuous backup
+      type: object
+      properties:
+        id:
+          description: unique identifier for the backup
+          type: string
+        branchID:
+          description: the branchID the branch associated with the backup
+          type: string
+        earliestRestore:
+          description: the earlies point in time available for restoring the branch
+          type: string
+          format: date-time
+        latestRestore:
+          description: the latest point in time available for restoring the branch
+          type: string
+          format: date-time
+        description:
+          description: description of the backup
+          type: string
+      required:
+      - id
+      - branchID
+      - description
+    IPFilteringConfiguration:
+      description: Configuration for IP filtering on project branches
+      type: object
+      properties:
+        enabled:
+          description: Whether IP filtering is enabled
+          type: boolean
+        cidr:
+          type: array
+          items:
+            $ref: '#/components/schemas/CidrEntry'
+      required:
+      - enabled
+      - cidr
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    ProjectConfiguration:
+      description: Configuration details for a project, including its scale to zero settings
+      type: object
+      properties:
+        scaleToZero:
+          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
+        ipFiltering:
+          $ref: '#/components/schemas/IPFilteringConfiguration'
+      required:
+      - scaleToZero
+    Project:
+      description: Details of a project including its ID, name, and creation/update timestamps
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the project
+          type: string
+        name:
+          description: Human-readable name of the project
+          type: string
+        createdAt:
+          description: Timestamp when the project was created
+          type: string
+          format: date-time
+        updatedAt:
+          description: Timestamp when the project was last updated
+          type: string
+          format: date-time
+        configuration:
+          $ref: '#/components/schemas/ProjectConfiguration'
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      - configuration
+    Extension:
+      description: Details of a postgres extension
+      type: object
+      properties:
+        name:
+          description: Extension name
+          type: string
+        version:
+          description: Extension version
+          type: string
+        description:
+          description: Extension description
+          type: string
+        docs:
+          description: Documentation URL
+          type: string
+        preloadRequired:
+          description: is preload required for the extension or not
+          type: boolean
+        type:
+          description: type of installation
+          type: string
+          enum:
+          - extension
+          - plugin
+          - module
+      required:
+      - name
+      - description
+      - version
+      - docs
+      - preloadRequired
+      - type
+      x-excluded: true
+      x-internal: true
+    UpdateProjectConfiguration:
+      description: Partial configuration update for a project
+      type: object
+      properties:
+        scaleToZero:
+          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
+        ipFiltering:
+          $ref: '#/components/schemas/IPFilteringConfiguration'
+    CidrEntry:
+      type: object
+      properties:
+        cidr:
+          description: CIDR block (e.g., "192.168.0.0/24")
+          type: string
+        description:
+          description: Optional label for the CIDR entry
+          type: string
+      required:
+      - cidr
+    ScaleToZeroConfiguration:
+      description: Configuration for scaling branches to zero when not in use
+      type: object
+      properties:
+        enabled:
+          description: Whether scale to zero is enabled
+          type: boolean
+        inactivityPeriodMinutes:
+          description: Duration in minutes after which branches will be hibernated if not accessed
+          type: integer
+          default: 30
+      required:
+      - enabled
+      - inactivityPeriodMinutes
+    ProjectScaleToZeroConfiguration:
+      description: Whether the project branches are configured to scale down to zero when not in use
+      type: object
+      properties:
+        baseBranches:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+        childBranches:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+      required:
+      - baseBranches
+      - childBranches
+  responses:
+    GenericError:
+      description: Generic error response for most error conditions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    AuthorizationError:
+      description: Error response when authentication or authorization fails
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the authentication or authorization issue
+                type: string
+            required:
+            - message
+  securitySchemes:
+    oidc:
+      type: openIdConnect
+      openIdConnectUrl: https://auth.xata.io/realms/xata/.well-known/openid-configuration
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API key authentication using Bearer token format: Bearer <api_key>'
+    xata:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://auth.xata.io/realms/xata/protocol/openid-connect/auth
+          scopes:
+            org:read: Read organization information
+            org:write: Create and modify organizations
+            keys:read: Read API keys
+            keys:write: Create and manage API keys
+            project:read: Read project information
+            project:write: Create and modify projects
+            branch:read: Read branch information
+            branch:write: Create and modify branches
+            metrics:read: Read metrics data
+            logs:read: Read logs data
+            credentials:read: Read credentials
+            credentials:write: Rotate credentials
+            marketplace:write: Register with cloud marketplaces
+    branchConnectionString:
+      type: apiKey
+      in: header
+      name: Connection-String
+      description: Branch PostgreSQL connection string (`postgres://user:pass@{branch}.{region}.xata.tech/db`), including the embedded password. The hostname selects the target branch, region, and endpoint type (the `-rw`/`-ro` suffix, see `EndpointType`), and must match the request host. Obtain it from the Xata dashboard or the control-plane API. This is the only credential the gateway accepts; the control-plane API key (Bearer token) is rejected here. For the WebSocket endpoint (`GET /v2`) the same connection string is conveyed via the PostgreSQL startup message instead of this header.
+externalDocs:
+  url: https://xata.io/docs/api
+x-tagGroups:
+- name: Authentication API
+  tags:
+  - Organizations
+  - Users
+  - API Keys
+  - Marketplace
+  - Billing
+  - Webhooks
+- name: Gateway API
+  tags:
+  - Gateway
+- name: Projects API
+  tags:
+  - Projects Webhooks
+  - Projects
+  - Branches
+  - GitHub App
+  - Metrics
+  - Logs
