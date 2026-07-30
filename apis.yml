@@ -12,7 +12,20 @@ description: >-
   open-source self-hosted. An open-source AI agent (Xata Agent) monitors and
   optimizes PostgreSQL performance with MCP server extensibility.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/xata.png
 tags:
   - Database
   - Postgres
@@ -25,44 +38,154 @@ created: '2026-06-12'
 modified: '2026-06-12'
 specificationVersion: '0.19'
 apis:
-  - aid: xata:management-api
-    name: Xata Management API
-    description: >-
-      REST API for managing Xata organizations, projects, database branches,
-      API keys, billing, metrics, GitHub integrations, and infrastructure
-      configuration. Authenticated via API keys and served from
-      https://api.xata.tech.
-    humanURL: https://xata.io/docs/overview
-    baseURL: https://api.xata.tech
-    tags:
-      - Database
-      - Postgres
-      - Branching
-      - Organizations
-      - Projects
-    properties:
-      - type: Documentation
-        url: https://xata.io/docs/overview
-      - type: OpenAPI
-        url: https://api.xata.tech/openapi.json
-  - aid: xata:sql-gateway
-    name: Xata SQL Gateway
-    description: >-
-      HTTP endpoint for executing single or batched SQL queries against a
-      Postgres branch, and a WebSocket wire-protocol proxy that enables direct
-      binary PostgreSQL protocol connections over WebSocket.
-    humanURL: https://xata.io/docs/overview
-    baseURL: https://api.xata.tech
-    tags:
-      - Database
-      - SQL
-      - Postgres
-      - WebSocket
-    properties:
-      - type: Documentation
-        url: https://xata.io/docs/overview
-      - type: OpenAPI
-        url: https://api.xata.tech/openapi.json
+- aid: xata:xata-api-keys-api
+  name: Xata API Keys API
+  description: Operations for managing API keys, including creation, listing, and deletion
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - API Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-api-keys-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-billing-api
+  name: Xata Billing API
+  description: Internal organization billing operations
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Billing
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-billing-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-branches-api
+  name: Xata Branches API
+  description: >-
+    Operations for managing database branches within projects, including creation, configuration, and
+    deletion
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Branches
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-branches-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-gateway-api
+  name: Xata Gateway API
+  description: >-
+    PostgreSQL connectivity via HTTP SQL, WebSocket wire protocol proxy, and native wire protocol.
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Gateway
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-gateway-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-github-app-api
+  name: Xata GitHub App API
+  description: Operations for managing GitHub App installation mappings
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - GitHub App
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-github-app-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-logs-api
+  name: Xata Logs API
+  description: Operations for retrieving log entries for a branch
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-logs-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-marketplace-api
+  name: Xata Marketplace API
+  description: Operations for linking user accounts to cloud marketplace subscriptions
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Marketplace
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-marketplace-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-metrics-api
+  name: Xata Metrics API
+  description: Operations for retrieving observability metrics for a branch
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-organizations-api
+  name: Xata Organizations API
+  description: Operations for creating, retrieving, updating, and deleting organizations
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-projects-api
+  name: Xata Projects API
+  description: >-
+    Operations for creating, retrieving, updating, and deleting projects within an organization
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-projects-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-projects-webhooks-api
+  name: Xata Projects Webhooks API
+  description: The Projects Webhooks API from Xata — 1 operation(s) for projects webhooks.
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Projects Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-projects-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
+- aid: xata:xata-webhooks-api
+  name: Xata Webhooks API
+  description: The Webhooks API from Xata — 2 operation(s) for webhooks.
+  humanURL: https://xata.io/docs/overview
+  baseURL: https://api.xata.tech
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/xata-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://xata.io/docs/overview
 common:
   - type: AgenticAccess
     url: agentic-access/xata-agentic-access.yml
