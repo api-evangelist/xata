@@ -1,0 +1,36 @@
+{
+  "provider": "xata",
+  "sources": [
+    "xata-api-keys-api-openapi.yml",
+    "xata-billing-api-openapi.yml",
+    "xata-branches-api-openapi.yml",
+    "xata-gateway-api-openapi.yml",
+    "xata-github-app-api-openapi.yml",
+    "xata-logs-api-openapi.yml",
+    "xata-marketplace-api-openapi.yml",
+    "xata-metrics-api-openapi.yml",
+    "xata-organizations-api-openapi.yml",
+    "xata-projects-api-openapi.yml",
+    "xata-projects-webhooks-api-openapi.yml",
+    "xata-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "xata-api-keys-api-openapi.yml",
+    "xata-billing-api-openapi.yml",
+    "xata-branches-api-openapi.yml",
+    "xata-gateway-api-openapi.yml",
+    "xata-github-app-api-openapi.yml",
+    "xata-logs-api-openapi.yml",
+    "xata-marketplace-api-openapi.yml",
+    "xata-metrics-api-openapi.yml",
+    "xata-organizations-api-openapi.yml",
+    "xata-projects-api-openapi.yml",
+    "xata-projects-webhooks-api-openapi.yml",
+    "xata-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
