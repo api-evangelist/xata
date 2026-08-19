@@ -1,0 +1,196 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Xata API Keys Billing API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a billing checkout session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations/:organizationID/billing/checkout-session",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Creates a Stripe checkout session used to activate card billing for an organization."
+        },
+        {
+          "info": {
+            "name": "Create a billing payment method session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations/:organizationID/billing/payment-method-session",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Creates a Stripe setup-mode checkout session used to add or update an organization payment method."
+        },
+        {
+          "info": {
+            "name": "Get billing customer details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/billing/customer",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves billing customer details for the specified organization."
+        },
+        {
+          "info": {
+            "name": "Update billing customer details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.xata.tech/organizations/:organizationID/billing/customer",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Updates billing customer details for the specified organization."
+        },
+        {
+          "info": {
+            "name": "List billing invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/billing/invoices",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of invoices to fetch"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves billing invoices for the specified organization."
+        },
+        {
+          "info": {
+            "name": "Get upcoming billing invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/billing/invoices/upcoming",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves the upcoming billing invoice for the specified organization's active subscription. Organizations are expected to have at most one active subscription."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

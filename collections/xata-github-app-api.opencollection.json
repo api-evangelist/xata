@@ -1,0 +1,277 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Xata API Keys GitHub App API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GitHub App",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List GitHub App installations for organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/githubapp/installations",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Returns all GitHub App installations associated with the specified organization."
+        },
+        {
+          "info": {
+            "name": "Create GitHub App installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations/:organizationID/githubapp/installations",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Creates a new GitHub App installation mapping for the specified organization."
+        },
+        {
+          "info": {
+            "name": "Update GitHub App installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.xata.tech/organizations/:organizationID/githubapp/installations/:githubInstallationID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization"
+              },
+              {
+                "name": "githubInstallationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the GitHub installation record"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Updates an existing GitHub App installation mapping."
+        },
+        {
+          "info": {
+            "name": "Get GitHub repository for branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID/branches/:branchID/githubapp/repository",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project"
+              },
+              {
+                "name": "branchID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the branch"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Returns the GitHub repository mapping for the specified branch."
+        },
+        {
+          "info": {
+            "name": "Create GitHub repository mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID/branches/:branchID/githubapp/repository",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project"
+              },
+              {
+                "name": "branchID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the branch"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Creates a new GitHub repository to Xata branch mapping."
+        },
+        {
+          "info": {
+            "name": "Update GitHub repository mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID/branches/:branchID/githubapp/repository",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project"
+              },
+              {
+                "name": "branchID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the branch"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Updates an existing GitHub repository to Xata branch mapping."
+        },
+        {
+          "info": {
+            "name": "Delete GitHub repository mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID/branches/:branchID/githubapp/repository",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project"
+              },
+              {
+                "name": "branchID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the branch"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Deletes the GitHub repository mapping for the specified branch."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

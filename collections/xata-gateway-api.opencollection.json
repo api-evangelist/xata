@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Xata API Keys Gateway API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Gateway",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute SQL query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/sql",
+            "headers": [
+              {
+                "name": "Array-Mode",
+                "value": ""
+              },
+              {
+                "name": "Raw-Text-Output",
+                "value": ""
+              },
+              {
+                "name": "Batch-Isolation-Level",
+                "value": ""
+              },
+              {
+                "name": "Batch-Read-Only",
+                "value": ""
+              },
+              {
+                "name": "Batch-Deferrable",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Connection-String",
+              "value": "{{Connection-String}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Execute a single SQL query or a batch of queries against a PostgreSQL branch.\n\n**Authentication:** send the branch's PostgreSQL connection string in the\n`Connection-String` header. The control-plane API key (Bearer token) is\n**not** accepted on the gateway host.\n\n**Routing:** the target branch, region, and endpoint type are taken from the\nhostname embedded in the connection string, which must match the request host.\nSee the `Connection-String` security scheme for the host format.\n\n**Single query"
+        },
+        {
+          "info": {
+            "name": "WebSocket wire protocol proxy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/v2"
+          },
+          "docs": "Upgrade to a WebSocket connection that proxies the PostgreSQL wire protocol.\nThe client sends and receives PostgreSQL protocol messages over binary WebSocket frames.\n\n**Authentication:** the same branch connection string credential as the\nHTTP SQL endpoint is used, but it is supplied via the PostgreSQL startup\nmessage inside the wire protocol rather than an HTTP header. The\ncontrol-plane API key (Bearer token) is not accepted.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

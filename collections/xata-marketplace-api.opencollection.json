@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Xata API Keys Marketplace API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Marketplace",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register with a cloud marketplace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/marketplace/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Links the authenticated user to a cloud marketplace subscription. Only one marketplace registration is allowed per user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

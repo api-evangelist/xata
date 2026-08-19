@@ -1,0 +1,353 @@
+{
+  "item": [
+    {
+      "id": "b9377489-fcb1-4f01-94e0-edd08c45e270",
+      "name": "Marketplace",
+      "description": {
+        "content": "Operations for linking user accounts to cloud marketplace subscriptions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81f36df0-88c9-4588-a4a3-7bc30694a4a5",
+          "name": "Register with a cloud marketplace",
+          "request": {
+            "name": "Register with a cloud marketplace",
+            "description": {
+              "content": "Links the authenticated user to a cloud marketplace subscription. Only one marketplace registration is allowed per user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketplace",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2966b11d-cd71-45e9-a520-38175870b730",
+              "name": "Marketplace registration successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d5ebcf7c-76f4-4c3f-a92c-44d8c0ebb938",
+              "name": "Error returned when the request is malformed or contains invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb178211-6616-4806-8d6b-efb27d24a4d2",
+              "name": "Error returned when authentication or authorization fails",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f63ddaeb-4763-40f8-a26f-3030c3c60609",
+              "name": "Generic error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5feb96c1-076c-478e-b579-7ea41c8b21ef",
+              "name": "Marketplace registration provider failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketplace",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.xata.tech",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "21cb5acc-3498-4624-b5d1-2ecd494c2bc0",
+    "name": "Xata API Keys Marketplace API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Xata API\n\nContact Support:\n Name: help@xata.io",
+      "type": "text/plain"
+    }
+  }
+}

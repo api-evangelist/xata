@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Xata API Keys Metrics API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve branch metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID/branches/:branchID/metrics",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "branchID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Returns time-series data for one or more metrics of a branch."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

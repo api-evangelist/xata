@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Xata API Keys Webhooks API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Orb billing webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/webhooks/orb",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint used by Orb to deliver billing-related webhook events.\nThis endpoint is authenticated via Orb's HMAC signature headers,\nnot via the normal API authentication.\n"
+        },
+        {
+          "info": {
+            "name": "Stripe webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/webhooks/stripe",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint used by Stripe to deliver webhook events.\nThis endpoint is authenticated via Stripe's signature headers,\nnot via the normal API authentication.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

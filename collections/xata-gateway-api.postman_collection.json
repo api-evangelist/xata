@@ -1,0 +1,664 @@
+{
+  "item": [
+    {
+      "id": "1f02e171-494e-40e6-b3aa-0c77017ac523",
+      "name": "Gateway",
+      "description": {
+        "content": "PostgreSQL connectivity via HTTP SQL, WebSocket wire protocol proxy, and native wire protocol.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "38106d9f-ed6b-4935-b656-ce3b1300bcdf",
+          "name": "Execute SQL query",
+          "request": {
+            "name": "Execute SQL query",
+            "description": {
+              "content": "Execute a single SQL query or a batch of queries against a PostgreSQL branch.\n\n**Authentication:** send the branch's PostgreSQL connection string in the\n`Connection-String` header. The control-plane API key (Bearer token) is\n**not** accepted on the gateway host.\n\n**Routing:** the target branch, region, and endpoint type are taken from the\nhostname embedded in the connection string, which must match the request host.\nSee the `Connection-String` security scheme for the host format.\n\n**Single query:** provide `query` (and optional `params`) at the top level.\n\n**Batch:** provide `queries` as an array of query objects, or send the request body\nas a JSON array. Batch queries execute within a single transaction.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sql"
+              ],
+              "host": [
+                "{{sql-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "When `true`, return rows as arrays instead of objects.",
+                "key": "Array-Mode",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "When `true`, return all values as strings without type conversion.",
+                "key": "Raw-Text-Output",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Transaction isolation level for batch queries.",
+                "key": "Batch-Isolation-Level",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "When `true`, execute the batch transaction in read-only mode.",
+                "key": "Batch-Read-Only",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "When `true`, execute the batch transaction in deferrable mode.",
+                "key": "Batch-Deferrable",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Connection-String"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"queries\": [\n    {\n      \"query\": \"<string>\",\n      \"arrayMode\": \"<boolean>\"\n    },\n    {\n      \"query\": \"<string>\",\n      \"arrayMode\": \"<boolean>\"\n    }\n  ],\n  \"arrayMode\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "722538f9-5707-4624-a2b4-3fac3d06d66a",
+              "name": "Query executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sql"
+                  ],
+                  "host": [
+                    "{{sql-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Connection-String",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return rows as arrays instead of objects.",
+                    "key": "Array-Mode",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return all values as strings without type conversion.",
+                    "key": "Raw-Text-Output",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Transaction isolation level for batch queries.",
+                    "key": "Batch-Isolation-Level",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in read-only mode.",
+                    "key": "Batch-Read-Only",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in deferrable mode.",
+                    "key": "Batch-Deferrable",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"SELECT id, name FROM users WHERE id = $1\",\n  \"params\": [\n    42\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fields\": [\n    {\n      \"name\": \"id\",\n      \"tableID\": 0,\n      \"columnID\": 0,\n      \"dataTypeID\": 23,\n      \"dataTypeSize\": 4,\n      \"dataTypeModifier\": -1,\n      \"format\": \"text\"\n    },\n    {\n      \"name\": \"name\",\n      \"tableID\": 0,\n      \"columnID\": 0,\n      \"dataTypeID\": 25,\n      \"dataTypeSize\": -1,\n      \"dataTypeModifier\": -1,\n      \"format\": \"text\"\n    }\n  ],\n  \"command\": \"SELECT\",\n  \"rowCount\": 1,\n  \"rows\": [\n    {\n      \"id\": 42,\n      \"name\": \"Ada\"\n    }\n  ],\n  \"rowAsArray\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8a52301-1c69-43a2-856d-1f33bd86709d",
+              "name": "Invalid request or SQL error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sql"
+                  ],
+                  "host": [
+                    "{{sql-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Connection-String",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return rows as arrays instead of objects.",
+                    "key": "Array-Mode",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return all values as strings without type conversion.",
+                    "key": "Raw-Text-Output",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Transaction isolation level for batch queries.",
+                    "key": "Batch-Isolation-Level",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in read-only mode.",
+                    "key": "Batch-Read-Only",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in deferrable mode.",
+                    "key": "Batch-Deferrable",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"SELECT id, name FROM users WHERE id = $1\",\n  \"params\": [\n    42\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"severity\": \"string\",\n  \"detail\": \"string\",\n  \"hint\": \"string\",\n  \"position\": \"string\",\n  \"internalPosition\": \"string\",\n  \"internalQuery\": \"string\",\n  \"where\": \"string\",\n  \"schema\": \"string\",\n  \"table\": \"string\",\n  \"column\": \"string\",\n  \"dataType\": \"string\",\n  \"constraint\": \"string\",\n  \"file\": \"string\",\n  \"line\": \"string\",\n  \"routine\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1e7ffe6-0a66-425a-a0f9-ad23ba297639",
+              "name": "Missing or invalid connection string",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sql"
+                  ],
+                  "host": [
+                    "{{sql-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Connection-String",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return rows as arrays instead of objects.",
+                    "key": "Array-Mode",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return all values as strings without type conversion.",
+                    "key": "Raw-Text-Output",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Transaction isolation level for batch queries.",
+                    "key": "Batch-Isolation-Level",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in read-only mode.",
+                    "key": "Batch-Read-Only",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in deferrable mode.",
+                    "key": "Batch-Deferrable",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"SELECT id, name FROM users WHERE id = $1\",\n  \"params\": [\n    42\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"severity\": \"string\",\n  \"detail\": \"string\",\n  \"hint\": \"string\",\n  \"position\": \"string\",\n  \"internalPosition\": \"string\",\n  \"internalQuery\": \"string\",\n  \"where\": \"string\",\n  \"schema\": \"string\",\n  \"table\": \"string\",\n  \"column\": \"string\",\n  \"dataType\": \"string\",\n  \"constraint\": \"string\",\n  \"file\": \"string\",\n  \"line\": \"string\",\n  \"routine\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9362b1e3-4a44-46c8-9780-02258bcd59a6",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sql"
+                  ],
+                  "host": [
+                    "{{sql-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Connection-String",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return rows as arrays instead of objects.",
+                    "key": "Array-Mode",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return all values as strings without type conversion.",
+                    "key": "Raw-Text-Output",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Transaction isolation level for batch queries.",
+                    "key": "Batch-Isolation-Level",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in read-only mode.",
+                    "key": "Batch-Read-Only",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in deferrable mode.",
+                    "key": "Batch-Deferrable",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"SELECT id, name FROM users WHERE id = $1\",\n  \"params\": [\n    42\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"severity\": \"string\",\n  \"detail\": \"string\",\n  \"hint\": \"string\",\n  \"position\": \"string\",\n  \"internalPosition\": \"string\",\n  \"internalQuery\": \"string\",\n  \"where\": \"string\",\n  \"schema\": \"string\",\n  \"table\": \"string\",\n  \"column\": \"string\",\n  \"dataType\": \"string\",\n  \"constraint\": \"string\",\n  \"file\": \"string\",\n  \"line\": \"string\",\n  \"routine\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "324f0d4e-de61-4000-8b47-ee303937cb29",
+              "name": "Response too large",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sql"
+                  ],
+                  "host": [
+                    "{{sql-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Connection-String",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return rows as arrays instead of objects.",
+                    "key": "Array-Mode",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, return all values as strings without type conversion.",
+                    "key": "Raw-Text-Output",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Transaction isolation level for batch queries.",
+                    "key": "Batch-Isolation-Level",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in read-only mode.",
+                    "key": "Batch-Read-Only",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "When `true`, execute the batch transaction in deferrable mode.",
+                    "key": "Batch-Deferrable",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"SELECT id, name FROM users WHERE id = $1\",\n  \"params\": [\n    42\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Insufficient Storage (WebDAV) (RFC 4918)",
+              "code": 507,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"severity\": \"string\",\n  \"detail\": \"string\",\n  \"hint\": \"string\",\n  \"position\": \"string\",\n  \"internalPosition\": \"string\",\n  \"internalQuery\": \"string\",\n  \"where\": \"string\",\n  \"schema\": \"string\",\n  \"table\": \"string\",\n  \"column\": \"string\",\n  \"dataType\": \"string\",\n  \"constraint\": \"string\",\n  \"file\": \"string\",\n  \"line\": \"string\",\n  \"routine\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a641807-1963-4074-85eb-9f76b4ac2deb",
+          "name": "WebSocket wire protocol proxy",
+          "request": {
+            "name": "WebSocket wire protocol proxy",
+            "description": {
+              "content": "Upgrade to a WebSocket connection that proxies the PostgreSQL wire protocol.\nThe client sends and receives PostgreSQL protocol messages over binary WebSocket frames.\n\n**Authentication:** the same branch connection string credential as the\nHTTP SQL endpoint is used, but it is supplied via the PostgreSQL startup\nmessage inside the wire protocol rather than an HTTP header. The\ncontrol-plane API key (Bearer token) is not accepted.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2"
+              ],
+              "host": [
+                "{{v2-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8153dd17-5d12-43bd-b611-7dcc0fb43c38",
+              "name": "Switching Protocols — WebSocket connection established",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2"
+                  ],
+                  "host": [
+                    "{{v2-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Switching Protocols",
+              "code": 101,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "46642f15-a52b-4c71-bb17-3b2902863b42",
+              "name": "Bad request — unable to upgrade connection",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2"
+                  ],
+                  "host": [
+                    "{{v2-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.xata.tech",
+      "key": "baseUrl"
+    },
+    {
+      "description": {
+        "content": "Branch ID. Use the branch `id`, NOT its human-readable name",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "my-branch",
+      "key": "branch"
+    },
+    {
+      "description": {
+        "content": "Branch region. The `us-east-1` default is a placeholder and may not be the region of your database.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://{{branch}}.{{region}}.xata.tech",
+      "key": "sql-Url"
+    },
+    {
+      "description": {
+        "content": "Branch ID. Use the branch `id`, NOT its human-readable name",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "my-branch",
+      "key": "branch"
+    },
+    {
+      "description": {
+        "content": "Branch region. The `us-east-1` default is a placeholder and may not be the region of your database.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://{{branch}}.{{region}}.xata.tech",
+      "key": "v2-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "a6a08fd4-0d44-48b7-9cbe-9e247b863f45",
+    "name": "Xata API Keys Gateway API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Xata API\n\nContact Support:\n Name: help@xata.io",
+      "type": "text/plain"
+    }
+  }
+}

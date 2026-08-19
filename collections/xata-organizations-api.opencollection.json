@@ -1,0 +1,458 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Xata API Keys Organizations API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations",
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieve the list of all organizations the authenticated user belongs to, including their IDs and names. This endpoint allows users to view all organizations they have access to."
+        },
+        {
+          "info": {
+            "name": "Create a new organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Creates a new organization with the authenticated user as its single owner."
+        },
+        {
+          "info": {
+            "name": "Get organization details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieve detailed information about a specific organization by its ID."
+        },
+        {
+          "info": {
+            "name": "Update organization details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.xata.tech/organizations/:organizationID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update information for an existing organization, such as its name."
+        },
+        {
+          "info": {
+            "name": "Delete an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.xata.tech/organizations/:organizationID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "[Not implemented yet] Permanently delete an organization. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "List members of an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/members",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List members of an organization"
+        },
+        {
+          "info": {
+            "name": "Remove a member from an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.xata.tech/organizations/:organizationID/members/:userID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              },
+              {
+                "name": "userID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific user account"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Remove a member from an organization"
+        },
+        {
+          "info": {
+            "name": "List invitations for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/invitations",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter invitations by status"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Filter invitations by email address"
+              },
+              {
+                "name": "first_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter invitations by first name"
+              },
+              {
+                "name": "last_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter invitations by last name"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search invitations by email or name"
+              },
+              {
+                "name": "first",
+                "value": "",
+                "type": "query",
+                "description": "Index of the first result to return (0-based offset for pagination)"
+              },
+              {
+                "name": "max",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieve all invitations for an organization with optional filtering by status, email, and name."
+        },
+        {
+          "info": {
+            "name": "Send an invitation to join an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations/:organizationID/invitations",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Send an invitation email to a user to join an organization."
+        },
+        {
+          "info": {
+            "name": "Get details of a specific invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/invitations/:invitationID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              },
+              {
+                "name": "invitationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an invitation"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieve detailed information about a specific invitation by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete an invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.xata.tech/organizations/:organizationID/invitations/:invitationID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              },
+              {
+                "name": "invitationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an invitation"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Permanently delete an invitation record."
+        },
+        {
+          "info": {
+            "name": "Resend an invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations/:organizationID/invitations/:invitationID/resend",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              },
+              {
+                "name": "invitationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an invitation"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Resend a pending invitation with a fresh expiration time."
+        },
+        {
+          "info": {
+            "name": "Request organization deletion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations/:organizationID/deletion-request",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Flags the organization for deletion. The request is rejected if the organization still has active projects.\nThe subscription is cancelled immediately and any outstanding invoices are collected automatically after a grace period that prevents missing delayed usage reports.\nDeletion completes asynchronously once all invoices are issued and settled.\n"
+        },
+        {
+          "info": {
+            "name": "Get organization membership limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/membership-limits",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a specific organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves the membership limits for the specified organization (maximum members and invitations)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,470 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Xata API Keys Projects API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/regions",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization to check region availability for"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves a list of all regions where new branches can be deployed for the specified organization."
+        },
+        {
+          "info": {
+            "name": "Get available instance types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/instanceTypes",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization to check instance type availability for"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Region to check instance type availability for"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves a list of all instance types for the specified organization and region"
+        },
+        {
+          "info": {
+            "name": "Get available images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/images",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization to check image availability"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Region to check image availability for organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves a list of all images for the specified organization and region"
+        },
+        {
+          "info": {
+            "name": "Get available extensions for image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/extensions",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization to check instance type availability for"
+              },
+              {
+                "name": "image",
+                "value": "",
+                "type": "query",
+                "description": "Image for which we list extensions"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Region to list extensions for image in"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves a list of all extensions for the specified image in the organization and region given"
+        },
+        {
+          "info": {
+            "name": "Get organization resource limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/limits",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves the effective org-level limits, including project creation limits and branch configuration defaults. Project-specific overrides are not applied here."
+        },
+        {
+          "info": {
+            "name": "Get project resource limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/limits",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization to get project limits for"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves the default resource limits for projects in the specified organization, including maximum instances, storage, and allowed regions."
+        },
+        {
+          "info": {
+            "name": "List all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization to list projects from"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves a list of all projects within the specified organization that the authenticated user has access to."
+        },
+        {
+          "info": {
+            "name": "Create a new project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization to create the project in"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Creates a new project within the specified organization. Projects are containers for database branches and resources."
+        },
+        {
+          "info": {
+            "name": "Get project details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization containing the project"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves detailed information about a specific project by its ID within the specified organization."
+        },
+        {
+          "info": {
+            "name": "Update project details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization containing the project"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Updates the details of a specific project by its ID, such as changing its name."
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization containing the project"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project to delete"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Permanently deletes a specific project by its ID and all associated resources including branches and databases. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Get project resource limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID/limits",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project to get limits for"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves the effective resource limits for the specified project, merging organization-level overrides with any project-specific overrides."
+        },
+        {
+          "info": {
+            "name": "List project backups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID/backups",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization containing the project"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project to retrieve backups for"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves a list of backups for the specified project."
+        },
+        {
+          "info": {
+            "name": "Get project backup by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.xata.tech/organizations/:organizationID/projects/:projectID/backups/:backupID",
+            "params": [
+              {
+                "name": "organizationID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the organization containing the project"
+              },
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project to retrieve backups for"
+              },
+              {
+                "name": "backupID",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the backup for the project"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves a backup by ID for the specified project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

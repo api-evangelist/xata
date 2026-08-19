@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Xata API Keys Projects Webhooks API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GitHub App webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.xata.tech/webhooks/github",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint used by GitHub to deliver App webhook events.\nThis endpoint is authenticated via GitHub's HMAC-SHA256 signature header,\nnot via the normal API authentication.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
