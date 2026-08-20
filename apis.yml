@@ -44,6 +44,8 @@ apis:
   humanURL: https://xata.io/docs/overview
   baseURL: https://api.xata.tech
   tags:
+  - APIKeys
+  tags_raw:
   - API Keys
   properties:
   - type: OpenAPI
@@ -143,6 +145,8 @@ apis:
   humanURL: https://xata.io/docs/overview
   baseURL: https://api.xata.tech
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -156,6 +160,8 @@ apis:
   humanURL: https://xata.io/docs/overview
   baseURL: https://api.xata.tech
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -180,6 +186,8 @@ apis:
   humanURL: https://xata.io/docs/overview
   baseURL: https://api.xata.tech
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
