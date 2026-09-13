@@ -1,0 +1,29 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:xata.io:mcp:xata",
+      "type": "application/mcp-server-card+json",
+      "data": {
+        "$schema": "https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json",
+        "name": "io.xata/xata",
+        "title": "Xata",
+        "description": "Xata's serverless Postgres platform: organizations contain projects, projects contain branches, and each branch is an isolated Postgres database. Exposes the Xata REST API for managing organizations, projects and branches, and runs SQL against a branch.",
+        "version": "v0.1.0",
+        "websiteUrl": "https://xata.io/docs",
+        "remotes": [
+          {
+            "type": "streamable-http",
+            "url": "https://api.xata.tech/mcp",
+            "supportedProtocolVersions": [
+              "2024-11-05",
+              "2025-03-26",
+              "2025-06-18",
+              "2025-11-25"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
