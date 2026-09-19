@@ -44,6 +44,13 @@ tags:
   - Serverless
   - Developer Tools
   - Branching
+  - AI Agents
+tags_raw:
+  - Database
+  - Postgres
+  - Serverless
+  - Developer Tools
+  - Branching
   - AI Agent
 url: https://raw.githubusercontent.com/api-evangelist/xata/refs/heads/main/apis.yml
 created: '2026-06-12'
@@ -97,6 +104,8 @@ apis:
   humanURL: https://xata.io/docs/overview
   baseURL: https://api.xata.tech
   tags:
+  - Gateways
+  tags_raw:
   - Gateway
   properties:
   - type: OpenAPI
