@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Xata API Keys Logs API
+  title: Xata Logs API
   description: Xata API
   version: '1.0'
   contact:
@@ -63,6 +63,33 @@ paths:
       - Logs
 components:
   schemas:
+    LogLevel:
+      description: Log level enumeration
+      type: string
+      enum:
+      - debug
+      - info
+      - warning
+      - error
+    LogEntry:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        instanceID:
+          type: string
+        level:
+          $ref: '#/components/schemas/LogLevel'
+        message:
+          type: string
+        process:
+          description: Name of the PostgreSQL process that emitted the log
+          type: string
+      required:
+      - timestamp
+      - instanceID
+      - message
     BranchLogsRequest:
       type: object
       properties:
@@ -90,14 +117,30 @@ components:
       required:
       - start
       - end
-    LogLevel:
-      description: Log level enumeration
-      type: string
-      enum:
-      - debug
-      - info
-      - warning
-      - error
+    BranchLogs:
+      description: A collection of logs for each of the instances of a branch
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntry'
+        nextCursor:
+          description: Pagination cursor for the next page
+          type:
+          - string
+          - 'null'
+      required:
+      - start
+      - end
+      - logs
+      - nextCursor
     OrganizationID:
       title: OrganizationID
       type: string
@@ -136,48 +179,6 @@ components:
       required:
       - field
       - op
-    LogEntry:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-        instanceID:
-          type: string
-        level:
-          $ref: '#/components/schemas/LogLevel'
-        message:
-          type: string
-        process:
-          description: Name of the PostgreSQL process that emitted the log
-          type: string
-      required:
-      - timestamp
-      - instanceID
-      - message
-    BranchLogs:
-      description: A collection of logs for each of the instances of a branch
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        logs:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogEntry'
-        nextCursor:
-          description: Pagination cursor for the next page
-          type: string
-          nullable: true
-      required:
-      - start
-      - end
-      - logs
-      - nextCursor
   responses:
     GenericError:
       description: Generic error response for most error conditions

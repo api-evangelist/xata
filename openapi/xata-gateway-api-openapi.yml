@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Xata API Keys Gateway API
+  title: Xata Gateway API
   description: Xata API
   version: '1.0'
   contact:
@@ -49,9 +49,7 @@ paths:
 
         **Batch:** provide `queries` as an array of query objects, or send the request body
 
-        as a JSON array. Batch queries execute within a single transaction.
-
-        '
+        as a JSON array. Batch queries execute within a single transaction.'
       parameters:
       - name: Array-Mode
         in: header
@@ -230,9 +228,7 @@ paths:
 
         message inside the wire protocol rather than an HTTP header. The
 
-        control-plane API key (Bearer token) is not accepted.
-
-        '
+        control-plane API key (Bearer token) is not accepted.'
       responses:
         '101':
           description: Switching Protocols — WebSocket connection established
@@ -242,22 +238,48 @@ paths:
       - Gateway
 components:
   schemas:
-    QueryItem:
-      description: A single query within a batch request.
+    QueryResult:
+      description: Result of a single SQL query execution.
       type: object
       properties:
-        query:
-          description: SQL query to execute.
+        fields:
+          description: Column metadata for the result set.
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDefinition'
+        command:
+          description: PostgreSQL command tag (e.g. `SELECT`, `INSERT`, `UPDATE`, `DELETE`).
           type: string
-        params:
-          description: Positional parameters for the query.
+        rowCount:
+          description: Number of rows affected by the command.
+          type:
+          - integer
+          - 'null'
+        rows:
+          description: Result rows. Each row is an object (column-name keys) or an array (when array mode is enabled).
           type: array
           items: {}
-        arrayMode:
-          description: Override array mode for this individual query.
+          x-go-type: any
+        rowAsArray:
+          description: Whether rows are returned as arrays (`true`) or objects (`false`).
           type: boolean
       required:
-      - query
+      - fields
+      - command
+      - rowCount
+      - rows
+      - rowAsArray
+    BatchResponse:
+      description: Response for a batch query execution.
+      type: object
+      properties:
+        results:
+          description: Results for each query in the batch, in order.
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryResult'
+      required:
+      - results
     SQLRequest:
       description: SQL query request. Provide either `query` for a single query or `queries` for a batch.
       type: object
@@ -277,6 +299,22 @@ components:
         arrayMode:
           description: Override array mode for this query (single query mode only).
           type: boolean
+    QueryItem:
+      description: A single query within a batch request.
+      type: object
+      properties:
+        query:
+          description: SQL query to execute.
+          type: string
+        params:
+          description: Positional parameters for the query.
+          type: array
+          items: {}
+        arrayMode:
+          description: Override array mode for this individual query.
+          type: boolean
+      required:
+      - query
     ErrorResponse:
       description: Error response with PostgreSQL error fields.
       type: object
@@ -334,17 +372,6 @@ components:
           type: string
       required:
       - message
-    BatchResponse:
-      description: Response for a batch query execution.
-      type: object
-      properties:
-        results:
-          description: Results for each query in the batch, in order.
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryResult'
-      required:
-      - results
     FieldDefinition:
       description: PostgreSQL column metadata from the row description message.
       type: object
@@ -387,36 +414,6 @@ components:
       - dataTypeSize
       - dataTypeModifier
       - format
-    QueryResult:
-      description: Result of a single SQL query execution.
-      type: object
-      properties:
-        fields:
-          description: Column metadata for the result set.
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldDefinition'
-        command:
-          description: PostgreSQL command tag (e.g. `SELECT`, `INSERT`, `UPDATE`, `DELETE`).
-          type: string
-        rowCount:
-          description: Number of rows affected by the command.
-          type: integer
-          nullable: true
-        rows:
-          description: Result rows. Each row is an object (column-name keys) or an array (when array mode is enabled).
-          type: array
-          items: {}
-          x-go-type: any
-        rowAsArray:
-          description: Whether rows are returned as arrays (`true`) or objects (`false`).
-          type: boolean
-      required:
-      - fields
-      - command
-      - rowCount
-      - rows
-      - rowAsArray
   securitySchemes:
     oidc:
       type: openIdConnect

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Xata API Keys Metrics API
+  title: Xata Metrics API
   description: Xata API
   version: '1.0'
   contact:
@@ -64,24 +64,6 @@ paths:
       - Metrics
 components:
   schemas:
-    BranchMetricResult:
-      description: Time-series for a single metric.
-      type: object
-      properties:
-        metric:
-          description: Name of the queried metric.
-          type: string
-        unit:
-          description: Unit of the metric (percentage, bytes, ms, etc.)
-          type: string
-        series:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricSeries'
-      required:
-      - metric
-      - unit
-      - series
     MetricSeries:
       description: The metric series
       type: object
@@ -113,6 +95,25 @@ components:
       - instanceID
       - aggregation
       - values
+    BranchMetrics:
+      description: A collection of metrics (cpu, memory, disk,...) for each of the instances of a branch
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        results:
+          description: One entry per requested metric, in the order the metrics were requested.
+          type: array
+          items:
+            $ref: '#/components/schemas/BranchMetricResult'
+      required:
+      - start
+      - end
+      - results
     OrganizationID:
       title: OrganizationID
       type: string
@@ -156,6 +157,24 @@ components:
       - end
       - metrics
       - aggregations
+    BranchMetricResult:
+      description: Time-series for a single metric.
+      type: object
+      properties:
+        metric:
+          description: Name of the queried metric.
+          type: string
+        unit:
+          description: Unit of the metric (percentage, bytes, ms, etc.)
+          type: string
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricSeries'
+      required:
+      - metric
+      - unit
+      - series
     BranchMetricName:
       description: Name of a branch metric exposed by the API.
       type: string
@@ -175,25 +194,6 @@ components:
       - throughput_write
       - wal_sync_time
       - replication_lag_time
-    BranchMetrics:
-      description: A collection of metrics (cpu, memory, disk,...) for each of the instances of a branch
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        results:
-          description: One entry per requested metric, in the order the metrics were requested.
-          type: array
-          items:
-            $ref: '#/components/schemas/BranchMetricResult'
-      required:
-      - start
-      - end
-      - results
   responses:
     GenericError:
       description: Generic error response for most error conditions

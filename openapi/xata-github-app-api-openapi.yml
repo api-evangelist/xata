@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Xata API Keys GitHub App API
+  title: Xata GitHub App API
   description: Xata API
   version: '1.0'
   contact:
@@ -184,7 +184,6 @@ paths:
                   mapping:
                     description: Repository mapping details, null if no mapping exists
                     $ref: '#/components/schemas/GithubRepository'
-                    nullable: true
                 required:
                 - mapping
         '400':
@@ -349,6 +348,34 @@ paths:
       x-excluded: true
 components:
   schemas:
+    GithubInstallation:
+      description: A GitHub App installation associated with an organization
+      type: object
+      properties:
+        id:
+          description: Unique identifier of the installation record
+          type: string
+        installationId:
+          description: GitHub App installation ID
+          type: integer
+          format: int64
+        organization:
+          description: Organization ID this installation belongs to
+          type: string
+        createdAt:
+          description: Timestamp when the installation was created
+          type: string
+          format: date-time
+        updatedAt:
+          description: Timestamp when the installation was last updated
+          type: string
+          format: date-time
+      required:
+      - id
+      - installationId
+      - organization
+      - createdAt
+      - updatedAt
     UpdateGithubRepositoryRequest:
       type: object
       properties:
@@ -364,24 +391,15 @@ components:
       pattern: '[a-zA-Z0-9_-~:]+'
       x-oapi-codegen-extra-tags:
         validate: identifier
-    CreateGithubAppInstallationRequest:
+    CreateGithubRepositoryRequest:
       type: object
       properties:
-        installationId:
-          description: GitHub App installation ID
+        githubRepositoryID:
+          description: GitHub repository ID
           type: integer
           format: int64
       required:
-      - installationId
-    UpdateGithubAppInstallationRequest:
-      type: object
-      properties:
-        installationId:
-          description: GitHub App installation ID
-          type: integer
-          format: int64
-      required:
-      - installationId
+      - githubRepositoryID
     GithubRepository:
       description: A mapping between a GitHub repository and a Xata project
       type: object
@@ -414,43 +432,24 @@ components:
       - rootBranchId
       - createdAt
       - updatedAt
-    CreateGithubRepositoryRequest:
+    CreateGithubAppInstallationRequest:
       type: object
       properties:
-        githubRepositoryID:
-          description: GitHub repository ID
-          type: integer
-          format: int64
-      required:
-      - githubRepositoryID
-    GithubInstallation:
-      description: A GitHub App installation associated with an organization
-      type: object
-      properties:
-        id:
-          description: Unique identifier of the installation record
-          type: string
         installationId:
           description: GitHub App installation ID
           type: integer
           format: int64
-        organization:
-          description: Organization ID this installation belongs to
-          type: string
-        createdAt:
-          description: Timestamp when the installation was created
-          type: string
-          format: date-time
-        updatedAt:
-          description: Timestamp when the installation was last updated
-          type: string
-          format: date-time
       required:
-      - id
       - installationId
-      - organization
-      - createdAt
-      - updatedAt
+    UpdateGithubAppInstallationRequest:
+      type: object
+      properties:
+        installationId:
+          description: GitHub App installation ID
+          type: integer
+          format: int64
+      required:
+      - installationId
   responses:
     GenericError:
       description: Generic error response for most error conditions

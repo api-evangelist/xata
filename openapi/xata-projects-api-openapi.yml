@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Xata API Keys Projects API
+  title: Xata Projects API
   description: Xata API
   version: '1.0'
   contact:
@@ -59,8 +59,9 @@ paths:
                           - custom
                         organizationId:
                           description: Organization that owns this region, if set the region is only available to this organization
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                       required:
                       - id
                       - publicAccess
@@ -675,31 +676,82 @@ paths:
       x-internal: true
 components:
   schemas:
-    OrganizationLimits:
-      description: Effective resource limits for an organization, covering org-level defaults for all projects plus organization-specific constraints
-      allOf:
-      - $ref: '#/components/schemas/EffectiveProjectLimits'
-      - type: object
-        properties:
-          maxProjects:
-            description: Maximum number of projects allowed in the organization
-            type: integer
-            minimum: 1
-            title: Maximum number of projects
-          maxProjectsPerHour:
-            description: Maximum number of projects that can be created in a rolling one-hour window
-            type: integer
-            minimum: 1
-            title: Maximum project creation rate per hour
-          maxBranchesPerOrg:
-            description: Maximum number of active branches allowed across all projects in the organization
-            type: integer
-            minimum: 1
-            title: Maximum number of branches per organization
-        required:
-        - maxProjects
-        - maxProjectsPerHour
-        - maxBranchesPerOrg
+    ScaleToZeroConfiguration:
+      description: Configuration for scaling branches to zero when not in use
+      type: object
+      properties:
+        enabled:
+          description: Whether scale to zero is enabled
+          type: boolean
+        inactivityPeriodMinutes:
+          description: Duration in minutes after which branches will be hibernated if not accessed
+          type: integer
+          default: 30
+      required:
+      - enabled
+      - inactivityPeriodMinutes
+    CidrEntry:
+      type: object
+      properties:
+        cidr:
+          description: CIDR block (e.g., "192.168.0.0/24")
+          type: string
+        description:
+          description: Optional label for the CIDR entry
+          type: string
+      required:
+      - cidr
+    BackupMetadata:
+      description: metadata about a continuous backup
+      type: object
+      properties:
+        id:
+          description: unique identifier for the backup
+          type: string
+        branchID:
+          description: the branchID the branch associated with the backup
+          type: string
+        earliestRestore:
+          description: the earlies point in time available for restoring the branch
+          type: string
+          format: date-time
+        latestRestore:
+          description: the latest point in time available for restoring the branch
+          type: string
+          format: date-time
+        description:
+          description: description of the backup
+          type: string
+      required:
+      - id
+      - branchID
+      - description
+    Project:
+      description: Details of a project including its ID, name, and creation/update timestamps
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the project
+          type: string
+        name:
+          description: Human-readable name of the project
+          type: string
+        createdAt:
+          description: Timestamp when the project was created
+          type: string
+          format: date-time
+        updatedAt:
+          description: Timestamp when the project was last updated
+          type: string
+          format: date-time
+        configuration:
+          $ref: '#/components/schemas/ProjectConfiguration'
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      - configuration
     EffectiveProjectLimits:
       description: Full set of resource limits applicable to a project and its branches
       type: object
@@ -791,31 +843,12 @@ components:
       - minInstances
       - maxDescriptionLength
       - maxBranches
-    BackupMetadata:
-      description: metadata about a continuous backup
-      type: object
-      properties:
-        id:
-          description: unique identifier for the backup
-          type: string
-        branchID:
-          description: the branchID the branch associated with the backup
-          type: string
-        earliestRestore:
-          description: the earlies point in time available for restoring the branch
-          type: string
-          format: date-time
-        latestRestore:
-          description: the latest point in time available for restoring the branch
-          type: string
-          format: date-time
-        description:
-          description: description of the backup
-          type: string
-      required:
-      - id
-      - branchID
-      - description
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
     IPFilteringConfiguration:
       description: Configuration for IP filtering on project branches
       type: object
@@ -830,12 +863,6 @@ components:
       required:
       - enabled
       - cidr
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
     ProjectConfiguration:
       description: Configuration details for a project, including its scale to zero settings
       type: object
@@ -846,32 +873,50 @@ components:
           $ref: '#/components/schemas/IPFilteringConfiguration'
       required:
       - scaleToZero
-    Project:
-      description: Details of a project including its ID, name, and creation/update timestamps
+    ProjectScaleToZeroConfiguration:
+      description: Whether the project branches are configured to scale down to zero when not in use
       type: object
       properties:
-        id:
-          description: Unique identifier for the project
-          type: string
-        name:
-          description: Human-readable name of the project
-          type: string
-        createdAt:
-          description: Timestamp when the project was created
-          type: string
-          format: date-time
-        updatedAt:
-          description: Timestamp when the project was last updated
-          type: string
-          format: date-time
-        configuration:
-          $ref: '#/components/schemas/ProjectConfiguration'
+        baseBranches:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+        childBranches:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
       required:
-      - id
-      - name
-      - createdAt
-      - updatedAt
-      - configuration
+      - baseBranches
+      - childBranches
+    UpdateProjectConfiguration:
+      description: Partial configuration update for a project
+      type: object
+      properties:
+        scaleToZero:
+          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
+        ipFiltering:
+          $ref: '#/components/schemas/IPFilteringConfiguration'
+    OrganizationLimits:
+      description: Effective resource limits for an organization, covering org-level defaults for all projects plus organization-specific constraints
+      allOf:
+      - $ref: '#/components/schemas/EffectiveProjectLimits'
+      - type: object
+        properties:
+          maxProjects:
+            description: Maximum number of projects allowed in the organization
+            type: integer
+            minimum: 1
+            title: Maximum number of projects
+          maxProjectsPerHour:
+            description: Maximum number of projects that can be created in a rolling one-hour window
+            type: integer
+            minimum: 1
+            title: Maximum project creation rate per hour
+          maxBranchesPerOrg:
+            description: Maximum number of active branches allowed across all projects in the organization
+            type: integer
+            minimum: 1
+            title: Maximum number of branches per organization
+        required:
+        - maxProjects
+        - maxProjectsPerHour
+        - maxBranchesPerOrg
     Extension:
       description: Details of a postgres extension
       type: object
@@ -907,50 +952,6 @@ components:
       - type
       x-excluded: true
       x-internal: true
-    UpdateProjectConfiguration:
-      description: Partial configuration update for a project
-      type: object
-      properties:
-        scaleToZero:
-          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
-        ipFiltering:
-          $ref: '#/components/schemas/IPFilteringConfiguration'
-    CidrEntry:
-      type: object
-      properties:
-        cidr:
-          description: CIDR block (e.g., "192.168.0.0/24")
-          type: string
-        description:
-          description: Optional label for the CIDR entry
-          type: string
-      required:
-      - cidr
-    ScaleToZeroConfiguration:
-      description: Configuration for scaling branches to zero when not in use
-      type: object
-      properties:
-        enabled:
-          description: Whether scale to zero is enabled
-          type: boolean
-        inactivityPeriodMinutes:
-          description: Duration in minutes after which branches will be hibernated if not accessed
-          type: integer
-          default: 30
-      required:
-      - enabled
-      - inactivityPeriodMinutes
-    ProjectScaleToZeroConfiguration:
-      description: Whether the project branches are configured to scale down to zero when not in use
-      type: object
-      properties:
-        baseBranches:
-          $ref: '#/components/schemas/ScaleToZeroConfiguration'
-        childBranches:
-          $ref: '#/components/schemas/ScaleToZeroConfiguration'
-      required:
-      - baseBranches
-      - childBranches
   responses:
     GenericError:
       description: Generic error response for most error conditions

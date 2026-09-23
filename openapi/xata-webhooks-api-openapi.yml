@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Xata API Keys Webhooks API
+  title: Xata Webhooks API
   description: Xata API
   version: '1.0'
   contact:
@@ -20,9 +20,7 @@ paths:
 
         This endpoint is authenticated via Orb''s HMAC signature headers,
 
-        not via the normal API authentication.
-
-        '
+        not via the normal API authentication.'
       requestBody:
         required: true
         content:
@@ -49,9 +47,7 @@ paths:
 
         This endpoint is authenticated via Stripe''s signature headers,
 
-        not via the normal API authentication.
-
-        '
+        not via the normal API authentication.'
       requestBody:
         required: true
         content:

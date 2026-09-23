@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Xata API Keys Organizations API
+  title: Xata Organizations API
   description: Xata API
   version: '1.0'
   contact:
@@ -421,9 +421,7 @@ paths:
 
         The subscription is cancelled immediately and any outstanding invoices are collected automatically after a grace period that prevents missing delayed usage reports.
 
-        Deletion completes asynchronously once all invoices are issued and settled.
-
-        '
+        Deletion completes asynchronously once all invoices are issued and settled.'
       parameters:
       - $ref: '#/components/parameters/OrganizationIDParam'
       responses:
@@ -470,59 +468,29 @@ paths:
       tags:
       - Organizations
 components:
+  parameters:
+    InvitationIDParam:
+      name: invitationID
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique identifier for an invitation
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
+    UserIDParam:
+      name: userID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UserID'
+      description: Unique identifier for a specific user account
   schemas:
-    CreateOrganizationInvitationRequest:
-      type: object
-      properties:
-        email:
-          description: Email address of the user to invite
-          type: string
-          format: email
-      required:
-      - email
-    CreateOrganizationRequest:
-      description: Request payload for creating a new organization
-      type: object
-      properties:
-        name:
-          description: Name for the new organization
-          type: string
-      required:
-      - name
-    UserID:
-      description: Unique identifier for a user account
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      title: UserID
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    UserWithID:
-      allOf:
-      - $ref: '#/components/schemas/User'
-      - type: object
-        description: Extended user object that includes the unique user identifier
-        properties:
-          id:
-            $ref: '#/components/schemas/UserID'
-        required:
-        - id
-    OrganizationMembershipLimits:
-      description: Membership limits for an organization
-      type: object
-      properties:
-        maxMembers:
-          description: Maximum number of members allowed in the organization
-          type: integer
-          minimum: 1
-          title: Maximum number of organization members
-        maxInvites:
-          description: Maximum number of pending invitations allowed at once
-          type: integer
-          minimum: 1
-          title: Maximum number of pending invitations
-      required:
-      - maxMembers
-      - maxInvites
     OrganizationInvitation:
       type: object
       properties:
@@ -538,12 +506,14 @@ components:
           format: email
         first_name:
           description: First name of the invited user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         last_name:
           description: Last name of the invited user
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         created_at:
           description: Timestamp when the invitation was created
           type: string
@@ -568,12 +538,6 @@ components:
       - created_at
       - expires_at
       - status
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
     OrganizationStatus:
       type: object
       properties:
@@ -636,12 +600,29 @@ components:
           $ref: '#/components/schemas/OrganizationStatus'
         marketplace:
           description: Marketplace provider for this organization (e.g. "aws"), if billed through a marketplace
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       required:
       - id
       - name
       - status
+    UserWithID:
+      allOf:
+      - $ref: '#/components/schemas/User'
+      - type: object
+        description: Extended user object that includes the unique user identifier
+        properties:
+          id:
+            $ref: '#/components/schemas/UserID'
+        required:
+        - id
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
     User:
       description: User information including email, full name, and profile image
       type: object
@@ -656,29 +637,64 @@ components:
       required:
       - name
       - email
-  parameters:
-    UserIDParam:
-      name: userID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/UserID'
-      description: Unique identifier for a specific user account
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
-    InvitationIDParam:
-      name: invitationID
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique identifier for an invitation
+    UserID:
+      description: Unique identifier for a user account
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      title: UserID
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    CreateOrganizationInvitationRequest:
+      type: object
+      properties:
+        email:
+          description: Email address of the user to invite
+          type: string
+          format: email
+      required:
+      - email
+    OrganizationMembershipLimits:
+      description: Membership limits for an organization
+      type: object
+      properties:
+        maxMembers:
+          description: Maximum number of members allowed in the organization
+          type: integer
+          minimum: 1
+          title: Maximum number of organization members
+        maxInvites:
+          description: Maximum number of pending invitations allowed at once
+          type: integer
+          minimum: 1
+          title: Maximum number of pending invitations
+      required:
+      - maxMembers
+      - maxInvites
+    CreateOrganizationRequest:
+      description: Request payload for creating a new organization
+      type: object
+      properties:
+        name:
+          description: Name for the new organization
+          type: string
+      required:
+      - name
   responses:
+    SimpleError:
+      description: Generic error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
     AuthError:
       description: Error returned when authentication or authorization fails
       content:
@@ -698,21 +714,6 @@ components:
             - message
     BadRequestError:
       description: Error returned when the request is malformed or contains invalid parameters
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            required:
-            - message
-    SimpleError:
-      description: Generic error response
       content:
         application/json:
           schema:

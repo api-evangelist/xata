@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: Xata API Keys API
   description: Xata API
@@ -216,24 +216,173 @@ paths:
       tags:
       - API Keys
 components:
+  schemas:
+    APIKeyPreview:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        preview:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        projects:
+          description: Projects this API key has access to
+          type: array
+          items:
+            type: string
+        branches:
+          description: Branches this API key has access to
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        expiry:
+          description: Date when the API key expires (null if no expiry)
+          type:
+          - string
+          - 'null'
+          format: date-time
+        last_used:
+          description: Timestamp of the last time the key was used (null if never)
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_by:
+          description: ID of the user that created this API key
+          type:
+          - string
+          - 'null'
+        created_by_key:
+          description: ID of the API key that created this API key
+          type:
+          - string
+          - 'null'
+      required:
+      - id
+      - name
+      - preview
+      - created_at
+      - expiry
+      - last_used
+      - scopes
+      - projects
+      - branches
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    FullAPIKey:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        preview:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        projects:
+          description: Projects this API key has access to
+          type: array
+          items:
+            type: string
+        branches:
+          description: Branches this API key has access to
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        expiry:
+          description: Date when the API key expires (null if no expiry)
+          type:
+          - string
+          - 'null'
+          format: date-time
+        last_used:
+          description: Timestamp of the last time the key was used (null if never)
+          type:
+          - string
+          - 'null'
+          format: date-time
+        token:
+          description: The actual API key token
+          type: string
+        created_by:
+          description: ID of the user that created this API key
+          type:
+          - string
+          - 'null'
+        created_by_key:
+          description: ID of the API key that created this API key
+          type:
+          - string
+          - 'null'
+      required:
+      - id
+      - name
+      - preview
+      - created_at
+      - expiry
+      - last_used
+      - token
+      - scopes
+      - projects
+      - branches
+    CreateAPIKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        expiry:
+          description: Expiration date for the API key, null for no expiry
+          type:
+          - string
+          - 'null'
+          format: date-time
+        scopes:
+          description: Optional scopes assigned to the API key
+          type: array
+          items:
+            type: string
+          maxItems: 50
+        projects:
+          description: Limit access to these projects
+          type: array
+          items:
+            type: string
+          maxItems: 50
+        branches:
+          description: Limit access to these branches
+          type: array
+          items:
+            type: string
+          maxItems: 50
+      required:
+      - name
+  parameters:
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
   responses:
-    AuthError:
-      description: Error returned when authentication or authorization fails
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            example:
-              message: invalid API key
-            required:
-            - message
     BadRequestError:
       description: Error returned when the request is malformed or contains invalid parameters
       content:
@@ -264,163 +413,23 @@ components:
                 type: string
             required:
             - message
-  schemas:
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    CreateAPIKeyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        expiry:
-          description: Expiration date for the API key, null for no expiry
-          type: string
-          format: date-time
-          nullable: true
-        scopes:
-          description: Optional scopes assigned to the API key
-          type: array
-          items:
-            type: string
-          maxItems: 50
-        projects:
-          description: Limit access to these projects
-          type: array
-          items:
-            type: string
-          maxItems: 50
-        branches:
-          description: Limit access to these branches
-          type: array
-          items:
-            type: string
-          maxItems: 50
-      required:
-      - name
-    FullAPIKey:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        preview:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        projects:
-          description: Projects this API key has access to
-          type: array
-          items:
-            type: string
-        branches:
-          description: Branches this API key has access to
-          type: array
-          items:
-            type: string
-        created_at:
-          type: string
-          format: date-time
-        expiry:
-          description: Date when the API key expires (null if no expiry)
-          type: string
-          format: date-time
-          nullable: true
-        last_used:
-          description: Timestamp of the last time the key was used (null if never)
-          type: string
-          format: date-time
-          nullable: true
-        token:
-          description: The actual API key token
-          type: string
-        created_by:
-          description: ID of the user that created this API key
-          type: string
-          nullable: true
-        created_by_key:
-          description: ID of the API key that created this API key
-          type: string
-          nullable: true
-      required:
-      - id
-      - name
-      - preview
-      - created_at
-      - expiry
-      - last_used
-      - token
-      - scopes
-      - projects
-      - branches
-    APIKeyPreview:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        preview:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        projects:
-          description: Projects this API key has access to
-          type: array
-          items:
-            type: string
-        branches:
-          description: Branches this API key has access to
-          type: array
-          items:
-            type: string
-        created_at:
-          type: string
-          format: date-time
-        expiry:
-          description: Date when the API key expires (null if no expiry)
-          type: string
-          format: date-time
-          nullable: true
-        last_used:
-          description: Timestamp of the last time the key was used (null if never)
-          type: string
-          format: date-time
-          nullable: true
-        created_by:
-          description: ID of the user that created this API key
-          type: string
-          nullable: true
-        created_by_key:
-          description: ID of the API key that created this API key
-          type: string
-          nullable: true
-      required:
-      - id
-      - name
-      - preview
-      - created_at
-      - expiry
-      - last_used
-      - scopes
-      - projects
-      - branches
-  parameters:
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
+    AuthError:
+      description: Error returned when authentication or authorization fails
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            example:
+              message: invalid API key
+            required:
+            - message
   securitySchemes:
     oidc:
       type: openIdConnect
