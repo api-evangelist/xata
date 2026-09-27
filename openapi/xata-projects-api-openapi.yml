@@ -676,31 +676,6 @@ paths:
       x-internal: true
 components:
   schemas:
-    ScaleToZeroConfiguration:
-      description: Configuration for scaling branches to zero when not in use
-      type: object
-      properties:
-        enabled:
-          description: Whether scale to zero is enabled
-          type: boolean
-        inactivityPeriodMinutes:
-          description: Duration in minutes after which branches will be hibernated if not accessed
-          type: integer
-          default: 30
-      required:
-      - enabled
-      - inactivityPeriodMinutes
-    CidrEntry:
-      type: object
-      properties:
-        cidr:
-          description: CIDR block (e.g., "192.168.0.0/24")
-          type: string
-        description:
-          description: Optional label for the CIDR entry
-          type: string
-      required:
-      - cidr
     BackupMetadata:
       description: metadata about a continuous backup
       type: object
@@ -726,32 +701,73 @@ components:
       - id
       - branchID
       - description
-    Project:
-      description: Details of a project including its ID, name, and creation/update timestamps
+    OrganizationLimits:
+      description: Effective resource limits for an organization, covering org-level defaults for all projects plus organization-specific constraints
+      allOf:
+      - $ref: '#/components/schemas/EffectiveProjectLimits'
+      - type: object
+        properties:
+          maxProjects:
+            description: Maximum number of projects allowed in the organization
+            type: integer
+            minimum: 1
+            title: Maximum number of projects
+          maxProjectsPerHour:
+            description: Maximum number of projects that can be created in a rolling one-hour window
+            type: integer
+            minimum: 1
+            title: Maximum project creation rate per hour
+          maxBranchesPerOrg:
+            description: Maximum number of active branches allowed across all projects in the organization
+            type: integer
+            minimum: 1
+            title: Maximum number of branches per organization
+        required:
+        - maxProjects
+        - maxProjectsPerHour
+        - maxBranchesPerOrg
+    Image:
+      description: Details of a postgres image
       type: object
       properties:
-        id:
-          description: Unique identifier for the project
-          type: string
         name:
-          description: Human-readable name of the project
+          description: Image name
           type: string
-        createdAt:
-          description: Timestamp when the project was created
+        majorVersion:
+          description: major postgres version
           type: string
-          format: date-time
-        updatedAt:
-          description: Timestamp when the project was last updated
+        fullVersion:
+          description: full postgres version
           type: string
-          format: date-time
-        configuration:
-          $ref: '#/components/schemas/ProjectConfiguration'
+        region:
+          description: region where this instance type is available
+          type: array
+          items:
+            type: string
+            minItems: 1
       required:
-      - id
       - name
-      - createdAt
-      - updatedAt
-      - configuration
+      - majorVersion
+      - fullVersion
+    UpdateProjectConfiguration:
+      description: Partial configuration update for a project
+      type: object
+      properties:
+        scaleToZero:
+          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
+        ipFiltering:
+          $ref: '#/components/schemas/IPFilteringConfiguration'
+    ProjectScaleToZeroConfiguration:
+      description: Whether the project branches are configured to scale down to zero when not in use
+      type: object
+      properties:
+        baseBranches:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+        childBranches:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+      required:
+      - baseBranches
+      - childBranches
     EffectiveProjectLimits:
       description: Full set of resource limits applicable to a project and its branches
       type: object
@@ -792,63 +808,6 @@ components:
       - minInstancesPerBranch
       - maxAllowedInstanceType
       - maxBranchesPerHour
-    Image:
-      description: Details of a postgres image
-      type: object
-      properties:
-        name:
-          description: Image name
-          type: string
-        majorVersion:
-          description: major postgres version
-          type: string
-        fullVersion:
-          description: full postgres version
-          type: string
-        region:
-          description: region where this instance type is available
-          type: array
-          items:
-            type: string
-            minItems: 1
-      required:
-      - name
-      - majorVersion
-      - fullVersion
-    ProjectLimits:
-      description: Resource limits and constraints for projects within an organization
-      type: object
-      properties:
-        maxInstances:
-          description: Maximum number of database instances allowed per branch
-          type: integer
-          minimum: 1
-          title: Maximum number of instances in a branch
-        minInstances:
-          description: Minimum number of database instances required per branch
-          type: integer
-          minimum: 1
-          title: Minimum number of instances in a branch
-        maxDescriptionLength:
-          description: Maximum character length allowed for project descriptions
-          type: integer
-          minimum: 25
-          title: Maximum length of a project description
-        maxBranches:
-          description: Maximum number of branches allowed per project
-          type: integer
-          title: Maximum number of branches per project
-      required:
-      - maxInstances
-      - minInstances
-      - maxDescriptionLength
-      - maxBranches
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
     IPFilteringConfiguration:
       description: Configuration for IP filtering on project branches
       type: object
@@ -863,6 +822,32 @@ components:
       required:
       - enabled
       - cidr
+    Project:
+      description: Details of a project including its ID, name, and creation/update timestamps
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the project
+          type: string
+        name:
+          description: Human-readable name of the project
+          type: string
+        createdAt:
+          description: Timestamp when the project was created
+          type: string
+          format: date-time
+        updatedAt:
+          description: Timestamp when the project was last updated
+          type: string
+          format: date-time
+        configuration:
+          $ref: '#/components/schemas/ProjectConfiguration'
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      - configuration
     ProjectConfiguration:
       description: Configuration details for a project, including its scale to zero settings
       type: object
@@ -873,50 +858,23 @@ components:
           $ref: '#/components/schemas/IPFilteringConfiguration'
       required:
       - scaleToZero
-    ProjectScaleToZeroConfiguration:
-      description: Whether the project branches are configured to scale down to zero when not in use
+    CidrEntry:
       type: object
       properties:
-        baseBranches:
-          $ref: '#/components/schemas/ScaleToZeroConfiguration'
-        childBranches:
-          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+        cidr:
+          description: CIDR block (e.g., "192.168.0.0/24")
+          type: string
+        description:
+          description: Optional label for the CIDR entry
+          type: string
       required:
-      - baseBranches
-      - childBranches
-    UpdateProjectConfiguration:
-      description: Partial configuration update for a project
-      type: object
-      properties:
-        scaleToZero:
-          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
-        ipFiltering:
-          $ref: '#/components/schemas/IPFilteringConfiguration'
-    OrganizationLimits:
-      description: Effective resource limits for an organization, covering org-level defaults for all projects plus organization-specific constraints
-      allOf:
-      - $ref: '#/components/schemas/EffectiveProjectLimits'
-      - type: object
-        properties:
-          maxProjects:
-            description: Maximum number of projects allowed in the organization
-            type: integer
-            minimum: 1
-            title: Maximum number of projects
-          maxProjectsPerHour:
-            description: Maximum number of projects that can be created in a rolling one-hour window
-            type: integer
-            minimum: 1
-            title: Maximum project creation rate per hour
-          maxBranchesPerOrg:
-            description: Maximum number of active branches allowed across all projects in the organization
-            type: integer
-            minimum: 1
-            title: Maximum number of branches per organization
-        required:
-        - maxProjects
-        - maxProjectsPerHour
-        - maxBranchesPerOrg
+      - cidr
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
     Extension:
       description: Details of a postgres extension
       type: object
@@ -952,22 +910,49 @@ components:
       - type
       x-excluded: true
       x-internal: true
+    ScaleToZeroConfiguration:
+      description: Configuration for scaling branches to zero when not in use
+      type: object
+      properties:
+        enabled:
+          description: Whether scale to zero is enabled
+          type: boolean
+        inactivityPeriodMinutes:
+          description: Duration in minutes after which branches will be hibernated if not accessed
+          type: integer
+          default: 30
+      required:
+      - enabled
+      - inactivityPeriodMinutes
+    ProjectLimits:
+      description: Resource limits and constraints for projects within an organization
+      type: object
+      properties:
+        maxInstances:
+          description: Maximum number of database instances allowed per branch
+          type: integer
+          minimum: 1
+          title: Maximum number of instances in a branch
+        minInstances:
+          description: Minimum number of database instances required per branch
+          type: integer
+          minimum: 1
+          title: Minimum number of instances in a branch
+        maxDescriptionLength:
+          description: Maximum character length allowed for project descriptions
+          type: integer
+          minimum: 25
+          title: Maximum length of a project description
+        maxBranches:
+          description: Maximum number of branches allowed per project
+          type: integer
+          title: Maximum number of branches per project
+      required:
+      - maxInstances
+      - minInstances
+      - maxDescriptionLength
+      - maxBranches
   responses:
-    GenericError:
-      description: Generic error response for most error conditions
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            required:
-            - message
     AuthorizationError:
       description: Error response when authentication or authorization fails
       content:
@@ -980,6 +965,21 @@ components:
                 type: string
               message:
                 description: Human-readable error message explaining the authentication or authorization issue
+                type: string
+            required:
+            - message
+    GenericError:
+      description: Generic error response for most error conditions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
                 type: string
             required:
             - message

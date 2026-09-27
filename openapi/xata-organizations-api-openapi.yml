@@ -468,76 +468,30 @@ paths:
       tags:
       - Organizations
 components:
-  parameters:
-    InvitationIDParam:
-      name: invitationID
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique identifier for an invitation
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
-    UserIDParam:
-      name: userID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/UserID'
-      description: Unique identifier for a specific user account
   schemas:
-    OrganizationInvitation:
+    CreateOrganizationInvitationRequest:
       type: object
       properties:
-        id:
-          description: Unique identifier for the invitation
-          type: string
-        organization_id:
-          description: ID of the organization the invitation is for
-          $ref: '#/components/schemas/OrganizationID'
         email:
-          description: Email address of the invited user
+          description: Email address of the user to invite
           type: string
           format: email
-        first_name:
-          description: First name of the invited user
-          type:
-          - string
-          - 'null'
-        last_name:
-          description: Last name of the invited user
-          type:
-          - string
-          - 'null'
-        created_at:
-          description: Timestamp when the invitation was created
+      required:
+      - email
+    User:
+      description: User information including email, full name, and profile image
+      type: object
+      properties:
+        email:
+          description: Email address associated with the user account
           type: string
-          format: date-time
-        expires_at:
-          description: Timestamp when the invitation expires
-          type: string
-          format: date-time
-        status:
-          description: Current status of the invitation
-          type: string
-          enum:
-          - pending
-          - expired
-        invite_link:
-          description: URL link to accept the invitation
+          format: email
+        name:
+          description: Name of the user
           type: string
       required:
-      - id
-      - organization_id
+      - name
       - email
-      - created_at
-      - expires_at
-      - status
     OrganizationStatus:
       type: object
       properties:
@@ -585,6 +539,78 @@ components:
       - billing_status
       - usage_tier
       - last_updated
+    CreateOrganizationRequest:
+      description: Request payload for creating a new organization
+      type: object
+      properties:
+        name:
+          description: Name for the new organization
+          type: string
+      required:
+      - name
+    OrganizationInvitation:
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the invitation
+          type: string
+        organization_id:
+          description: ID of the organization the invitation is for
+          $ref: '#/components/schemas/OrganizationID'
+        email:
+          description: Email address of the invited user
+          type: string
+          format: email
+        first_name:
+          description: First name of the invited user
+          type:
+          - string
+          - 'null'
+        last_name:
+          description: Last name of the invited user
+          type:
+          - string
+          - 'null'
+        created_at:
+          description: Timestamp when the invitation was created
+          type: string
+          format: date-time
+        expires_at:
+          description: Timestamp when the invitation expires
+          type: string
+          format: date-time
+        status:
+          description: Current status of the invitation
+          type: string
+          enum:
+          - pending
+          - expired
+        invite_link:
+          description: URL link to accept the invitation
+          type: string
+      required:
+      - id
+      - organization_id
+      - email
+      - created_at
+      - expires_at
+      - status
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    UserWithID:
+      allOf:
+      - $ref: '#/components/schemas/User'
+      - type: object
+        description: Extended user object that includes the unique user identifier
+        properties:
+          id:
+            $ref: '#/components/schemas/UserID'
+        required:
+        - id
     Organization:
       description: Organization details including ID and name
       type: object
@@ -607,52 +633,6 @@ components:
       - id
       - name
       - status
-    UserWithID:
-      allOf:
-      - $ref: '#/components/schemas/User'
-      - type: object
-        description: Extended user object that includes the unique user identifier
-        properties:
-          id:
-            $ref: '#/components/schemas/UserID'
-        required:
-        - id
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    User:
-      description: User information including email, full name, and profile image
-      type: object
-      properties:
-        email:
-          description: Email address associated with the user account
-          type: string
-          format: email
-        name:
-          description: Name of the user
-          type: string
-      required:
-      - name
-      - email
-    UserID:
-      description: Unique identifier for a user account
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      title: UserID
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    CreateOrganizationInvitationRequest:
-      type: object
-      properties:
-        email:
-          description: Email address of the user to invite
-          type: string
-          format: email
-      required:
-      - email
     OrganizationMembershipLimits:
       description: Membership limits for an organization
       type: object
@@ -670,18 +650,53 @@ components:
       required:
       - maxMembers
       - maxInvites
-    CreateOrganizationRequest:
-      description: Request payload for creating a new organization
-      type: object
-      properties:
-        name:
-          description: Name for the new organization
-          type: string
-      required:
-      - name
+    UserID:
+      description: Unique identifier for a user account
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      title: UserID
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+  parameters:
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
+    InvitationIDParam:
+      name: invitationID
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique identifier for an invitation
+    UserIDParam:
+      name: userID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UserID'
+      description: Unique identifier for a specific user account
   responses:
     SimpleError:
       description: Generic error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    BadRequestError:
+      description: Error returned when the request is malformed or contains invalid parameters
       content:
         application/json:
           schema:
@@ -710,21 +725,6 @@ components:
                 type: string
             example:
               message: invalid API key
-            required:
-            - message
-    BadRequestError:
-      description: Error returned when the request is malformed or contains invalid parameters
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
             required:
             - message
   securitySchemes:

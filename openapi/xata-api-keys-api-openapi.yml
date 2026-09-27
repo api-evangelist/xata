@@ -216,71 +216,46 @@ paths:
       tags:
       - API Keys
 components:
+  parameters:
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
   schemas:
-    APIKeyPreview:
+    CreateAPIKeyRequest:
       type: object
       properties:
-        id:
-          type: string
         name:
           type: string
-        preview:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        projects:
-          description: Projects this API key has access to
-          type: array
-          items:
-            type: string
-        branches:
-          description: Branches this API key has access to
-          type: array
-          items:
-            type: string
-        created_at:
-          type: string
-          format: date-time
         expiry:
-          description: Date when the API key expires (null if no expiry)
+          description: Expiration date for the API key, null for no expiry
           type:
           - string
           - 'null'
           format: date-time
-        last_used:
-          description: Timestamp of the last time the key was used (null if never)
-          type:
-          - string
-          - 'null'
-          format: date-time
-        created_by:
-          description: ID of the user that created this API key
-          type:
-          - string
-          - 'null'
-        created_by_key:
-          description: ID of the API key that created this API key
-          type:
-          - string
-          - 'null'
+        scopes:
+          description: Optional scopes assigned to the API key
+          type: array
+          items:
+            type: string
+          maxItems: 50
+        projects:
+          description: Limit access to these projects
+          type: array
+          items:
+            type: string
+          maxItems: 50
+        branches:
+          description: Limit access to these branches
+          type: array
+          items:
+            type: string
+          maxItems: 50
       required:
-      - id
       - name
-      - preview
-      - created_at
-      - expiry
-      - last_used
-      - scopes
-      - projects
-      - branches
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
     FullAPIKey:
       type: object
       properties:
@@ -343,48 +318,73 @@ components:
       - scopes
       - projects
       - branches
-    CreateAPIKeyRequest:
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    APIKeyPreview:
       type: object
       properties:
+        id:
+          type: string
         name:
           type: string
+        preview:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        projects:
+          description: Projects this API key has access to
+          type: array
+          items:
+            type: string
+        branches:
+          description: Branches this API key has access to
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
         expiry:
-          description: Expiration date for the API key, null for no expiry
+          description: Date when the API key expires (null if no expiry)
           type:
           - string
           - 'null'
           format: date-time
-        scopes:
-          description: Optional scopes assigned to the API key
-          type: array
-          items:
-            type: string
-          maxItems: 50
-        projects:
-          description: Limit access to these projects
-          type: array
-          items:
-            type: string
-          maxItems: 50
-        branches:
-          description: Limit access to these branches
-          type: array
-          items:
-            type: string
-          maxItems: 50
+        last_used:
+          description: Timestamp of the last time the key was used (null if never)
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_by:
+          description: ID of the user that created this API key
+          type:
+          - string
+          - 'null'
+        created_by_key:
+          description: ID of the API key that created this API key
+          type:
+          - string
+          - 'null'
       required:
+      - id
       - name
-  parameters:
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
+      - preview
+      - created_at
+      - expiry
+      - last_used
+      - scopes
+      - projects
+      - branches
   responses:
-    BadRequestError:
-      description: Error returned when the request is malformed or contains invalid parameters
+    SimpleError:
+      description: Generic error response
       content:
         application/json:
           schema:
@@ -398,8 +398,8 @@ components:
                 type: string
             required:
             - message
-    SimpleError:
-      description: Generic error response
+    BadRequestError:
+      description: Error returned when the request is malformed or contains invalid parameters
       content:
         application/json:
           schema:

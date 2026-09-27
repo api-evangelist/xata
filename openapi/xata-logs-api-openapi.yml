@@ -63,90 +63,6 @@ paths:
       - Logs
 components:
   schemas:
-    LogLevel:
-      description: Log level enumeration
-      type: string
-      enum:
-      - debug
-      - info
-      - warning
-      - error
-    LogEntry:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-        instanceID:
-          type: string
-        level:
-          $ref: '#/components/schemas/LogLevel'
-        message:
-          type: string
-        process:
-          description: Name of the PostgreSQL process that emitted the log
-          type: string
-      required:
-      - timestamp
-      - instanceID
-      - message
-    BranchLogsRequest:
-      type: object
-      properties:
-        start:
-          description: Start time
-          type: string
-          format: date-time
-        end:
-          description: End time
-          type: string
-          format: date-time
-        filters:
-          description: Filters applied to log entries. Multiple filters are combined with AND.
-          type: array
-          items:
-            $ref: '#/components/schemas/LogFilter'
-        limit:
-          type: integer
-          default: 100
-          maximum: 200
-          minimum: 1
-        cursor:
-          description: Pagination cursor from a previous response
-          type: string
-      required:
-      - start
-      - end
-    BranchLogs:
-      description: A collection of logs for each of the instances of a branch
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        logs:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogEntry'
-        nextCursor:
-          description: Pagination cursor for the next page
-          type:
-          - string
-          - 'null'
-      required:
-      - start
-      - end
-      - logs
-      - nextCursor
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
     LogFilter:
       description: A single filter on log entries.
       type: object
@@ -179,22 +95,91 @@ components:
       required:
       - field
       - op
+    BranchLogsRequest:
+      type: object
+      properties:
+        start:
+          description: Start time
+          type: string
+          format: date-time
+        end:
+          description: End time
+          type: string
+          format: date-time
+        filters:
+          description: Filters applied to log entries. Multiple filters are combined with AND.
+          type: array
+          items:
+            $ref: '#/components/schemas/LogFilter'
+        limit:
+          type: integer
+          default: 100
+          maximum: 200
+          minimum: 1
+        cursor:
+          description: Pagination cursor from a previous response
+          type: string
+      required:
+      - start
+      - end
+    LogEntry:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        instanceID:
+          type: string
+        level:
+          $ref: '#/components/schemas/LogLevel'
+        message:
+          type: string
+        process:
+          description: Name of the PostgreSQL process that emitted the log
+          type: string
+      required:
+      - timestamp
+      - instanceID
+      - message
+    BranchLogs:
+      description: A collection of logs for each of the instances of a branch
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntry'
+        nextCursor:
+          description: Pagination cursor for the next page
+          type:
+          - string
+          - 'null'
+      required:
+      - start
+      - end
+      - logs
+      - nextCursor
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    LogLevel:
+      description: Log level enumeration
+      type: string
+      enum:
+      - debug
+      - info
+      - warning
+      - error
   responses:
-    GenericError:
-      description: Generic error response for most error conditions
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            required:
-            - message
     AuthorizationError:
       description: Error response when authentication or authorization fails
       content:
@@ -207,6 +192,21 @@ components:
                 type: string
               message:
                 description: Human-readable error message explaining the authentication or authorization issue
+                type: string
+            required:
+            - message
+    GenericError:
+      description: Generic error response for most error conditions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
                 type: string
             required:
             - message

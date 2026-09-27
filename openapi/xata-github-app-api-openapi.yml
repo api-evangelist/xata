@@ -348,6 +348,15 @@ paths:
       x-excluded: true
 components:
   schemas:
+    UpdateGithubRepositoryRequest:
+      type: object
+      properties:
+        githubRepositoryID:
+          description: GitHub repository ID
+          type: integer
+          format: int64
+      required:
+      - githubRepositoryID
     GithubInstallation:
       description: A GitHub App installation associated with an organization
       type: object
@@ -376,30 +385,6 @@ components:
       - organization
       - createdAt
       - updatedAt
-    UpdateGithubRepositoryRequest:
-      type: object
-      properties:
-        githubRepositoryID:
-          description: GitHub repository ID
-          type: integer
-          format: int64
-      required:
-      - githubRepositoryID
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    CreateGithubRepositoryRequest:
-      type: object
-      properties:
-        githubRepositoryID:
-          description: GitHub repository ID
-          type: integer
-          format: int64
-      required:
-      - githubRepositoryID
     GithubRepository:
       description: A mapping between a GitHub repository and a Xata project
       type: object
@@ -432,15 +417,12 @@ components:
       - rootBranchId
       - createdAt
       - updatedAt
-    CreateGithubAppInstallationRequest:
-      type: object
-      properties:
-        installationId:
-          description: GitHub App installation ID
-          type: integer
-          format: int64
-      required:
-      - installationId
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
     UpdateGithubAppInstallationRequest:
       type: object
       properties:
@@ -450,22 +432,25 @@ components:
           format: int64
       required:
       - installationId
+    CreateGithubAppInstallationRequest:
+      type: object
+      properties:
+        installationId:
+          description: GitHub App installation ID
+          type: integer
+          format: int64
+      required:
+      - installationId
+    CreateGithubRepositoryRequest:
+      type: object
+      properties:
+        githubRepositoryID:
+          description: GitHub repository ID
+          type: integer
+          format: int64
+      required:
+      - githubRepositoryID
   responses:
-    GenericError:
-      description: Generic error response for most error conditions
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            required:
-            - message
     AuthorizationError:
       description: Error response when authentication or authorization fails
       content:
@@ -478,6 +463,21 @@ components:
                 type: string
               message:
                 description: Human-readable error message explaining the authentication or authorization issue
+                type: string
+            required:
+            - message
+    GenericError:
+      description: Generic error response for most error conditions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
                 type: string
             required:
             - message

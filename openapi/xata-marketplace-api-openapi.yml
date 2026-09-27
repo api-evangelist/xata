@@ -52,8 +52,8 @@ paths:
       x-excluded: true
 components:
   responses:
-    SimpleError:
-      description: Generic error response
+    BadRequestError:
+      description: Error returned when the request is malformed or contains invalid parameters
       content:
         application/json:
           schema:
@@ -84,8 +84,8 @@ components:
               message: invalid API key
             required:
             - message
-    BadRequestError:
-      description: Error returned when the request is malformed or contains invalid parameters
+    SimpleError:
+      description: Generic error response
       content:
         application/json:
           schema:

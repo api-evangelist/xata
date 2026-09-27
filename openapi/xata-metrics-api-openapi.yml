@@ -64,62 +64,6 @@ paths:
       - Metrics
 components:
   schemas:
-    MetricSeries:
-      description: The metric series
-      type: object
-      properties:
-        instanceID:
-          description: ID of the instance
-          type: string
-        aggregation:
-          description: The aggregation used to generate this time-series
-          type: string
-          enum:
-          - avg
-          - max
-          - min
-        values:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp:
-                type: string
-                format: date-time
-              value:
-                type: number
-            required:
-            - timestamp
-            - value
-      required:
-      - instanceID
-      - aggregation
-      - values
-    BranchMetrics:
-      description: A collection of metrics (cpu, memory, disk,...) for each of the instances of a branch
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        results:
-          description: One entry per requested metric, in the order the metrics were requested.
-          type: array
-          items:
-            $ref: '#/components/schemas/BranchMetricResult'
-      required:
-      - start
-      - end
-      - results
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
     BranchMetricsRequest:
       type: object
       properties:
@@ -157,24 +101,6 @@ components:
       - end
       - metrics
       - aggregations
-    BranchMetricResult:
-      description: Time-series for a single metric.
-      type: object
-      properties:
-        metric:
-          description: Name of the queried metric.
-          type: string
-        unit:
-          description: Unit of the metric (percentage, bytes, ms, etc.)
-          type: string
-        series:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricSeries'
-      required:
-      - metric
-      - unit
-      - series
     BranchMetricName:
       description: Name of a branch metric exposed by the API.
       type: string
@@ -194,22 +120,81 @@ components:
       - throughput_write
       - wal_sync_time
       - replication_lag_time
-  responses:
-    GenericError:
-      description: Generic error response for most error conditions
-      content:
-        application/json:
-          schema:
+    MetricSeries:
+      description: The metric series
+      type: object
+      properties:
+        instanceID:
+          description: ID of the instance
+          type: string
+        aggregation:
+          description: The aggregation used to generate this time-series
+          type: string
+          enum:
+          - avg
+          - max
+          - min
+        values:
+          type: array
+          items:
             type: object
             properties:
-              id:
-                description: Error identifier for tracking and debugging
+              timestamp:
                 type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
+                format: date-time
+              value:
+                type: number
             required:
-            - message
+            - timestamp
+            - value
+      required:
+      - instanceID
+      - aggregation
+      - values
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    BranchMetricResult:
+      description: Time-series for a single metric.
+      type: object
+      properties:
+        metric:
+          description: Name of the queried metric.
+          type: string
+        unit:
+          description: Unit of the metric (percentage, bytes, ms, etc.)
+          type: string
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricSeries'
+      required:
+      - metric
+      - unit
+      - series
+    BranchMetrics:
+      description: A collection of metrics (cpu, memory, disk,...) for each of the instances of a branch
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        results:
+          description: One entry per requested metric, in the order the metrics were requested.
+          type: array
+          items:
+            $ref: '#/components/schemas/BranchMetricResult'
+      required:
+      - start
+      - end
+      - results
+  responses:
     AuthorizationError:
       description: Error response when authentication or authorization fails
       content:
@@ -222,6 +207,21 @@ components:
                 type: string
               message:
                 description: Human-readable error message explaining the authentication or authorization issue
+                type: string
+            required:
+            - message
+    GenericError:
+      description: Generic error response for most error conditions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
                 type: string
             required:
             - message

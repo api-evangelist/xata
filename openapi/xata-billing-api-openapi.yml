@@ -204,15 +204,68 @@ paths:
       - Billing
       x-excluded: true
 components:
-  parameters:
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
   schemas:
+    BillingUpcomingInvoiceResponse:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        amount_due:
+          description: Decimal amount due.
+          type: number
+          format: double
+        currency:
+          type: string
+        target_date:
+          type: string
+          format: date-time
+        subtotal:
+          description: Decimal subtotal.
+          type: number
+          format: double
+        total:
+          description: Decimal total.
+          type: number
+          format: double
+        hosted_invoice_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+      required:
+      - created_at
+      - amount_due
+      - currency
+      - target_date
+      - subtotal
+      - total
+      - hosted_invoice_url
+    BillingCheckoutSessionResponse:
+      type: object
+      properties:
+        url:
+          description: Stripe checkout session URL
+          type: string
+          format: uri
+      required:
+      - url
+    BillingPaymentMethodCard:
+      type: object
+      properties:
+        brand:
+          type: string
+        last4:
+          type: string
+        expiry_month:
+          type: integer
+        expiry_year:
+          type: integer
+      required:
+      - brand
+      - last4
+      - expiry_month
+      - expiry_year
     UpdateBillingCustomerRequest:
       type: object
       properties:
@@ -221,76 +274,6 @@ components:
           format: email
       required:
       - billing_email
-    BillingPaymentMethodSessionResponse:
-      type: object
-      properties:
-        url:
-          description: Stripe payment method session URL
-          type: string
-          format: uri
-      required:
-      - url
-    BillingPaymentMethod:
-      type: object
-      properties:
-        card:
-          $ref: '#/components/schemas/BillingPaymentMethodCard'
-      required:
-      - card
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    BillingCreditDetails:
-      type: object
-      properties:
-        total_lifetime_credits:
-          type: number
-          format: double
-        last_expiry:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        last_expiry_with_balance:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        active_credits:
-          description: Credits with active status, a reached effective date, positive balance, and no past expiry.
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingCredit'
-        last_active_credit_expiry:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        total_active_credits:
-          type: number
-          format: double
-        days_until_last_active_credit_expiry:
-          description: Days until the last active credit expiry, or null when there is no future active credit expiry.
-          type:
-          - integer
-          - 'null'
-        days_until_last_expiry_with_balance:
-          description: Days until the last positive-balance credit expiry, or null when there is no future positive-balance credit expiry.
-          type:
-          - integer
-          - 'null'
-      required:
-      - total_lifetime_credits
-      - last_expiry
-      - last_expiry_with_balance
-      - active_credits
-      - last_active_credit_expiry
-      - total_active_credits
-      - days_until_last_active_credit_expiry
-      - days_until_last_expiry_with_balance
     PaginationMetadata:
       type: object
       properties:
@@ -339,67 +322,113 @@ components:
       - invoice_date
       - status
       - invoice_pdf
-    BillingUpcomingInvoiceResponse:
+    BillingCustomerResponse:
       type: object
       properties:
-        created_at:
+        billing_email:
           type: string
-          format: date-time
-        amount_due:
-          description: Decimal amount due.
+          format: email
+        has_payment_method:
+          description: True when the customer has a valid Stripe default card payment method.
+          type: boolean
+        default_payment_method:
+          description: The Stripe default card payment method, when one is configured and retrievable.
+          allOf:
+          - $ref: '#/components/schemas/BillingPaymentMethod'
+        credits:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingCredit'
+        credit_details:
+          $ref: '#/components/schemas/BillingCreditDetails'
+      required:
+      - billing_email
+      - has_payment_method
+      - default_payment_method
+      - credits
+      - credit_details
+    BillingCreditDetails:
+      type: object
+      properties:
+        total_lifetime_credits:
           type: number
           format: double
-        currency:
-          type: string
-        target_date:
-          type: string
-          format: date-time
-        subtotal:
-          description: Decimal subtotal.
-          type: number
-          format: double
-        total:
-          description: Decimal total.
-          type: number
-          format: double
-        hosted_invoice_url:
+        last_expiry:
           type:
           - string
           - 'null'
-          format: uri
+          format: date-time
+        last_expiry_with_balance:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        active_credits:
+          description: Credits with active status, a reached effective date, positive balance, and no past expiry.
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingCredit'
+        last_active_credit_expiry:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        total_active_credits:
+          type: number
+          format: double
+        days_until_last_active_credit_expiry:
+          description: Days until the last active credit expiry, or null when there is no future active credit expiry.
+          type:
+          - integer
+          - 'null'
+        days_until_last_expiry_with_balance:
+          description: Days until the last positive-balance credit expiry, or null when there is no future positive-balance credit expiry.
+          type:
+          - integer
+          - 'null'
       required:
-      - created_at
-      - amount_due
-      - currency
-      - target_date
-      - subtotal
-      - total
-      - hosted_invoice_url
-    BillingPaymentMethodCard:
+      - total_lifetime_credits
+      - last_expiry
+      - last_expiry_with_balance
+      - active_credits
+      - last_active_credit_expiry
+      - total_active_credits
+      - days_until_last_active_credit_expiry
+      - days_until_last_expiry_with_balance
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    BillingPaymentMethod:
       type: object
       properties:
-        brand:
-          type: string
-        last4:
-          type: string
-        expiry_month:
-          type: integer
-        expiry_year:
-          type: integer
+        card:
+          $ref: '#/components/schemas/BillingPaymentMethodCard'
       required:
-      - brand
-      - last4
-      - expiry_month
-      - expiry_year
-    BillingCheckoutSessionResponse:
+      - card
+    BillingPaymentMethodSessionResponse:
       type: object
       properties:
         url:
-          description: Stripe checkout session URL
+          description: Stripe payment method session URL
           type: string
           format: uri
       required:
       - url
+    BillingInvoicesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingInvoice'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
     BillingCredit:
       type: object
       properties:
@@ -435,46 +464,32 @@ components:
       - expiry_date
       - maximum_initial_balance
       - status
-    BillingCustomerResponse:
-      type: object
-      properties:
-        billing_email:
-          type: string
-          format: email
-        has_payment_method:
-          description: True when the customer has a valid Stripe default card payment method.
-          type: boolean
-        default_payment_method:
-          description: The Stripe default card payment method, when one is configured and retrievable.
-          allOf:
-          - $ref: '#/components/schemas/BillingPaymentMethod'
-        credits:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingCredit'
-        credit_details:
-          $ref: '#/components/schemas/BillingCreditDetails'
-      required:
-      - billing_email
-      - has_payment_method
-      - default_payment_method
-      - credits
-      - credit_details
-    BillingInvoicesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingInvoice'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
-      required:
-      - data
-      - pagination_metadata
+  parameters:
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
   responses:
     SimpleError:
       description: Generic error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    BadRequestError:
+      description: Error returned when the request is malformed or contains invalid parameters
       content:
         application/json:
           schema:
@@ -503,21 +518,6 @@ components:
                 type: string
             example:
               message: invalid API key
-            required:
-            - message
-    BadRequestError:
-      description: Error returned when the request is malformed or contains invalid parameters
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
             required:
             - message
   securitySchemes:

@@ -544,211 +544,38 @@ paths:
       - Branches
 components:
   schemas:
-    BranchListMetadata:
-      description: Metadata about a branch used when listing branches in a project
+    LogFilter:
+      description: A single filter on log entries.
       type: object
       properties:
-        id:
-          description: Unique identifier for the branch
-          type: string
-        name:
-          description: Human-readable name of the branch
-          type: string
-        description:
-          description: Optional description of the branch purpose or contents
-          type: string
-        createdAt:
-          description: Timestamp when the branch was created
-          type: string
-          format: date-time
-        updatedAt:
-          description: Timestamp when the branch was last updated
-          type: string
-          format: date-time
-        parentID:
-          description: Identifier of the parent branch if this is a derived branch, null otherwise
-          type:
-          - string
-          - 'null'
-        region:
-          description: Geographic region where the branch is deployed
-          type: string
-        publicAccess:
-          description: Whether the branch allows public access without authentication
-          type: boolean
-        backupsEnabled:
-          description: Whether the branch is in a region that supports backups
-          type: boolean
-      required:
-      - id
-      - name
-      - createdAt
-      - updatedAt
-      - region
-      - publicAccess
-      - backupsEnabled
-    BranchLogs:
-      description: A collection of logs for each of the instances of a branch
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        logs:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogEntry'
-        nextCursor:
-          description: Pagination cursor for the next page
-          type:
-          - string
-          - 'null'
-      required:
-      - start
-      - end
-      - logs
-      - nextCursor
-    PostgresConfigDetails:
-      description: Detailed information about PostgreSQL configuration parameters for a branch
-      type: object
-      properties:
-        parameters:
-          description: Array of PostgreSQL configuration parameters with detailed information
-          items:
-            $ref: '#/components/schemas/PostgresConfigParameter'
-          type: array
-      required:
-      - parameters
-    BranchFromParent:
-      type: object
-      properties:
-        mode:
+        field:
+          description: Log attribute to filter on.
           type: string
           enum:
-          - inherit
-        parentID:
-          description: If present, the branch will inherit the parent branch configuration and data
-          type: string
-      required:
-      - mode
-      - parentID
-    BranchMetricsRequest:
-      type: object
-      properties:
-        start:
-          description: Start time
-          type: string
-          format: date-time
-        end:
-          description: End time
-          type: string
-          format: date-time
-        metrics:
-          description: List of metric names to query.
-          type: array
-          items:
-            $ref: '#/components/schemas/BranchMetricName'
-          maxItems: 15
-          minItems: 1
-        instances:
-          description: List of instance IDs to query
-          type: array
-          items:
-            type: string
-        aggregations:
-          description: List of aggregations to get, this is how the data-points within the interval are aggregated. Each one will generate a separate time-series per metric in the response.
-          type: array
-          items:
-            type: string
-            enum:
-            - avg
-            - max
-            - min
-      required:
-      - start
-      - end
-      - metrics
-      - aggregations
-    BranchMetricResult:
-      description: Time-series for a single metric.
-      type: object
-      properties:
-        metric:
-          description: Name of the queried metric.
-          type: string
-        unit:
-          description: Unit of the metric (percentage, bytes, ms, etc.)
-          type: string
-        series:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricSeries'
-      required:
-      - metric
-      - unit
-      - series
-    BranchFromConfiguration:
-      type: object
-      properties:
-        mode:
+          - instance
+          - level
+          - process
+          - body
+        op:
+          description: Match operator.
           type: string
           enum:
-          - custom
-        configuration:
-          $ref: '#/components/schemas/ClusterConfiguration'
-      required:
-      - mode
-      - configuration
-    LogLevel:
-      description: Log level enumeration
-      type: string
-      enum:
-      - debug
-      - info
-      - warning
-      - error
-    ClusterConfiguration:
-      description: Configuration details for a database cluster backing a branch
-      type: object
-      properties:
-        region:
-          description: Geographic region where the cluster will be deployed
-          type: string
-        storage:
-          description: Branch storage in GiB (gigabytes)
-          type: integer
-          format: int32
-          maximum: 250
-        instanceType:
-          description: The instance type according to the xata instance types available
-          type: string
-        image:
-          description: PostgreSQL image to use for the database instances
-          type: string
-        replicas:
-          description: Number of replicas in the branch. Every child branch is created with no replicas. This can be updated.
-          type: integer
-          format: int32
-          maximum: 4
-          minimum: 0
-        postgresConfigurationParameters:
-          description: Arbitrary PostgreSQL configuration parameters for the cluster
-          type: object
-          additionalProperties:
-            type: string
-        preloadLibraries:
-          description: List of PostgreSQL extensions and libraries to preload
+          - in
+          - contains
+          - icontains
+          - regex
+          - iregex
+        values:
+          description: 'Used with `op: in`.'
           type: array
           items:
             type: string
+        value:
+          description: Used with the body operators.
+          type: string
       required:
-      - image
-      - region
-      - instanceType
-      - replicas
+      - field
+      - op
     MetricSeries:
       description: The metric series
       type: object
@@ -813,26 +640,6 @@ components:
       required:
       - name
       - mode
-    RestoreDetails:
-      description: Metadata about a backup, used in request to create a restore. If configuration is not provided, the branch will inherit the source branch configuration.
-      type: object
-      properties:
-        name:
-          description: Human-readable name of the branch
-          type: string
-        description:
-          description: Optional description of the branch purpose or contents
-          type: string
-        scaleToZero:
-          $ref: '#/components/schemas/ScaleToZeroConfiguration'
-        backupConfiguration:
-          $ref: '#/components/schemas/BackupConfiguration'
-        configuration:
-          $ref: '#/components/schemas/ClusterConfiguration'
-      required:
-      - name
-      x-excluded: true
-      x-internal: true
     ScaleToZeroConfiguration:
       description: Configuration for scaling branches to zero when not in use
       type: object
@@ -847,281 +654,6 @@ components:
       required:
       - enabled
       - inactivityPeriodMinutes
-    BranchShortMetadata:
-      description: Basic metadata about a branch, used in response to create/update operations
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the branch
-          type: string
-        name:
-          description: Human-readable name of the branch
-          type: string
-        description:
-          description: Optional description of the branch purpose or contents
-          type: string
-        createdAt:
-          description: Timestamp when the branch was created
-          type: string
-          format: date-time
-        updatedAt:
-          description: Timestamp when the branch was last updated
-          type: string
-          format: date-time
-        parentID:
-          description: Identifier of the parent branch if this is a derived branch, null otherwise
-          type:
-          - string
-          - 'null'
-        connectionString:
-          description: Database connection string for accessing this branch
-          type:
-          - string
-          - 'null'
-        region:
-          description: Geographic region where the branch is deployed
-          type: string
-        publicAccess:
-          description: Whether the branch allows public access without authentication
-          type: boolean
-      required:
-      - id
-      - name
-      - createdAt
-      - updatedAt
-      - region
-      - publicAccess
-    BranchLogsRequest:
-      type: object
-      properties:
-        start:
-          description: Start time
-          type: string
-          format: date-time
-        end:
-          description: End time
-          type: string
-          format: date-time
-        filters:
-          description: Filters applied to log entries. Multiple filters are combined with AND.
-          type: array
-          items:
-            $ref: '#/components/schemas/LogFilter'
-        limit:
-          type: integer
-          default: 100
-          maximum: 200
-          minimum: 1
-        cursor:
-          description: Pagination cursor from a previous response
-          type: string
-      required:
-      - start
-      - end
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    ClusterLifecycle:
-      description: Information about the current lifecycle state of a database cluster
-      type: object
-      properties:
-        state:
-          description: Current operational state of the cluster (ready, creating, updating, etc.)
-          enum:
-          - ready
-          - creating
-          - updating
-          - upgrading
-          - unknown
-          title: Current state in the cluster lifecycle
-        reason:
-          description: Reason for the current lifecycle state, especially useful for non-ready states
-          type: string
-        phase:
-          description: Current phase within the lifecycle process
-          type: string
-      deprecated: true
-      required:
-      - state
-      - phase
-    RotateCredentialsRequest:
-      description: Request to rotate credentials for a branch database user
-      type: object
-      properties:
-        username:
-          description: Database username to rotate credentials for
-          type: string
-      required:
-      - username
-    BranchMetricName:
-      description: Name of a branch metric exposed by the API.
-      type: string
-      enum:
-      - cpu
-      - memory
-      - disk
-      - connections_active
-      - connections_idle
-      - network_ingress
-      - network_egress
-      - iops_read
-      - iops_write
-      - latency_read
-      - latency_write
-      - throughput_read
-      - throughput_write
-      - wal_sync_time
-      - replication_lag_time
-    BranchUpdateDetails:
-      description: Details that can be updated for an existing branch
-      type: object
-      properties:
-        name:
-          description: New name for the branch
-          type: string
-        description:
-          description: New description for the branch (max 50 characters)
-          type: string
-          maximum: 50
-          pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9- ]*$
-        replicas:
-          description: Number of database replicas to scale to
-          type: integer
-          format: int32
-          maximum: 4
-          minimum: 0
-        storage:
-          description: Branch storage in GiB (gigabytes)
-          type: integer
-          format: int32
-          maximum: 250
-        instanceType:
-          description: New instance type for the branch
-          type: string
-        backupConfiguration:
-          $ref: '#/components/schemas/BackupConfiguration'
-        hibernate:
-          description: Enabled when the branch should be hibernated, disabled if it needs to be reactivated.
-          type: boolean
-        scaleToZero:
-          $ref: '#/components/schemas/ScaleToZeroConfiguration'
-        postgresConfigurationParameters:
-          description: Arbitrary PostgreSQL configuration parameters for the cluster
-          type: object
-          additionalProperties:
-            type: string
-        preloadLibraries:
-          description: List of PostgreSQL extensions and libraries to preload
-          type: array
-          items:
-            type: string
-        image:
-          description: PostgreSQL image to use for the database instances
-          type: string
-    BranchMetrics:
-      description: A collection of metrics (cpu, memory, disk,...) for each of the instances of a branch
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        results:
-          description: One entry per requested metric, in the order the metrics were requested.
-          type: array
-          items:
-            $ref: '#/components/schemas/BranchMetricResult'
-      required:
-      - start
-      - end
-      - results
-    LogEntry:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-        instanceID:
-          type: string
-        level:
-          $ref: '#/components/schemas/LogLevel'
-        message:
-          type: string
-        process:
-          description: Name of the PostgreSQL process that emitted the log
-          type: string
-      required:
-      - timestamp
-      - instanceID
-      - message
-    LogFilter:
-      description: A single filter on log entries.
-      type: object
-      properties:
-        field:
-          description: Log attribute to filter on.
-          type: string
-          enum:
-          - instance
-          - level
-          - process
-          - body
-        op:
-          description: Match operator.
-          type: string
-          enum:
-          - in
-          - contains
-          - icontains
-          - regex
-          - iregex
-        values:
-          description: 'Used with `op: in`.'
-          type: array
-          items:
-            type: string
-        value:
-          description: Used with the body operators.
-          type: string
-      required:
-      - field
-      - op
-    BackupConfiguration:
-      description: Details about the branch continuous backup configuration
-      type: object
-      properties:
-        retentionPeriod:
-          description: how long are we keeping the backups around for
-          type: integer
-          format: int32
-          default: 2
-          maximum: 35
-          minimum: 2
-        backupTime:
-          description: time of day/week when we are taking a full backup
-          type: string
-          pattern: ^(\*|[0-6]):(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$
-      x-excluded: true
-      x-internal: true
-    BranchCredentials:
-      description: Credentials for accessing a branch, username and password
-      type: object
-      properties:
-        username:
-          description: Username for accessing the branch database
-          type: string
-        password:
-          description: Password for accessing the branch database
-          type: string
-      required:
-      - username
-      - password
-      x-internal: true
     BranchMetadata:
       description: Detailed metadata about a branch, including its status and configuration
       type: object
@@ -1182,6 +714,150 @@ components:
       - publicAccess
       - backupsEnabled
       - scaleToZero
+    BranchMetricName:
+      description: Name of a branch metric exposed by the API.
+      type: string
+      enum:
+      - cpu
+      - memory
+      - disk
+      - connections_active
+      - connections_idle
+      - network_ingress
+      - network_egress
+      - iops_read
+      - iops_write
+      - latency_read
+      - latency_write
+      - throughput_read
+      - throughput_write
+      - wal_sync_time
+      - replication_lag_time
+    BranchLogsRequest:
+      type: object
+      properties:
+        start:
+          description: Start time
+          type: string
+          format: date-time
+        end:
+          description: End time
+          type: string
+          format: date-time
+        filters:
+          description: Filters applied to log entries. Multiple filters are combined with AND.
+          type: array
+          items:
+            $ref: '#/components/schemas/LogFilter'
+        limit:
+          type: integer
+          default: 100
+          maximum: 200
+          minimum: 1
+        cursor:
+          description: Pagination cursor from a previous response
+          type: string
+      required:
+      - start
+      - end
+    BranchLogs:
+      description: A collection of logs for each of the instances of a branch
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogEntry'
+        nextCursor:
+          description: Pagination cursor for the next page
+          type:
+          - string
+          - 'null'
+      required:
+      - start
+      - end
+      - logs
+      - nextCursor
+    BranchListMetadata:
+      description: Metadata about a branch used when listing branches in a project
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the branch
+          type: string
+        name:
+          description: Human-readable name of the branch
+          type: string
+        description:
+          description: Optional description of the branch purpose or contents
+          type: string
+        createdAt:
+          description: Timestamp when the branch was created
+          type: string
+          format: date-time
+        updatedAt:
+          description: Timestamp when the branch was last updated
+          type: string
+          format: date-time
+        parentID:
+          description: Identifier of the parent branch if this is a derived branch, null otherwise
+          type:
+          - string
+          - 'null'
+        region:
+          description: Geographic region where the branch is deployed
+          type: string
+        publicAccess:
+          description: Whether the branch allows public access without authentication
+          type: boolean
+        backupsEnabled:
+          description: Whether the branch is in a region that supports backups
+          type: boolean
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      - region
+      - publicAccess
+      - backupsEnabled
+    BackupConfiguration:
+      description: Details about the branch continuous backup configuration
+      type: object
+      properties:
+        retentionPeriod:
+          description: how long are we keeping the backups around for
+          type: integer
+          format: int32
+          default: 2
+          maximum: 35
+          minimum: 2
+        backupTime:
+          description: time of day/week when we are taking a full backup
+          type: string
+          pattern: ^(\*|[0-6]):(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$
+      x-excluded: true
+      x-internal: true
+    BranchCredentials:
+      description: Credentials for accessing a branch, username and password
+      type: object
+      properties:
+        username:
+          description: Username for accessing the branch database
+          type: string
+        password:
+          description: Password for accessing the branch database
+          type: string
+      required:
+      - username
+      - password
+      x-internal: true
     PostgresConfigParameter:
       description: Detailed information about a single PostgreSQL configuration parameter
       type: object
@@ -1252,6 +928,319 @@ components:
       - documentationLink
       - recommendation
       - section
+    BranchFromConfiguration:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum:
+          - custom
+        configuration:
+          $ref: '#/components/schemas/ClusterConfiguration'
+      required:
+      - mode
+      - configuration
+    BranchMetricsRequest:
+      type: object
+      properties:
+        start:
+          description: Start time
+          type: string
+          format: date-time
+        end:
+          description: End time
+          type: string
+          format: date-time
+        metrics:
+          description: List of metric names to query.
+          type: array
+          items:
+            $ref: '#/components/schemas/BranchMetricName'
+          maxItems: 15
+          minItems: 1
+        instances:
+          description: List of instance IDs to query
+          type: array
+          items:
+            type: string
+        aggregations:
+          description: List of aggregations to get, this is how the data-points within the interval are aggregated. Each one will generate a separate time-series per metric in the response.
+          type: array
+          items:
+            type: string
+            enum:
+            - avg
+            - max
+            - min
+      required:
+      - start
+      - end
+      - metrics
+      - aggregations
+    BranchUpdateDetails:
+      description: Details that can be updated for an existing branch
+      type: object
+      properties:
+        name:
+          description: New name for the branch
+          type: string
+        description:
+          description: New description for the branch (max 50 characters)
+          type: string
+          maximum: 50
+          pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9- ]*$
+        replicas:
+          description: Number of database replicas to scale to
+          type: integer
+          format: int32
+          maximum: 4
+          minimum: 0
+        storage:
+          description: Branch storage in GiB (gigabytes)
+          type: integer
+          format: int32
+          maximum: 250
+        instanceType:
+          description: New instance type for the branch
+          type: string
+        backupConfiguration:
+          $ref: '#/components/schemas/BackupConfiguration'
+        hibernate:
+          description: Enabled when the branch should be hibernated, disabled if it needs to be reactivated.
+          type: boolean
+        scaleToZero:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+        postgresConfigurationParameters:
+          description: Arbitrary PostgreSQL configuration parameters for the cluster
+          type: object
+          additionalProperties:
+            type: string
+        preloadLibraries:
+          description: List of PostgreSQL extensions and libraries to preload
+          type: array
+          items:
+            type: string
+        image:
+          description: PostgreSQL image to use for the database instances
+          type: string
+    ClusterConfiguration:
+      description: Configuration details for a database cluster backing a branch
+      type: object
+      properties:
+        region:
+          description: Geographic region where the cluster will be deployed
+          type: string
+        storage:
+          description: Branch storage in GiB (gigabytes)
+          type: integer
+          format: int32
+          maximum: 250
+        instanceType:
+          description: The instance type according to the xata instance types available
+          type: string
+        image:
+          description: PostgreSQL image to use for the database instances
+          type: string
+        replicas:
+          description: Number of replicas in the branch. Every child branch is created with no replicas. This can be updated.
+          type: integer
+          format: int32
+          maximum: 4
+          minimum: 0
+        postgresConfigurationParameters:
+          description: Arbitrary PostgreSQL configuration parameters for the cluster
+          type: object
+          additionalProperties:
+            type: string
+        preloadLibraries:
+          description: List of PostgreSQL extensions and libraries to preload
+          type: array
+          items:
+            type: string
+      required:
+      - image
+      - region
+      - instanceType
+      - replicas
+    BranchFromParent:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum:
+          - inherit
+        parentID:
+          description: If present, the branch will inherit the parent branch configuration and data
+          type: string
+      required:
+      - mode
+      - parentID
+    RestoreDetails:
+      description: Metadata about a backup, used in request to create a restore. If configuration is not provided, the branch will inherit the source branch configuration.
+      type: object
+      properties:
+        name:
+          description: Human-readable name of the branch
+          type: string
+        description:
+          description: Optional description of the branch purpose or contents
+          type: string
+        scaleToZero:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+        backupConfiguration:
+          $ref: '#/components/schemas/BackupConfiguration'
+        configuration:
+          $ref: '#/components/schemas/ClusterConfiguration'
+      required:
+      - name
+      x-excluded: true
+      x-internal: true
+    RotateCredentialsRequest:
+      description: Request to rotate credentials for a branch database user
+      type: object
+      properties:
+        username:
+          description: Database username to rotate credentials for
+          type: string
+      required:
+      - username
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    LogLevel:
+      description: Log level enumeration
+      type: string
+      enum:
+      - debug
+      - info
+      - warning
+      - error
+    PostgresConfigDetails:
+      description: Detailed information about PostgreSQL configuration parameters for a branch
+      type: object
+      properties:
+        parameters:
+          description: Array of PostgreSQL configuration parameters with detailed information
+          items:
+            $ref: '#/components/schemas/PostgresConfigParameter'
+          type: array
+      required:
+      - parameters
+    BranchShortMetadata:
+      description: Basic metadata about a branch, used in response to create/update operations
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the branch
+          type: string
+        name:
+          description: Human-readable name of the branch
+          type: string
+        description:
+          description: Optional description of the branch purpose or contents
+          type: string
+        createdAt:
+          description: Timestamp when the branch was created
+          type: string
+          format: date-time
+        updatedAt:
+          description: Timestamp when the branch was last updated
+          type: string
+          format: date-time
+        parentID:
+          description: Identifier of the parent branch if this is a derived branch, null otherwise
+          type:
+          - string
+          - 'null'
+        connectionString:
+          description: Database connection string for accessing this branch
+          type:
+          - string
+          - 'null'
+        region:
+          description: Geographic region where the branch is deployed
+          type: string
+        publicAccess:
+          description: Whether the branch allows public access without authentication
+          type: boolean
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      - region
+      - publicAccess
+    InstanceStatus:
+      description: Status information about an individual database instance within a cluster
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the database instance
+          type: string
+          title: Instance unique ID
+        status:
+          description: Current operational status of the instance
+          type: string
+          title: Current status of the instance
+        primary:
+          description: Indicates if this instance is currently the primary (write) instance
+          type: boolean
+          title: Whether the instance is the primary
+        targetPrimary:
+          description: Indicates if this instance is the target primary during a failover operation
+          type: boolean
+          title: Whether the cluster is switching and this is the target primary
+      required:
+      - id
+      - status
+      - primary
+      - targetPrimary
+      title: Status of an instance in the cluster
+    ClusterLifecycle:
+      description: Information about the current lifecycle state of a database cluster
+      type: object
+      properties:
+        state:
+          description: Current operational state of the cluster (ready, creating, updating, etc.)
+          enum:
+          - ready
+          - creating
+          - updating
+          - upgrading
+          - unknown
+          title: Current state in the cluster lifecycle
+        reason:
+          description: Reason for the current lifecycle state, especially useful for non-ready states
+          type: string
+        phase:
+          description: Current phase within the lifecycle process
+          type: string
+      deprecated: true
+      required:
+      - state
+      - phase
+    LogEntry:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        instanceID:
+          type: string
+        level:
+          $ref: '#/components/schemas/LogLevel'
+        message:
+          type: string
+        process:
+          description: Name of the PostgreSQL process that emitted the log
+          type: string
+      required:
+      - timestamp
+      - instanceID
+      - message
     BranchStatus:
       description: Detailed status information about a branch and its underlying database cluster
       type: object
@@ -1299,32 +1288,43 @@ components:
       - instanceCount
       - instanceReadyCount
       - instances
-    InstanceStatus:
-      description: Status information about an individual database instance within a cluster
+    BranchMetricResult:
+      description: Time-series for a single metric.
       type: object
       properties:
-        id:
-          description: Unique identifier for the database instance
+        metric:
+          description: Name of the queried metric.
           type: string
-          title: Instance unique ID
-        status:
-          description: Current operational status of the instance
+        unit:
+          description: Unit of the metric (percentage, bytes, ms, etc.)
           type: string
-          title: Current status of the instance
-        primary:
-          description: Indicates if this instance is currently the primary (write) instance
-          type: boolean
-          title: Whether the instance is the primary
-        targetPrimary:
-          description: Indicates if this instance is the target primary during a failover operation
-          type: boolean
-          title: Whether the cluster is switching and this is the target primary
+        series:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricSeries'
       required:
-      - id
-      - status
-      - primary
-      - targetPrimary
-      title: Status of an instance in the cluster
+      - metric
+      - unit
+      - series
+    BranchMetrics:
+      description: A collection of metrics (cpu, memory, disk,...) for each of the instances of a branch
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        results:
+          description: One entry per requested metric, in the order the metrics were requested.
+          type: array
+          items:
+            $ref: '#/components/schemas/BranchMetricResult'
+      required:
+      - start
+      - end
+      - results
   responses:
     AuthorizationError:
       description: Error response when authentication or authorization fails
@@ -1341,21 +1341,6 @@ components:
                 type: string
             required:
             - message
-    PreconditionFailedError:
-      description: Error response when a precondition for the request is not met
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the precondition failure
-                type: string
-            required:
-            - message
     GenericError:
       description: Generic error response for most error conditions
       content:
@@ -1368,6 +1353,21 @@ components:
                 type: string
               message:
                 description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    PreconditionFailedError:
+      description: Error response when a precondition for the request is not met
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the precondition failure
                 type: string
             required:
             - message
