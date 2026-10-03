@@ -205,67 +205,6 @@ paths:
       x-excluded: true
 components:
   schemas:
-    BillingUpcomingInvoiceResponse:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        amount_due:
-          description: Decimal amount due.
-          type: number
-          format: double
-        currency:
-          type: string
-        target_date:
-          type: string
-          format: date-time
-        subtotal:
-          description: Decimal subtotal.
-          type: number
-          format: double
-        total:
-          description: Decimal total.
-          type: number
-          format: double
-        hosted_invoice_url:
-          type:
-          - string
-          - 'null'
-          format: uri
-      required:
-      - created_at
-      - amount_due
-      - currency
-      - target_date
-      - subtotal
-      - total
-      - hosted_invoice_url
-    BillingCheckoutSessionResponse:
-      type: object
-      properties:
-        url:
-          description: Stripe checkout session URL
-          type: string
-          format: uri
-      required:
-      - url
-    BillingPaymentMethodCard:
-      type: object
-      properties:
-        brand:
-          type: string
-        last4:
-          type: string
-        expiry_month:
-          type: integer
-        expiry_year:
-          type: integer
-      required:
-      - brand
-      - last4
-      - expiry_month
-      - expiry_year
     UpdateBillingCustomerRequest:
       type: object
       properties:
@@ -274,54 +213,6 @@ components:
           format: email
       required:
       - billing_email
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type:
-          - string
-          - 'null'
-      required:
-      - has_more
-      - next_cursor
-    BillingInvoice:
-      type: object
-      properties:
-        id:
-          type: string
-        invoice_number:
-          type: string
-        amount_due:
-          description: Decimal amount due.
-          type: number
-          format: double
-        currency:
-          type: string
-        invoice_date:
-          type: string
-          format: date-time
-        status:
-          type: string
-          enum:
-          - draft
-          - issued
-          - paid
-          - void
-          - synced
-        invoice_pdf:
-          type:
-          - string
-          - 'null'
-      required:
-      - id
-      - invoice_number
-      - amount_due
-      - currency
-      - invoice_date
-      - status
-      - invoice_pdf
     BillingCustomerResponse:
       type: object
       properties:
@@ -347,6 +238,22 @@ components:
       - default_payment_method
       - credits
       - credit_details
+    BillingCheckoutSessionResponse:
+      type: object
+      properties:
+        url:
+          description: Stripe checkout session URL
+          type: string
+          format: uri
+      required:
+      - url
+    BillingPaymentMethod:
+      type: object
+      properties:
+        card:
+          $ref: '#/components/schemas/BillingPaymentMethodCard'
+      required:
+      - card
     BillingCreditDetails:
       type: object
       properties:
@@ -395,28 +302,6 @@ components:
       - total_active_credits
       - days_until_last_active_credit_expiry
       - days_until_last_expiry_with_balance
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    BillingPaymentMethod:
-      type: object
-      properties:
-        card:
-          $ref: '#/components/schemas/BillingPaymentMethodCard'
-      required:
-      - card
-    BillingPaymentMethodSessionResponse:
-      type: object
-      properties:
-        url:
-          description: Stripe payment method session URL
-          type: string
-          format: uri
-      required:
-      - url
     BillingInvoicesResponse:
       type: object
       properties:
@@ -429,6 +314,90 @@ components:
       required:
       - data
       - pagination_metadata
+    BillingUpcomingInvoiceResponse:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        amount_due:
+          description: Decimal amount due.
+          type: number
+          format: double
+        currency:
+          type: string
+        target_date:
+          type: string
+          format: date-time
+        subtotal:
+          description: Decimal subtotal.
+          type: number
+          format: double
+        total:
+          description: Decimal total.
+          type: number
+          format: double
+        hosted_invoice_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+      required:
+      - created_at
+      - amount_due
+      - currency
+      - target_date
+      - subtotal
+      - total
+      - hosted_invoice_url
+    BillingInvoice:
+      type: object
+      properties:
+        id:
+          type: string
+        invoice_number:
+          type: string
+        amount_due:
+          description: Decimal amount due.
+          type: number
+          format: double
+        currency:
+          type: string
+        invoice_date:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - draft
+          - issued
+          - paid
+          - void
+          - synced
+        invoice_pdf:
+          type:
+          - string
+          - 'null'
+      required:
+      - id
+      - invoice_number
+      - amount_due
+      - currency
+      - invoice_date
+      - status
+      - invoice_pdf
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type:
+          - string
+          - 'null'
+      required:
+      - has_more
+      - next_cursor
     BillingCredit:
       type: object
       properties:
@@ -464,14 +433,37 @@ components:
       - expiry_date
       - maximum_initial_balance
       - status
-  parameters:
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
+    BillingPaymentMethodCard:
+      type: object
+      properties:
+        brand:
+          type: string
+        last4:
+          type: string
+        expiry_month:
+          type: integer
+        expiry_year:
+          type: integer
+      required:
+      - brand
+      - last4
+      - expiry_month
+      - expiry_year
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    BillingPaymentMethodSessionResponse:
+      type: object
+      properties:
+        url:
+          description: Stripe payment method session URL
+          type: string
+          format: uri
+      required:
+      - url
   responses:
     SimpleError:
       description: Generic error response
@@ -520,6 +512,14 @@ components:
               message: invalid API key
             required:
             - message
+  parameters:
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
   securitySchemes:
     oidc:
       type: openIdConnect

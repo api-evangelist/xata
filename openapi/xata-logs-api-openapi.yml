@@ -141,6 +141,12 @@ components:
       - timestamp
       - instanceID
       - message
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
     BranchLogs:
       description: A collection of logs for each of the instances of a branch
       type: object
@@ -165,12 +171,6 @@ components:
       - end
       - logs
       - nextCursor
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
     LogLevel:
       description: Log level enumeration
       type: string

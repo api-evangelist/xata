@@ -469,15 +469,44 @@ paths:
       - Organizations
 components:
   schemas:
-    CreateOrganizationInvitationRequest:
+    Organization:
+      description: Organization details including ID and name
       type: object
       properties:
-        email:
-          description: Email address of the user to invite
+        id:
+          description: Unique identifier for the organization
+          $ref: '#/components/schemas/OrganizationID'
+        name:
+          description: Human-readable name of the organization
           type: string
-          format: email
+        status:
+          description: Current status of the organization
+          $ref: '#/components/schemas/OrganizationStatus'
+        marketplace:
+          description: Marketplace provider for this organization (e.g. "aws"), if billed through a marketplace
+          type:
+          - string
+          - 'null'
       required:
-      - email
+      - id
+      - name
+      - status
+    UserWithID:
+      allOf:
+      - $ref: '#/components/schemas/User'
+      - type: object
+        description: Extended user object that includes the unique user identifier
+        properties:
+          id:
+            $ref: '#/components/schemas/UserID'
+        required:
+        - id
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
     User:
       description: User information including email, full name, and profile image
       type: object
@@ -492,6 +521,23 @@ components:
       required:
       - name
       - email
+    OrganizationMembershipLimits:
+      description: Membership limits for an organization
+      type: object
+      properties:
+        maxMembers:
+          description: Maximum number of members allowed in the organization
+          type: integer
+          minimum: 1
+          title: Maximum number of organization members
+        maxInvites:
+          description: Maximum number of pending invitations allowed at once
+          type: integer
+          minimum: 1
+          title: Maximum number of pending invitations
+      required:
+      - maxMembers
+      - maxInvites
     OrganizationStatus:
       type: object
       properties:
@@ -539,15 +585,15 @@ components:
       - billing_status
       - usage_tier
       - last_updated
-    CreateOrganizationRequest:
-      description: Request payload for creating a new organization
+    CreateOrganizationInvitationRequest:
       type: object
       properties:
-        name:
-          description: Name for the new organization
+        email:
+          description: Email address of the user to invite
           type: string
+          format: email
       required:
-      - name
+      - email
     OrganizationInvitation:
       type: object
       properties:
@@ -595,61 +641,6 @@ components:
       - created_at
       - expires_at
       - status
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    UserWithID:
-      allOf:
-      - $ref: '#/components/schemas/User'
-      - type: object
-        description: Extended user object that includes the unique user identifier
-        properties:
-          id:
-            $ref: '#/components/schemas/UserID'
-        required:
-        - id
-    Organization:
-      description: Organization details including ID and name
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the organization
-          $ref: '#/components/schemas/OrganizationID'
-        name:
-          description: Human-readable name of the organization
-          type: string
-        status:
-          description: Current status of the organization
-          $ref: '#/components/schemas/OrganizationStatus'
-        marketplace:
-          description: Marketplace provider for this organization (e.g. "aws"), if billed through a marketplace
-          type:
-          - string
-          - 'null'
-      required:
-      - id
-      - name
-      - status
-    OrganizationMembershipLimits:
-      description: Membership limits for an organization
-      type: object
-      properties:
-        maxMembers:
-          description: Maximum number of members allowed in the organization
-          type: integer
-          minimum: 1
-          title: Maximum number of organization members
-        maxInvites:
-          description: Maximum number of pending invitations allowed at once
-          type: integer
-          minimum: 1
-          title: Maximum number of pending invitations
-      required:
-      - maxMembers
-      - maxInvites
     UserID:
       description: Unique identifier for a user account
       type: string
@@ -657,28 +648,15 @@ components:
       title: UserID
       x-oapi-codegen-extra-tags:
         validate: identifier
-  parameters:
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
-    InvitationIDParam:
-      name: invitationID
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Unique identifier for an invitation
-    UserIDParam:
-      name: userID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/UserID'
-      description: Unique identifier for a specific user account
+    CreateOrganizationRequest:
+      description: Request payload for creating a new organization
+      type: object
+      properties:
+        name:
+          description: Name for the new organization
+          type: string
+      required:
+      - name
   responses:
     SimpleError:
       description: Generic error response
@@ -727,6 +705,28 @@ components:
               message: invalid API key
             required:
             - message
+  parameters:
+    InvitationIDParam:
+      name: invitationID
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Unique identifier for an invitation
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
+    UserIDParam:
+      name: userID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UserID'
+      description: Unique identifier for a specific user account
   securitySchemes:
     oidc:
       type: openIdConnect

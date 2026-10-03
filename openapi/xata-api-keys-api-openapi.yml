@@ -216,14 +216,6 @@ paths:
       tags:
       - API Keys
 components:
-  parameters:
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
   schemas:
     CreateAPIKeyRequest:
       type: object
@@ -430,6 +422,14 @@ components:
               message: invalid API key
             required:
             - message
+  parameters:
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
   securitySchemes:
     oidc:
       type: openIdConnect

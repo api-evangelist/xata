@@ -63,44 +63,56 @@ paths:
       tags:
       - Metrics
 components:
+  responses:
+    AuthorizationError:
+      description: Error response when authentication or authorization fails
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the authentication or authorization issue
+                type: string
+            required:
+            - message
+    GenericError:
+      description: Generic error response for most error conditions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
   schemas:
-    BranchMetricsRequest:
+    BranchMetricResult:
+      description: Time-series for a single metric.
       type: object
       properties:
-        start:
-          description: Start time
+        metric:
+          description: Name of the queried metric.
           type: string
-          format: date-time
-        end:
-          description: End time
+        unit:
+          description: Unit of the metric (percentage, bytes, ms, etc.)
           type: string
-          format: date-time
-        metrics:
-          description: List of metric names to query.
+        series:
           type: array
           items:
-            $ref: '#/components/schemas/BranchMetricName'
-          maxItems: 15
-          minItems: 1
-        instances:
-          description: List of instance IDs to query
-          type: array
-          items:
-            type: string
-        aggregations:
-          description: List of aggregations to get, this is how the data-points within the interval are aggregated. Each one will generate a separate time-series per metric in the response.
-          type: array
-          items:
-            type: string
-            enum:
-            - avg
-            - max
-            - min
+            $ref: '#/components/schemas/MetricSeries'
       required:
-      - start
-      - end
-      - metrics
-      - aggregations
+      - metric
+      - unit
+      - series
     BranchMetricName:
       description: Name of a branch metric exposed by the API.
       type: string
@@ -157,24 +169,43 @@ components:
       pattern: '[a-zA-Z0-9_-~:]+'
       x-oapi-codegen-extra-tags:
         validate: identifier
-    BranchMetricResult:
-      description: Time-series for a single metric.
+    BranchMetricsRequest:
       type: object
       properties:
-        metric:
-          description: Name of the queried metric.
+        start:
+          description: Start time
           type: string
-        unit:
-          description: Unit of the metric (percentage, bytes, ms, etc.)
+          format: date-time
+        end:
+          description: End time
           type: string
-        series:
+          format: date-time
+        metrics:
+          description: List of metric names to query.
           type: array
           items:
-            $ref: '#/components/schemas/MetricSeries'
+            $ref: '#/components/schemas/BranchMetricName'
+          maxItems: 15
+          minItems: 1
+        instances:
+          description: List of instance IDs to query
+          type: array
+          items:
+            type: string
+        aggregations:
+          description: List of aggregations to get, this is how the data-points within the interval are aggregated. Each one will generate a separate time-series per metric in the response.
+          type: array
+          items:
+            type: string
+            enum:
+            - avg
+            - max
+            - min
       required:
-      - metric
-      - unit
-      - series
+      - start
+      - end
+      - metrics
+      - aggregations
     BranchMetrics:
       description: A collection of metrics (cpu, memory, disk,...) for each of the instances of a branch
       type: object
@@ -194,37 +225,6 @@ components:
       - start
       - end
       - results
-  responses:
-    AuthorizationError:
-      description: Error response when authentication or authorization fails
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the authentication or authorization issue
-                type: string
-            required:
-            - message
-    GenericError:
-      description: Generic error response for most error conditions
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            required:
-            - message
   securitySchemes:
     oidc:
       type: openIdConnect
