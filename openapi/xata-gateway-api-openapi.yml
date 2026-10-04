@@ -238,17 +238,72 @@ paths:
       - Gateway
 components:
   schemas:
-    BatchResponse:
-      description: Response for a batch query execution.
+    SQLRequest:
+      description: SQL query request. Provide either `query` for a single query or `queries` for a batch.
       type: object
       properties:
-        results:
-          description: Results for each query in the batch, in order.
+        query:
+          description: SQL query to execute (single query mode).
+          type: string
+        params:
+          description: Positional parameters for the query (`$1`, `$2`, ...).
+          type: array
+          items: {}
+        queries:
+          description: Array of queries for batch execution within a single transaction.
           type: array
           items:
-            $ref: '#/components/schemas/QueryResult'
+            $ref: '#/components/schemas/QueryItem'
+        arrayMode:
+          description: Override array mode for this query (single query mode only).
+          type: boolean
+    QueryResult:
+      description: Result of a single SQL query execution.
+      type: object
+      properties:
+        fields:
+          description: Column metadata for the result set.
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldDefinition'
+        command:
+          description: PostgreSQL command tag (e.g. `SELECT`, `INSERT`, `UPDATE`, `DELETE`).
+          type: string
+        rowCount:
+          description: Number of rows affected by the command.
+          type:
+          - integer
+          - 'null'
+        rows:
+          description: Result rows. Each row is an object (column-name keys) or an array (when array mode is enabled).
+          type: array
+          items: {}
+          x-go-type: any
+        rowAsArray:
+          description: Whether rows are returned as arrays (`true`) or objects (`false`).
+          type: boolean
       required:
-      - results
+      - fields
+      - command
+      - rowCount
+      - rows
+      - rowAsArray
+    QueryItem:
+      description: A single query within a batch request.
+      type: object
+      properties:
+        query:
+          description: SQL query to execute.
+          type: string
+        params:
+          description: Positional parameters for the query.
+          type: array
+          items: {}
+        arrayMode:
+          description: Override array mode for this individual query.
+          type: boolean
+      required:
+      - query
     ErrorResponse:
       description: Error response with PostgreSQL error fields.
       type: object
@@ -306,53 +361,6 @@ components:
           type: string
       required:
       - message
-    QueryResult:
-      description: Result of a single SQL query execution.
-      type: object
-      properties:
-        fields:
-          description: Column metadata for the result set.
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldDefinition'
-        command:
-          description: PostgreSQL command tag (e.g. `SELECT`, `INSERT`, `UPDATE`, `DELETE`).
-          type: string
-        rowCount:
-          description: Number of rows affected by the command.
-          type:
-          - integer
-          - 'null'
-        rows:
-          description: Result rows. Each row is an object (column-name keys) or an array (when array mode is enabled).
-          type: array
-          items: {}
-          x-go-type: any
-        rowAsArray:
-          description: Whether rows are returned as arrays (`true`) or objects (`false`).
-          type: boolean
-      required:
-      - fields
-      - command
-      - rowCount
-      - rows
-      - rowAsArray
-    QueryItem:
-      description: A single query within a batch request.
-      type: object
-      properties:
-        query:
-          description: SQL query to execute.
-          type: string
-        params:
-          description: Positional parameters for the query.
-          type: array
-          items: {}
-        arrayMode:
-          description: Override array mode for this individual query.
-          type: boolean
-      required:
-      - query
     FieldDefinition:
       description: PostgreSQL column metadata from the row description message.
       type: object
@@ -395,25 +403,17 @@ components:
       - dataTypeSize
       - dataTypeModifier
       - format
-    SQLRequest:
-      description: SQL query request. Provide either `query` for a single query or `queries` for a batch.
+    BatchResponse:
+      description: Response for a batch query execution.
       type: object
       properties:
-        query:
-          description: SQL query to execute (single query mode).
-          type: string
-        params:
-          description: Positional parameters for the query (`$1`, `$2`, ...).
-          type: array
-          items: {}
-        queries:
-          description: Array of queries for batch execution within a single transaction.
+        results:
+          description: Results for each query in the batch, in order.
           type: array
           items:
-            $ref: '#/components/schemas/QueryItem'
-        arrayMode:
-          description: Override array mode for this query (single query mode only).
-          type: boolean
+            $ref: '#/components/schemas/QueryResult'
+      required:
+      - results
   securitySchemes:
     oidc:
       type: openIdConnect

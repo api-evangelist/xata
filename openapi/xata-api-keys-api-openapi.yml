@@ -216,7 +216,69 @@ paths:
       tags:
       - API Keys
 components:
+  parameters:
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
+  responses:
+    BadRequestError:
+      description: Error returned when the request is malformed or contains invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    AuthError:
+      description: Error returned when authentication or authorization fails
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            example:
+              message: invalid API key
+            required:
+            - message
+    SimpleError:
+      description: Generic error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
   schemas:
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
     CreateAPIKeyRequest:
       type: object
       properties:
@@ -310,12 +372,6 @@ components:
       - scopes
       - projects
       - branches
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
     APIKeyPreview:
       type: object
       properties:
@@ -374,62 +430,6 @@ components:
       - scopes
       - projects
       - branches
-  responses:
-    SimpleError:
-      description: Generic error response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            required:
-            - message
-    BadRequestError:
-      description: Error returned when the request is malformed or contains invalid parameters
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            required:
-            - message
-    AuthError:
-      description: Error returned when authentication or authorization fails
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            example:
-              message: invalid API key
-            required:
-            - message
-  parameters:
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
   securitySchemes:
     oidc:
       type: openIdConnect

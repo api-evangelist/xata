@@ -676,6 +676,31 @@ paths:
       x-internal: true
 components:
   schemas:
+    IPFilteringConfiguration:
+      description: Configuration for IP filtering on project branches
+      type: object
+      properties:
+        enabled:
+          description: Whether IP filtering is enabled
+          type: boolean
+        cidr:
+          type: array
+          items:
+            $ref: '#/components/schemas/CidrEntry'
+      required:
+      - enabled
+      - cidr
+    ProjectScaleToZeroConfiguration:
+      description: Whether the project branches are configured to scale down to zero when not in use
+      type: object
+      properties:
+        baseBranches:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+        childBranches:
+          $ref: '#/components/schemas/ScaleToZeroConfiguration'
+      required:
+      - baseBranches
+      - childBranches
     OrganizationLimits:
       description: Effective resource limits for an organization, covering org-level defaults for all projects plus organization-specific constraints
       allOf:
@@ -715,6 +740,43 @@ components:
       required:
       - enabled
       - inactivityPeriodMinutes
+    Image:
+      description: Details of a postgres image
+      type: object
+      properties:
+        name:
+          description: Image name
+          type: string
+        majorVersion:
+          description: major postgres version
+          type: string
+        fullVersion:
+          description: full postgres version
+          type: string
+        region:
+          description: region where this instance type is available
+          type: array
+          items:
+            type: string
+            minItems: 1
+      required:
+      - name
+      - majorVersion
+      - fullVersion
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    UpdateProjectConfiguration:
+      description: Partial configuration update for a project
+      type: object
+      properties:
+        scaleToZero:
+          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
+        ipFiltering:
+          $ref: '#/components/schemas/IPFilteringConfiguration'
     Project:
       description: Details of a project including its ID, name, and creation/update timestamps
       type: object
@@ -741,66 +803,55 @@ components:
       - createdAt
       - updatedAt
       - configuration
-    Extension:
-      description: Details of a postgres extension
+    ProjectLimits:
+      description: Resource limits and constraints for projects within an organization
       type: object
       properties:
-        name:
-          description: Extension name
-          type: string
-        version:
-          description: Extension version
-          type: string
-        description:
-          description: Extension description
-          type: string
-        docs:
-          description: Documentation URL
-          type: string
-        preloadRequired:
-          description: is preload required for the extension or not
-          type: boolean
-        type:
-          description: type of installation
-          type: string
-          enum:
-          - extension
-          - plugin
-          - module
+        maxInstances:
+          description: Maximum number of database instances allowed per branch
+          type: integer
+          minimum: 1
+          title: Maximum number of instances in a branch
+        minInstances:
+          description: Minimum number of database instances required per branch
+          type: integer
+          minimum: 1
+          title: Minimum number of instances in a branch
+        maxDescriptionLength:
+          description: Maximum character length allowed for project descriptions
+          type: integer
+          minimum: 25
+          title: Maximum length of a project description
+        maxBranches:
+          description: Maximum number of branches allowed per project
+          type: integer
+          title: Maximum number of branches per project
       required:
-      - name
-      - description
-      - version
-      - docs
-      - preloadRequired
-      - type
-      x-excluded: true
-      x-internal: true
-    BackupMetadata:
-      description: metadata about a continuous backup
+      - maxInstances
+      - minInstances
+      - maxDescriptionLength
+      - maxBranches
+    CidrEntry:
       type: object
       properties:
-        id:
-          description: unique identifier for the backup
+        cidr:
+          description: CIDR block (e.g., "192.168.0.0/24")
           type: string
-        branchID:
-          description: the branchID the branch associated with the backup
-          type: string
-        earliestRestore:
-          description: the earlies point in time available for restoring the branch
-          type: string
-          format: date-time
-        latestRestore:
-          description: the latest point in time available for restoring the branch
-          type: string
-          format: date-time
         description:
-          description: description of the backup
+          description: Optional label for the CIDR entry
           type: string
       required:
-      - id
-      - branchID
-      - description
+      - cidr
+    ProjectConfiguration:
+      description: Configuration details for a project, including its scale to zero settings
+      type: object
+      properties:
+        scaleToZero:
+          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
+        ipFiltering:
+          $ref: '#/components/schemas/IPFilteringConfiguration'
+      required:
+      - scaleToZero
     EffectiveProjectLimits:
       description: Full set of resource limits applicable to a project and its branches
       type: object
@@ -841,133 +892,67 @@ components:
       - minInstancesPerBranch
       - maxAllowedInstanceType
       - maxBranchesPerHour
-    Image:
-      description: Details of a postgres image
+    BackupMetadata:
+      description: metadata about a continuous backup
+      type: object
+      properties:
+        id:
+          description: unique identifier for the backup
+          type: string
+        branchID:
+          description: the branchID the branch associated with the backup
+          type: string
+        earliestRestore:
+          description: the earlies point in time available for restoring the branch
+          type: string
+          format: date-time
+        latestRestore:
+          description: the latest point in time available for restoring the branch
+          type: string
+          format: date-time
+        description:
+          description: description of the backup
+          type: string
+      required:
+      - id
+      - branchID
+      - description
+    Extension:
+      description: Details of a postgres extension
       type: object
       properties:
         name:
-          description: Image name
+          description: Extension name
           type: string
-        majorVersion:
-          description: major postgres version
-          type: string
-        fullVersion:
-          description: full postgres version
-          type: string
-        region:
-          description: region where this instance type is available
-          type: array
-          items:
-            type: string
-            minItems: 1
-      required:
-      - name
-      - majorVersion
-      - fullVersion
-    ProjectScaleToZeroConfiguration:
-      description: Whether the project branches are configured to scale down to zero when not in use
-      type: object
-      properties:
-        baseBranches:
-          $ref: '#/components/schemas/ScaleToZeroConfiguration'
-        childBranches:
-          $ref: '#/components/schemas/ScaleToZeroConfiguration'
-      required:
-      - baseBranches
-      - childBranches
-    UpdateProjectConfiguration:
-      description: Partial configuration update for a project
-      type: object
-      properties:
-        scaleToZero:
-          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
-        ipFiltering:
-          $ref: '#/components/schemas/IPFilteringConfiguration'
-    CidrEntry:
-      type: object
-      properties:
-        cidr:
-          description: CIDR block (e.g., "192.168.0.0/24")
+        version:
+          description: Extension version
           type: string
         description:
-          description: Optional label for the CIDR entry
+          description: Extension description
           type: string
-      required:
-      - cidr
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
-    ProjectLimits:
-      description: Resource limits and constraints for projects within an organization
-      type: object
-      properties:
-        maxInstances:
-          description: Maximum number of database instances allowed per branch
-          type: integer
-          minimum: 1
-          title: Maximum number of instances in a branch
-        minInstances:
-          description: Minimum number of database instances required per branch
-          type: integer
-          minimum: 1
-          title: Minimum number of instances in a branch
-        maxDescriptionLength:
-          description: Maximum character length allowed for project descriptions
-          type: integer
-          minimum: 25
-          title: Maximum length of a project description
-        maxBranches:
-          description: Maximum number of branches allowed per project
-          type: integer
-          title: Maximum number of branches per project
-      required:
-      - maxInstances
-      - minInstances
-      - maxDescriptionLength
-      - maxBranches
-    IPFilteringConfiguration:
-      description: Configuration for IP filtering on project branches
-      type: object
-      properties:
-        enabled:
-          description: Whether IP filtering is enabled
+        docs:
+          description: Documentation URL
+          type: string
+        preloadRequired:
+          description: is preload required for the extension or not
           type: boolean
-        cidr:
-          type: array
-          items:
-            $ref: '#/components/schemas/CidrEntry'
+        type:
+          description: type of installation
+          type: string
+          enum:
+          - extension
+          - plugin
+          - module
       required:
-      - enabled
-      - cidr
-    ProjectConfiguration:
-      description: Configuration details for a project, including its scale to zero settings
-      type: object
-      properties:
-        scaleToZero:
-          $ref: '#/components/schemas/ProjectScaleToZeroConfiguration'
-        ipFiltering:
-          $ref: '#/components/schemas/IPFilteringConfiguration'
-      required:
-      - scaleToZero
+      - name
+      - description
+      - version
+      - docs
+      - preloadRequired
+      - type
+      x-excluded: true
+      x-internal: true
   responses:
-    AuthorizationError:
-      description: Error response when authentication or authorization fails
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the authentication or authorization issue
-                type: string
-            required:
-            - message
     GenericError:
       description: Generic error response for most error conditions
       content:
@@ -980,6 +965,21 @@ components:
                 type: string
               message:
                 description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    AuthorizationError:
+      description: Error response when authentication or authorization fails
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the authentication or authorization issue
                 type: string
             required:
             - message

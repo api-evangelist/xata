@@ -213,40 +213,58 @@ components:
           format: email
       required:
       - billing_email
-    BillingCustomerResponse:
+    BillingPaymentMethodCard:
       type: object
       properties:
-        billing_email:
+        brand:
           type: string
-          format: email
-        has_payment_method:
-          description: True when the customer has a valid Stripe default card payment method.
-          type: boolean
-        default_payment_method:
-          description: The Stripe default card payment method, when one is configured and retrievable.
-          allOf:
-          - $ref: '#/components/schemas/BillingPaymentMethod'
-        credits:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingCredit'
-        credit_details:
-          $ref: '#/components/schemas/BillingCreditDetails'
+        last4:
+          type: string
+        expiry_month:
+          type: integer
+        expiry_year:
+          type: integer
       required:
-      - billing_email
-      - has_payment_method
-      - default_payment_method
-      - credits
-      - credit_details
-    BillingCheckoutSessionResponse:
+      - brand
+      - last4
+      - expiry_month
+      - expiry_year
+    BillingUpcomingInvoiceResponse:
       type: object
       properties:
-        url:
-          description: Stripe checkout session URL
+        created_at:
           type: string
+          format: date-time
+        amount_due:
+          description: Decimal amount due.
+          type: number
+          format: double
+        currency:
+          type: string
+        target_date:
+          type: string
+          format: date-time
+        subtotal:
+          description: Decimal subtotal.
+          type: number
+          format: double
+        total:
+          description: Decimal total.
+          type: number
+          format: double
+        hosted_invoice_url:
+          type:
+          - string
+          - 'null'
           format: uri
       required:
-      - url
+      - created_at
+      - amount_due
+      - currency
+      - target_date
+      - subtotal
+      - total
+      - hosted_invoice_url
     BillingPaymentMethod:
       type: object
       properties:
@@ -302,54 +320,33 @@ components:
       - total_active_credits
       - days_until_last_active_credit_expiry
       - days_until_last_expiry_with_balance
-    BillingInvoicesResponse:
+    OrganizationID:
+      title: OrganizationID
+      type: string
+      pattern: '[a-zA-Z0-9_-~:]+'
+      x-oapi-codegen-extra-tags:
+        validate: identifier
+    PaginationMetadata:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingInvoice'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
-      required:
-      - data
-      - pagination_metadata
-    BillingUpcomingInvoiceResponse:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-        amount_due:
-          description: Decimal amount due.
-          type: number
-          format: double
-        currency:
-          type: string
-        target_date:
-          type: string
-          format: date-time
-        subtotal:
-          description: Decimal subtotal.
-          type: number
-          format: double
-        total:
-          description: Decimal total.
-          type: number
-          format: double
-        hosted_invoice_url:
+        has_more:
+          type: boolean
+        next_cursor:
           type:
           - string
           - 'null'
+      required:
+      - has_more
+      - next_cursor
+    BillingCheckoutSessionResponse:
+      type: object
+      properties:
+        url:
+          description: Stripe checkout session URL
+          type: string
           format: uri
       required:
-      - created_at
-      - amount_due
-      - currency
-      - target_date
-      - subtotal
-      - total
-      - hosted_invoice_url
+      - url
     BillingInvoice:
       type: object
       properties:
@@ -386,18 +383,6 @@ components:
       - invoice_date
       - status
       - invoice_pdf
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type:
-          - string
-          - 'null'
-      required:
-      - has_more
-      - next_cursor
     BillingCredit:
       type: object
       properties:
@@ -433,28 +418,6 @@ components:
       - expiry_date
       - maximum_initial_balance
       - status
-    BillingPaymentMethodCard:
-      type: object
-      properties:
-        brand:
-          type: string
-        last4:
-          type: string
-        expiry_month:
-          type: integer
-        expiry_year:
-          type: integer
-      required:
-      - brand
-      - last4
-      - expiry_month
-      - expiry_year
-    OrganizationID:
-      title: OrganizationID
-      type: string
-      pattern: '[a-zA-Z0-9_-~:]+'
-      x-oapi-codegen-extra-tags:
-        validate: identifier
     BillingPaymentMethodSessionResponse:
       type: object
       properties:
@@ -464,22 +427,52 @@ components:
           format: uri
       required:
       - url
+    BillingInvoicesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingInvoice'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+      required:
+      - data
+      - pagination_metadata
+    BillingCustomerResponse:
+      type: object
+      properties:
+        billing_email:
+          type: string
+          format: email
+        has_payment_method:
+          description: True when the customer has a valid Stripe default card payment method.
+          type: boolean
+        default_payment_method:
+          description: The Stripe default card payment method, when one is configured and retrievable.
+          allOf:
+          - $ref: '#/components/schemas/BillingPaymentMethod'
+        credits:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingCredit'
+        credit_details:
+          $ref: '#/components/schemas/BillingCreditDetails'
+      required:
+      - billing_email
+      - has_payment_method
+      - default_payment_method
+      - credits
+      - credit_details
+  parameters:
+    OrganizationIDParam:
+      name: organizationID
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/OrganizationID'
+      description: Unique identifier for a specific organization
   responses:
-    SimpleError:
-      description: Generic error response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            required:
-            - message
     BadRequestError:
       description: Error returned when the request is malformed or contains invalid parameters
       content:
@@ -512,14 +505,21 @@ components:
               message: invalid API key
             required:
             - message
-  parameters:
-    OrganizationIDParam:
-      name: organizationID
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/OrganizationID'
-      description: Unique identifier for a specific organization
+    SimpleError:
+      description: Generic error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
   securitySchemes:
     oidc:
       type: openIdConnect

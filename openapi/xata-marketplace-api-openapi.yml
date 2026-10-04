@@ -52,23 +52,6 @@ paths:
       x-excluded: true
 components:
   responses:
-    AuthError:
-      description: Error returned when authentication or authorization fails
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the issue
-                type: string
-            example:
-              message: invalid API key
-            required:
-            - message
     BadRequestError:
       description: Error returned when the request is malformed or contains invalid parameters
       content:
@@ -97,6 +80,23 @@ components:
               message:
                 description: Human-readable error message explaining the issue
                 type: string
+            required:
+            - message
+    AuthError:
+      description: Error returned when authentication or authorization fails
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the issue
+                type: string
+            example:
+              message: invalid API key
             required:
             - message
   schemas:

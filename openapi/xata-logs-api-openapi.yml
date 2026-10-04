@@ -63,65 +63,6 @@ paths:
       - Logs
 components:
   schemas:
-    LogFilter:
-      description: A single filter on log entries.
-      type: object
-      properties:
-        field:
-          description: Log attribute to filter on.
-          type: string
-          enum:
-          - instance
-          - level
-          - process
-          - body
-        op:
-          description: Match operator.
-          type: string
-          enum:
-          - in
-          - contains
-          - icontains
-          - regex
-          - iregex
-        values:
-          description: 'Used with `op: in`.'
-          type: array
-          items:
-            type: string
-        value:
-          description: Used with the body operators.
-          type: string
-      required:
-      - field
-      - op
-    BranchLogsRequest:
-      type: object
-      properties:
-        start:
-          description: Start time
-          type: string
-          format: date-time
-        end:
-          description: End time
-          type: string
-          format: date-time
-        filters:
-          description: Filters applied to log entries. Multiple filters are combined with AND.
-          type: array
-          items:
-            $ref: '#/components/schemas/LogFilter'
-        limit:
-          type: integer
-          default: 100
-          maximum: 200
-          minimum: 1
-        cursor:
-          description: Pagination cursor from a previous response
-          type: string
-      required:
-      - start
-      - end
     LogEntry:
       type: object
       properties:
@@ -171,6 +112,38 @@ components:
       - end
       - logs
       - nextCursor
+    LogFilter:
+      description: A single filter on log entries.
+      type: object
+      properties:
+        field:
+          description: Log attribute to filter on.
+          type: string
+          enum:
+          - instance
+          - level
+          - process
+          - body
+        op:
+          description: Match operator.
+          type: string
+          enum:
+          - in
+          - contains
+          - icontains
+          - regex
+          - iregex
+        values:
+          description: 'Used with `op: in`.'
+          type: array
+          items:
+            type: string
+        value:
+          description: Used with the body operators.
+          type: string
+      required:
+      - field
+      - op
     LogLevel:
       description: Log level enumeration
       type: string
@@ -179,22 +152,34 @@ components:
       - info
       - warning
       - error
+    BranchLogsRequest:
+      type: object
+      properties:
+        start:
+          description: Start time
+          type: string
+          format: date-time
+        end:
+          description: End time
+          type: string
+          format: date-time
+        filters:
+          description: Filters applied to log entries. Multiple filters are combined with AND.
+          type: array
+          items:
+            $ref: '#/components/schemas/LogFilter'
+        limit:
+          type: integer
+          default: 100
+          maximum: 200
+          minimum: 1
+        cursor:
+          description: Pagination cursor from a previous response
+          type: string
+      required:
+      - start
+      - end
   responses:
-    AuthorizationError:
-      description: Error response when authentication or authorization fails
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                description: Error identifier for tracking and debugging
-                type: string
-              message:
-                description: Human-readable error message explaining the authentication or authorization issue
-                type: string
-            required:
-            - message
     GenericError:
       description: Generic error response for most error conditions
       content:
@@ -207,6 +192,21 @@ components:
                 type: string
               message:
                 description: Human-readable error message explaining the issue
+                type: string
+            required:
+            - message
+    AuthorizationError:
+      description: Error response when authentication or authorization fails
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                description: Error identifier for tracking and debugging
+                type: string
+              message:
+                description: Human-readable error message explaining the authentication or authorization issue
                 type: string
             required:
             - message
