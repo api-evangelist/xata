@@ -216,6 +216,9 @@ apis:
   - type: Documentation
     url: https://xata.io/docs/overview
 common:
+  - type: CapabilityMap
+    url: capabilities/xata-capability-edges.yml
+    name: Xata Business Capability Map
   - type: AgenticAccess
     url: agentic-access/xata-agentic-access.yml
   - type: TrustCenter
