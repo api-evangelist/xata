@@ -1,590 +1,594 @@
 {
+  "info": {
+    "_postman_id": "8e33785c-5baf-4040-88ed-450bd0b3191d",
+    "name": "Xata Metrics API",
+    "description": "Xata API\n\nContact Support:\n Name: help@xata.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T03:00:00.000Z",
+    "updatedAt": "2026-10-22T03:00:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8e33785c-5baf-4040-88ed-450bd0b3191d"
+  },
   "item": [
     {
-      "id": "f44fdb9f-f61b-40c8-adeb-b3e7c99b933f",
-      "name": "Metrics",
-      "description": {
-        "content": "Operations for retrieving observability metrics for a branch",
-        "type": "text/plain"
-      },
+      "name": "organizations",
       "item": [
         {
-          "id": "22e614bf-3e17-4806-8e8a-e9d2475cd0d7",
-          "name": "Retrieve branch metrics",
-          "request": {
-            "name": "Retrieve branch metrics",
-            "description": {
-              "content": "Returns time-series data for one or more metrics of a branch.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations",
-                ":organizationID",
-                "projects",
-                ":projectID",
-                "branches",
-                ":branchID",
-                "metrics"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "organizationID",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "projectID",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "branchID",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"<string>\"\n  ],\n  \"aggregations\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{organizationID}",
+          "item": [
             {
-              "id": "cf7e389a-6ad7-4e19-86cd-d1f5211b715e",
-              "name": "Metrics for a branch",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "metrics"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"<string>\"\n  ],\n  \"aggregations\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "projects",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{projectID}",
+                  "item": [
+                    {
+                      "name": "branches",
+                      "item": [
+                        {
+                          "name": "{branchID}",
+                          "item": [
+                            {
+                              "name": "metrics",
+                              "item": [
+                                {
+                                  "name": "Retrieve branch metrics",
+                                  "id": "53b3ce0e-8748-421b-a559-bfb7c334fa82",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "oauth2",
+                                      "oauth2": [
+                                        {
+                                          "key": "scope",
+                                          "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "authUrl",
+                                          "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "grant_type",
+                                          "value": "implicit",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"connections_active\"\n  ],\n  \"aggregations\": [\n    \"avg\",\n    \"avg\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/metrics",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "organizations",
+                                        ":organizationID",
+                                        "projects",
+                                        ":projectID",
+                                        "branches",
+                                        ":branchID",
+                                        "metrics"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "9b992d57-b1d8-4634-b424-cfa4eedcd642",
+                                          "key": "organizationID",
+                                          "value": "2z",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "947cb5f3-423e-4b3a-9f7c-4b71dc4f033f",
+                                          "key": "projectID",
+                                          "value": "<string>",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "0fdc6045-a804-4302-a97c-13134b15dde1",
+                                          "key": "branchID",
+                                          "value": "<string>",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    },
+                                    "description": "Returns time-series data for one or more metrics of a branch."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "d87e24a3-3f8e-4bb9-b40a-070cb5832f4b",
+                                      "name": "Metrics for a branch",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"connections_active\"\n  ],\n  \"aggregations\": [\n    \"avg\",\n    \"avg\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/metrics",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "metrics"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"results\": [\n    {\n      \"metric\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"series\": [\n        {\n          \"instanceID\": \"<string>\",\n          \"aggregation\": \"min\",\n          \"values\": [\n            {\n              \"timestamp\": \"<dateTime>\",\n              \"value\": \"<number>\"\n            },\n            {\n              \"timestamp\": \"<dateTime>\",\n              \"value\": \"<number>\"\n            }\n          ]\n        },\n        {\n          \"instanceID\": \"<string>\",\n          \"aggregation\": \"max\",\n          \"values\": [\n            {\n              \"timestamp\": \"<dateTime>\",\n              \"value\": \"<number>\"\n            },\n            {\n              \"timestamp\": \"<dateTime>\",\n              \"value\": \"<number>\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"metric\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"series\": [\n        {\n          \"instanceID\": \"<string>\",\n          \"aggregation\": \"avg\",\n          \"values\": [\n            {\n              \"timestamp\": \"<dateTime>\",\n              \"value\": \"<number>\"\n            },\n            {\n              \"timestamp\": \"<dateTime>\",\n              \"value\": \"<number>\"\n            }\n          ]\n        },\n        {\n          \"instanceID\": \"<string>\",\n          \"aggregation\": \"min\",\n          \"values\": [\n            {\n              \"timestamp\": \"<dateTime>\",\n              \"value\": \"<number>\"\n            },\n            {\n              \"timestamp\": \"<dateTime>\",\n              \"value\": \"<number>\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                                      "createdAt": "2026-10-22T03:00:01.000Z",
+                                      "updatedAt": "2026-10-22T03:00:01.000Z",
+                                      "uid": "35240-d87e24a3-3f8e-4bb9-b40a-070cb5832f4b"
+                                    },
+                                    {
+                                      "id": "e98675ed-519c-4c5b-bfc5-b16bfca91741",
+                                      "name": "Generic error response for most error conditions",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"connections_active\"\n  ],\n  \"aggregations\": [\n    \"avg\",\n    \"avg\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/metrics",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "metrics"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-22T03:00:01.000Z",
+                                      "updatedAt": "2026-10-22T03:00:01.000Z",
+                                      "uid": "35240-e98675ed-519c-4c5b-bfc5-b16bfca91741"
+                                    },
+                                    {
+                                      "id": "7e779663-ffd8-4cd2-9f45-7b8b2318b632",
+                                      "name": "Error response when authentication or authorization fails",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"connections_active\"\n  ],\n  \"aggregations\": [\n    \"avg\",\n    \"avg\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/metrics",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "metrics"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-22T03:00:01.000Z",
+                                      "updatedAt": "2026-10-22T03:00:01.000Z",
+                                      "uid": "35240-7e779663-ffd8-4cd2-9f45-7b8b2318b632"
+                                    },
+                                    {
+                                      "id": "df774e17-54ad-419d-aa98-f84dc89aa6f8",
+                                      "name": "Generic error response for most error conditions",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"connections_active\"\n  ],\n  \"aggregations\": [\n    \"avg\",\n    \"avg\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/metrics",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "metrics"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-22T03:00:01.000Z",
+                                      "updatedAt": "2026-10-22T03:00:01.000Z",
+                                      "uid": "35240-df774e17-54ad-419d-aa98-f84dc89aa6f8"
+                                    },
+                                    {
+                                      "id": "d817c3b7-613b-4dd6-a271-8b9d1804a76e",
+                                      "name": "Unexpected Error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"connections_active\"\n  ],\n  \"aggregations\": [\n    \"avg\",\n    \"avg\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/metrics",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "metrics"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T03:00:01.000Z",
+                                      "updatedAt": "2026-10-22T03:00:01.000Z",
+                                      "uid": "35240-d817c3b7-613b-4dd6-a271-8b9d1804a76e"
+                                    },
+                                    {
+                                      "id": "130da110-d053-4799-84f2-319b58f824a5",
+                                      "name": "Unexpected Error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"connections_active\"\n  ],\n  \"aggregations\": [\n    \"avg\",\n    \"avg\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/metrics",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "metrics"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T03:00:01.000Z",
+                                      "updatedAt": "2026-10-22T03:00:01.000Z",
+                                      "uid": "35240-130da110-d053-4799-84f2-319b58f824a5"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T03:00:01.000Z",
+                                  "updatedAt": "2026-10-22T03:00:01.000Z",
+                                  "uid": "35240-53b3ce0e-8748-421b-a559-bfb7c334fa82"
+                                }
+                              ],
+                              "id": "7cef79f9-32c1-4035-9d9c-263d19dc50b0",
+                              "createdAt": "2026-10-22T03:00:00.000Z",
+                              "updatedAt": "2026-10-22T03:00:00.000Z",
+                              "uid": "35240-7cef79f9-32c1-4035-9d9c-263d19dc50b0"
+                            }
+                          ],
+                          "id": "483591d6-fcf7-4f9c-8257-6f1f8ec3b2a3",
+                          "createdAt": "2026-10-22T03:00:00.000Z",
+                          "updatedAt": "2026-10-22T03:00:00.000Z",
+                          "uid": "35240-483591d6-fcf7-4f9c-8257-6f1f8ec3b2a3"
+                        }
+                      ],
+                      "id": "8d254c7c-cedb-4e01-aab7-6851c35c1d3d",
+                      "createdAt": "2026-10-22T03:00:00.000Z",
+                      "updatedAt": "2026-10-22T03:00:00.000Z",
+                      "uid": "35240-8d254c7c-cedb-4e01-aab7-6851c35c1d3d"
+                    }
+                  ],
+                  "id": "fc3ae692-1368-4121-bccf-9d9def3d6bae",
+                  "createdAt": "2026-10-22T03:00:00.000Z",
+                  "updatedAt": "2026-10-22T03:00:00.000Z",
+                  "uid": "35240-fc3ae692-1368-4121-bccf-9d9def3d6bae"
                 }
               ],
-              "body": "{\n  \"start\": \"2017-03-21T09:09:34.626Z\",\n  \"end\": \"1988-12-25T08:43:20.248Z\",\n  \"results\": [\n    {\n      \"metric\": \"string\",\n      \"unit\": \"string\",\n      \"series\": [\n        {\n          \"instanceID\": \"string\",\n          \"aggregation\": \"avg\",\n          \"values\": [\n            {\n              \"timestamp\": \"1975-07-02T07:43:49.317Z\",\n              \"value\": 3097.147075587178\n            },\n            {\n              \"timestamp\": \"1984-04-02T14:56:48.850Z\",\n              \"value\": 8252.99085922271\n            }\n          ]\n        },\n        {\n          \"instanceID\": \"string\",\n          \"aggregation\": \"avg\",\n          \"values\": [\n            {\n              \"timestamp\": \"1989-09-20T16:47:40.661Z\",\n              \"value\": 1746.6261474535484\n            },\n            {\n              \"timestamp\": \"1981-02-02T12:00:08.477Z\",\n              \"value\": 4552.941246491193\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"metric\": \"string\",\n      \"unit\": \"string\",\n      \"series\": [\n        {\n          \"instanceID\": \"string\",\n          \"aggregation\": \"avg\",\n          \"values\": [\n            {\n              \"timestamp\": \"2017-03-28T05:59:05.854Z\",\n              \"value\": 5503.9272713381715\n            },\n            {\n              \"timestamp\": \"1981-02-20T01:23:39.287Z\",\n              \"value\": 620.8209549956833\n            }\n          ]\n        },\n        {\n          \"instanceID\": \"string\",\n          \"aggregation\": \"avg\",\n          \"values\": [\n            {\n              \"timestamp\": \"2011-10-12T23:25:18.216Z\",\n              \"value\": 3714.1132456182813\n            },\n            {\n              \"timestamp\": \"2023-09-19T08:03:28.036Z\",\n              \"value\": 2053.586772596857\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9029f5f0-c71b-40a1-bf0c-4bfd12e1c558",
-              "name": "Generic error response for most error conditions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "metrics"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"<string>\"\n  ],\n  \"aggregations\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6d3b7681-0aad-4959-9c2f-d3ec6f6690a4",
-              "name": "Error response when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "metrics"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"<string>\"\n  ],\n  \"aggregations\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ab3e9d96-a85a-43b1-acf2-1fc173ccd103",
-              "name": "Generic error response for most error conditions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "metrics"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"<string>\"\n  ],\n  \"aggregations\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1f974a4f-5143-4ea2-a8db-740b00775362",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "metrics"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"<string>\"\n  ],\n  \"aggregations\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "28b6b6f0-39ff-4da6-8cec-0963c73dcf1d",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "metrics"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"metrics\": [\n    \"<string>\"\n  ],\n  \"aggregations\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"instances\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "fca5a123-5923-403a-bbc0-39bf20a5fe65",
+              "createdAt": "2026-10-22T03:00:00.000Z",
+              "updatedAt": "2026-10-22T03:00:00.000Z",
+              "uid": "35240-fca5a123-5923-403a-bbc0-39bf20a5fe65"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "5ea6da9d-2680-41c9-8b3f-efa0f340eaa6",
+          "createdAt": "2026-10-22T03:00:00.000Z",
+          "updatedAt": "2026-10-22T03:00:00.000Z",
+          "uid": "35240-5ea6da9d-2680-41c9-8b3f-efa0f340eaa6"
         }
       ],
-      "event": []
+      "id": "462b068a-40b4-49b8-b662-dd9c8f4ea872",
+      "createdAt": "2026-10-22T03:00:00.000Z",
+      "updatedAt": "2026-10-22T03:00:00.000Z",
+      "uid": "35240-462b068a-40b4-49b8-b662-dd9c8f4ea872"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.xata.tech",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.xata.tech"
     }
-  ],
-  "info": {
-    "_postman_id": "294234d8-3fe6-4f18-bee4-108ebccf0405",
-    "name": "Xata API Keys Metrics API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Xata API\n\nContact Support:\n Name: help@xata.io",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

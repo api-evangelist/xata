@@ -1,587 +1,593 @@
 {
+  "info": {
+    "_postman_id": "0da27ac5-7928-49fb-accb-1f740d4f9553",
+    "name": "Xata Logs API",
+    "description": "Xata API\n\nContact Support:\n Name: help@xata.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:59:46.000Z",
+    "updatedAt": "2026-10-22T02:59:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0da27ac5-7928-49fb-accb-1f740d4f9553"
+  },
   "item": [
     {
-      "id": "a1897ebd-c6aa-40b0-84de-0fb268d72bec",
-      "name": "Logs",
-      "description": {
-        "content": "Operations for retrieving log entries for a branch",
-        "type": "text/plain"
-      },
+      "name": "organizations",
       "item": [
         {
-          "id": "0e2f6a71-dc8b-4b33-9b97-f8a85a45d39b",
-          "name": "Retrieve branch logs",
-          "request": {
-            "name": "Retrieve branch logs",
-            "description": {},
-            "url": {
-              "path": [
-                "organizations",
-                ":organizationID",
-                "projects",
-                ":projectID",
-                "branches",
-                ":branchID",
-                "logs"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "organizationID",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "projectID",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "branchID",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{organizationID}",
+          "item": [
             {
-              "id": "88e53610-299e-497a-9555-f3c3aa7add4e",
-              "name": "Logs for a branch",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "projects",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{projectID}",
+                  "item": [
+                    {
+                      "name": "branches",
+                      "item": [
+                        {
+                          "name": "{branchID}",
+                          "item": [
+                            {
+                              "name": "logs",
+                              "item": [
+                                {
+                                  "name": "Retrieve branch logs",
+                                  "id": "833e568e-282f-476c-9cdb-2ceb98ad9af0",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "oauth2",
+                                      "oauth2": [
+                                        {
+                                          "key": "scope",
+                                          "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "authUrl",
+                                          "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "grant_type",
+                                          "value": "implicit",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"process\",\n      \"op\": \"in\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"instance\",\n      \"op\": \"iregex\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/logs",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "organizations",
+                                        ":organizationID",
+                                        "projects",
+                                        ":projectID",
+                                        "branches",
+                                        ":branchID",
+                                        "logs"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "5ab2a85f-4484-4d84-96f8-69a791bc4028",
+                                          "key": "organizationID",
+                                          "value": "Hsxr9",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "34b6d9e1-4b72-4142-a7ca-767a24eae8d4",
+                                          "key": "projectID",
+                                          "value": "<string>",
+                                          "description": "(Required) "
+                                        },
+                                        {
+                                          "id": "8ce8a681-6a46-49c6-9d65-cbe022d7f3a3",
+                                          "key": "branchID",
+                                          "value": "<string>",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "4d12423a-5780-4da7-b0ee-90ee07be631c",
+                                      "name": "Logs for a branch",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"process\",\n      \"op\": \"in\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"instance\",\n      \"op\": \"iregex\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/logs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "logs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"logs\": [\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"instanceID\": \"<string>\",\n      \"message\": \"<string>\",\n      \"level\": \"warning\",\n      \"process\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"instanceID\": \"<string>\",\n      \"message\": \"<string>\",\n      \"level\": \"error\",\n      \"process\": \"<string>\"\n    }\n  ],\n  \"nextCursor\": \"<string,null>\"\n}",
+                                      "createdAt": "2026-10-22T02:59:46.000Z",
+                                      "updatedAt": "2026-10-22T02:59:46.000Z",
+                                      "uid": "35240-4d12423a-5780-4da7-b0ee-90ee07be631c"
+                                    },
+                                    {
+                                      "id": "0b42056f-3a5b-4f91-b25c-572040de8229",
+                                      "name": "Generic error response for most error conditions",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"process\",\n      \"op\": \"in\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"instance\",\n      \"op\": \"iregex\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/logs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "logs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-22T02:59:46.000Z",
+                                      "updatedAt": "2026-10-22T02:59:46.000Z",
+                                      "uid": "35240-0b42056f-3a5b-4f91-b25c-572040de8229"
+                                    },
+                                    {
+                                      "id": "647010ac-eaf3-4c59-bd8e-9c0f4465e27e",
+                                      "name": "Error response when authentication or authorization fails",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"process\",\n      \"op\": \"in\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"instance\",\n      \"op\": \"iregex\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/logs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "logs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-22T02:59:46.000Z",
+                                      "updatedAt": "2026-10-22T02:59:46.000Z",
+                                      "uid": "35240-647010ac-eaf3-4c59-bd8e-9c0f4465e27e"
+                                    },
+                                    {
+                                      "id": "bf9309ab-810a-4812-9dfa-3a1a904843ff",
+                                      "name": "Generic error response for most error conditions",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"process\",\n      \"op\": \"in\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"instance\",\n      \"op\": \"iregex\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/logs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "logs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-22T02:59:46.000Z",
+                                      "updatedAt": "2026-10-22T02:59:46.000Z",
+                                      "uid": "35240-bf9309ab-810a-4812-9dfa-3a1a904843ff"
+                                    },
+                                    {
+                                      "id": "1b19e750-c697-4509-abf5-9258e150d118",
+                                      "name": "Unexpected Error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"process\",\n      \"op\": \"in\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"instance\",\n      \"op\": \"iregex\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/logs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "logs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T02:59:46.000Z",
+                                      "updatedAt": "2026-10-22T02:59:46.000Z",
+                                      "uid": "35240-1b19e750-c697-4509-abf5-9258e150d118"
+                                    },
+                                    {
+                                      "id": "9c3fc2c1-80ec-4487-bd88-2dc921824984",
+                                      "name": "Unexpected Error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"process\",\n      \"op\": \"in\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"instance\",\n      \"op\": \"iregex\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/organizations/:organizationID/projects/:projectID/branches/:branchID/logs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "organizations",
+                                            ":organizationID",
+                                            "projects",
+                                            ":projectID",
+                                            "branches",
+                                            ":branchID",
+                                            "logs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organizationID"
+                                            },
+                                            {
+                                              "key": "projectID"
+                                            },
+                                            {
+                                              "key": "branchID"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-10-22T02:59:46.000Z",
+                                      "updatedAt": "2026-10-22T02:59:46.000Z",
+                                      "uid": "35240-9c3fc2c1-80ec-4487-bd88-2dc921824984"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-22T02:59:46.000Z",
+                                  "updatedAt": "2026-10-22T02:59:46.000Z",
+                                  "uid": "35240-833e568e-282f-476c-9cdb-2ceb98ad9af0"
+                                }
+                              ],
+                              "id": "5f071319-4584-4ad6-81c0-5069d033684a",
+                              "createdAt": "2026-10-22T02:59:46.000Z",
+                              "updatedAt": "2026-10-22T02:59:46.000Z",
+                              "uid": "35240-5f071319-4584-4ad6-81c0-5069d033684a"
+                            }
+                          ],
+                          "id": "eca6acab-28e5-4ecd-90ed-73397f4b2bb3",
+                          "createdAt": "2026-10-22T02:59:46.000Z",
+                          "updatedAt": "2026-10-22T02:59:46.000Z",
+                          "uid": "35240-eca6acab-28e5-4ecd-90ed-73397f4b2bb3"
+                        }
+                      ],
+                      "id": "9397d24a-7470-491a-b2b2-e9d79635ca9d",
+                      "createdAt": "2026-10-22T02:59:46.000Z",
+                      "updatedAt": "2026-10-22T02:59:46.000Z",
+                      "uid": "35240-9397d24a-7470-491a-b2b2-e9d79635ca9d"
+                    }
+                  ],
+                  "id": "87dc932a-190d-4543-927f-a94e55146304",
+                  "createdAt": "2026-10-22T02:59:46.000Z",
+                  "updatedAt": "2026-10-22T02:59:46.000Z",
+                  "uid": "35240-87dc932a-190d-4543-927f-a94e55146304"
                 }
               ],
-              "body": "{\n  \"start\": \"1961-05-12T10:28:30.856Z\",\n  \"end\": \"1975-12-13T16:53:08.088Z\",\n  \"logs\": [\n    {\n      \"timestamp\": \"2013-11-22T19:03:50.217Z\",\n      \"instanceID\": \"string\",\n      \"message\": \"string\",\n      \"level\": \"error\",\n      \"process\": \"string\"\n    },\n    {\n      \"timestamp\": \"1964-11-18T11:45:49.502Z\",\n      \"instanceID\": \"string\",\n      \"message\": \"string\",\n      \"level\": \"debug\",\n      \"process\": \"string\"\n    }\n  ],\n  \"nextCursor\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "189939db-ea10-4e7f-924e-76609f9853fe",
-              "name": "Generic error response for most error conditions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ce7927b8-8019-468f-828b-36981aca00a0",
-              "name": "Error response when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bfa3a1a0-2462-4eb4-897a-aeb4ae895eed",
-              "name": "Generic error response for most error conditions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b148cb81-8490-40ac-ad4d-ff2ed328a09e",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "7c2f4896-9138-49ac-b9de-c17133d4abbf",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "projects",
-                    ":projectID",
-                    "branches",
-                    ":branchID",
-                    "logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "projectID",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "branchID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"op\": \"<string>\",\n      \"values\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"value\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"cursor\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "1f7401ab-341f-45c8-91dc-d91d45598546",
+              "createdAt": "2026-10-22T02:59:46.000Z",
+              "updatedAt": "2026-10-22T02:59:46.000Z",
+              "uid": "35240-1f7401ab-341f-45c8-91dc-d91d45598546"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "1e804956-6e87-44fe-9364-1d720953d5ab",
+          "createdAt": "2026-10-22T02:59:46.000Z",
+          "updatedAt": "2026-10-22T02:59:46.000Z",
+          "uid": "35240-1e804956-6e87-44fe-9364-1d720953d5ab"
         }
       ],
-      "event": []
+      "id": "9c6016c3-3997-4899-b420-9a1d8fadeaad",
+      "createdAt": "2026-10-22T02:59:46.000Z",
+      "updatedAt": "2026-10-22T02:59:46.000Z",
+      "uid": "35240-9c6016c3-3997-4899-b420-9a1d8fadeaad"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.xata.tech",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.xata.tech"
     }
-  ],
-  "info": {
-    "_postman_id": "eac51481-a32f-4f3c-9334-6b24accd9e5c",
-    "name": "Xata API Keys Logs API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Xata API\n\nContact Support:\n Name: help@xata.io",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

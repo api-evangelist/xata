@@ -1,353 +1,380 @@
 {
+  "info": {
+    "_postman_id": "5557056e-60fd-4604-9d6e-65ed1b473ec7",
+    "name": "Xata Marketplace API",
+    "description": "Xata API\n\nContact Support:\n Name: help@xata.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:59:56.000Z",
+    "updatedAt": "2026-10-22T02:59:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5557056e-60fd-4604-9d6e-65ed1b473ec7"
+  },
   "item": [
     {
-      "id": "b9377489-fcb1-4f01-94e0-edd08c45e270",
-      "name": "Marketplace",
-      "description": {
-        "content": "Operations for linking user accounts to cloud marketplace subscriptions",
-        "type": "text/plain"
-      },
+      "name": "marketplace",
       "item": [
         {
-          "id": "81f36df0-88c9-4588-a4a3-7bc30694a4a5",
-          "name": "Register with a cloud marketplace",
-          "request": {
-            "name": "Register with a cloud marketplace",
-            "description": {
-              "content": "Links the authenticated user to a cloud marketplace subscription. Only one marketplace registration is allowed per user.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "marketplace",
-                "register"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "register",
+          "item": [
             {
-              "id": "2966b11d-cd71-45e9-a520-38175870b730",
-              "name": "Marketplace registration successful",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "marketplace",
-                    "register"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+              "name": "Register with a cloud marketplace",
+              "id": "164ab90a-e2e9-434b-823d-175008ed2932",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write",
+                      "type": "string"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                    {
+                      "key": "authUrl",
+                      "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
                     }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d5ebcf7c-76f4-4c3f-a92c-44d8c0ebb938",
-              "name": "Error returned when the request is malformed or contains invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "marketplace",
-                    "register"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"marketplace\": \"aws\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "eb178211-6616-4806-8d6b-efb27d24a4d2",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "marketplace",
-                    "register"
-                  ],
+                  "raw": "{{baseUrl}}/marketplace/register",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f63ddaeb-4763-40f8-a26f-3030c3c60609",
-              "name": "Generic error response",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "marketplace",
                     "register"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Links the authenticated user to a cloud marketplace subscription. Only one marketplace registration is allowed per user."
               },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "0a6f3a42-73c4-4c7c-9bfe-04e6502240a4",
+                  "name": "Marketplace registration successful",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"marketplace\": \"aws\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/marketplace/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "marketplace",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:59:56.000Z",
+                  "updatedAt": "2026-10-22T02:59:56.000Z",
+                  "uid": "35240-0a6f3a42-73c4-4c7c-9bfe-04e6502240a4"
+                },
+                {
+                  "id": "2cd4f711-8d5b-4ecc-80de-af0f64b493e6",
+                  "name": "Error returned when the request is malformed or contains invalid parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"marketplace\": \"aws\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/marketplace/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "marketplace",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T02:59:56.000Z",
+                  "updatedAt": "2026-10-22T02:59:56.000Z",
+                  "uid": "35240-2cd4f711-8d5b-4ecc-80de-af0f64b493e6"
+                },
+                {
+                  "id": "39f71172-54fd-4b3d-bcda-d74de613e48a",
+                  "name": "Error returned when authentication or authorization fails",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"marketplace\": \"aws\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/marketplace/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "marketplace",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T02:59:56.000Z",
+                  "updatedAt": "2026-10-22T02:59:56.000Z",
+                  "uid": "35240-39f71172-54fd-4b3d-bcda-d74de613e48a"
+                },
+                {
+                  "id": "a4b082b4-d119-4f24-b6c7-27f7a9fcc5cb",
+                  "name": "Generic error response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"marketplace\": \"aws\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/marketplace/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "marketplace",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T02:59:56.000Z",
+                  "updatedAt": "2026-10-22T02:59:56.000Z",
+                  "uid": "35240-a4b082b4-d119-4f24-b6c7-27f7a9fcc5cb"
+                },
+                {
+                  "id": "d7c91fca-854c-4f97-879a-0cc1941d413a",
+                  "name": "Marketplace registration provider failed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"marketplace\": \"aws\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/marketplace/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "marketplace",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Bad Gateway",
+                  "code": 502,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T02:59:56.000Z",
+                  "updatedAt": "2026-10-22T02:59:56.000Z",
+                  "uid": "35240-d7c91fca-854c-4f97-879a-0cc1941d413a"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5feb96c1-076c-478e-b579-7ea41c8b21ef",
-              "name": "Marketplace registration provider failed",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "marketplace",
-                    "register"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"marketplace\": \"<string>\",\n  \"company_name\": \"<string>\",\n  \"aws\": {\n    \"customer_id\": \"<string>\",\n    \"product_id\": \"<string>\",\n    \"account_id\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Gateway",
-              "code": 502,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:59:56.000Z",
+              "updatedAt": "2026-10-22T02:59:56.000Z",
+              "uid": "35240-164ab90a-e2e9-434b-823d-175008ed2932"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "7921bab9-1525-47a3-924e-969fc5797bd0",
+          "createdAt": "2026-10-22T02:59:56.000Z",
+          "updatedAt": "2026-10-22T02:59:56.000Z",
+          "uid": "35240-7921bab9-1525-47a3-924e-969fc5797bd0"
         }
       ],
-      "event": []
+      "id": "2f03c4d1-b08c-4946-ae59-5a1e213e5bbc",
+      "createdAt": "2026-10-22T02:59:56.000Z",
+      "updatedAt": "2026-10-22T02:59:56.000Z",
+      "uid": "35240-2f03c4d1-b08c-4946-ae59-5a1e213e5bbc"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.xata.tech",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.xata.tech"
     }
-  ],
-  "info": {
-    "_postman_id": "21cb5acc-3498-4624-b5d1-2ecd494c2bc0",
-    "name": "Xata API Keys Marketplace API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Xata API\n\nContact Support:\n Name: help@xata.io",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

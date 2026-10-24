@@ -1,350 +1,389 @@
 {
+  "info": {
+    "_postman_id": "7c9452d8-3ed8-4e29-9968-8995757fe5b9",
+    "name": "Xata Webhooks API",
+    "description": "Xata API\n\nContact Support:\n Name: help@xata.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T03:00:22.000Z",
+    "updatedAt": "2026-10-22T03:00:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7c9452d8-3ed8-4e29-9968-8995757fe5b9"
+  },
   "item": [
     {
-      "id": "ac34049b-74bd-405d-8e40-c97a0f84351e",
-      "name": "Webhooks",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "webhooks",
       "item": [
         {
-          "id": "38afe9f2-4960-4928-9c66-6197c162057d",
-          "name": "Orb billing webhook",
-          "request": {
-            "name": "Orb billing webhook",
-            "description": {
-              "content": "Endpoint used by Orb to deliver billing-related webhook events.\nThis endpoint is authenticated via Orb's HMAC signature headers,\nnot via the normal API authentication.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "webhooks",
-                "orb"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"key_0\": \"string\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "orb",
+          "item": [
             {
-              "id": "f2899281-00e0-4370-8a60-aa658ef715a4",
-              "name": "Webhook received and processed successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhooks",
-                    "orb"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+              "name": "Orb billing webhook",
+              "id": "2331b8bd-c139-414b-ac4b-19623625f9b5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
                 "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"key_0\": false\n}",
+                  "raw": "{\n  \"ameta\": \"D\",\n  \"quia_9\": -57259312.85797618\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9a490649-acaf-4efd-be7d-592d1f1b4582",
-              "name": "Invalid signature or malformed request",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "webhooks",
-                    "orb"
-                  ],
+                  "raw": "{{baseUrl}}/webhooks/orb",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "5332bfc8-3e33-406e-adac-16b6865334e2",
-              "name": "Internal error while handling the webhook",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "webhooks",
                     "orb"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Endpoint used by Orb to deliver billing-related webhook events.\nThis endpoint is authenticated via Orb's HMAC signature headers,\nnot via the normal API authentication."
               },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "17d3b8db-e691-4361-b172-d7e66e917d11",
+                  "name": "Webhook received and processed successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ameta\": \"D\",\n  \"quia_9\": -57259312.85797618\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/orb",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        "orb"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T03:00:23.000Z",
+                  "updatedAt": "2026-10-22T03:00:23.000Z",
+                  "uid": "35240-17d3b8db-e691-4361-b172-d7e66e917d11"
+                },
+                {
+                  "id": "ae067cf7-0ef4-4293-9cdc-529bc57aacd7",
+                  "name": "Invalid signature or malformed request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ameta\": \"D\",\n  \"quia_9\": -57259312.85797618\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/orb",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        "orb"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T03:00:23.000Z",
+                  "updatedAt": "2026-10-22T03:00:23.000Z",
+                  "uid": "35240-ae067cf7-0ef4-4293-9cdc-529bc57aacd7"
+                },
+                {
+                  "id": "478d5f97-2677-4d30-9759-744a24f5c2a6",
+                  "name": "Internal error while handling the webhook",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ameta\": \"D\",\n  \"quia_9\": -57259312.85797618\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/orb",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        "orb"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T03:00:23.000Z",
+                  "updatedAt": "2026-10-22T03:00:23.000Z",
+                  "uid": "35240-478d5f97-2677-4d30-9759-744a24f5c2a6"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T03:00:23.000Z",
+              "updatedAt": "2026-10-22T03:00:23.000Z",
+              "uid": "35240-2331b8bd-c139-414b-ac4b-19623625f9b5"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "c95f88a3-5284-433b-8f4f-2aeb2f324df9",
+          "createdAt": "2026-10-22T03:00:23.000Z",
+          "updatedAt": "2026-10-22T03:00:23.000Z",
+          "uid": "35240-c95f88a3-5284-433b-8f4f-2aeb2f324df9"
         },
         {
-          "id": "48471319-74a6-48e5-afac-1cf6499babf3",
-          "name": "Stripe webhook",
-          "request": {
-            "name": "Stripe webhook",
-            "description": {
-              "content": "Endpoint used by Stripe to deliver webhook events.\nThis endpoint is authenticated via Stripe's signature headers,\nnot via the normal API authentication.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "webhooks",
-                "stripe"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"key_0\": 7695.1455790560685,\n  \"key_1\": 5406,\n  \"key_2\": \"string\",\n  \"key_3\": \"string\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "stripe",
+          "item": [
             {
-              "id": "9052e6bc-cfaf-490f-8063-37e0fe8c0023",
-              "name": "Webhook received and processed successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "webhooks",
-                    "stripe"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+              "name": "Stripe webhook",
+              "id": "7d1430b8-d884-4409-b8ab-294ff969e928",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
                 "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"key_0\": 716.0175512346833,\n  \"key_1\": false\n}",
+                  "raw": "{\n  \"veniam_c86\": \"reprehenderit\",\n  \"sint979\": 32234694\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "fc5b2453-91b3-43c1-8dd7-d78219979de6",
-              "name": "Invalid signature or malformed request",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "webhooks",
-                    "stripe"
-                  ],
+                  "raw": "{{baseUrl}}/webhooks/stripe",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": 716.0175512346833,\n  \"key_1\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6878b0cf-2594-4528-818a-3823e3a945c3",
-              "name": "Internal error while handling the webhook",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "webhooks",
                     "stripe"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"key_0\": 716.0175512346833,\n  \"key_1\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Endpoint used by Stripe to deliver webhook events.\nThis endpoint is authenticated via Stripe's signature headers,\nnot via the normal API authentication."
               },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "0695ee4c-7987-49da-9e1c-358adcdba0f5",
+                  "name": "Webhook received and processed successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"veniam_c86\": \"reprehenderit\",\n  \"sint979\": 32234694\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/stripe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        "stripe"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T03:00:23.000Z",
+                  "updatedAt": "2026-10-22T03:00:23.000Z",
+                  "uid": "35240-0695ee4c-7987-49da-9e1c-358adcdba0f5"
+                },
+                {
+                  "id": "c89e1a3e-133f-4a8a-b7d4-ec9d602f9a20",
+                  "name": "Invalid signature or malformed request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"veniam_c86\": \"reprehenderit\",\n  \"sint979\": 32234694\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/stripe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        "stripe"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T03:00:23.000Z",
+                  "updatedAt": "2026-10-22T03:00:23.000Z",
+                  "uid": "35240-c89e1a3e-133f-4a8a-b7d4-ec9d602f9a20"
+                },
+                {
+                  "id": "303d3a9b-c295-4322-9bd8-39f197e717c0",
+                  "name": "Internal error while handling the webhook",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"veniam_c86\": \"reprehenderit\",\n  \"sint979\": 32234694\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhooks/stripe",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhooks",
+                        "stripe"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T03:00:23.000Z",
+                  "updatedAt": "2026-10-22T03:00:23.000Z",
+                  "uid": "35240-303d3a9b-c295-4322-9bd8-39f197e717c0"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T03:00:23.000Z",
+              "updatedAt": "2026-10-22T03:00:23.000Z",
+              "uid": "35240-7d1430b8-d884-4409-b8ab-294ff969e928"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "92baab3f-653e-4d79-9714-2a95ff7f5eaf",
+          "createdAt": "2026-10-22T03:00:23.000Z",
+          "updatedAt": "2026-10-22T03:00:23.000Z",
+          "uid": "35240-92baab3f-653e-4d79-9714-2a95ff7f5eaf"
         }
       ],
-      "event": []
+      "id": "f35bb3a0-0f26-4bf6-a9ca-e2396bcd6798",
+      "createdAt": "2026-10-22T03:00:23.000Z",
+      "updatedAt": "2026-10-22T03:00:23.000Z",
+      "uid": "35240-f35bb3a0-0f26-4bf6-a9ca-e2396bcd6798"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.xata.tech",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.xata.tech"
     }
-  ],
-  "info": {
-    "_postman_id": "6f9cf6c4-d4e5-4945-a87f-cbadb7379547",
-    "name": "Xata API Keys Webhooks API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Xata API\n\nContact Support:\n Name: help@xata.io",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

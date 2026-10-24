@@ -1,2242 +1,2198 @@
 {
+  "info": {
+    "_postman_id": "e7b161e7-f58e-4165-83df-7f365a9ede45",
+    "name": "Xata Billing API",
+    "description": "Xata API\n\nContact Support:\n Name: help@xata.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:59:25.000Z",
+    "updatedAt": "2026-10-22T02:59:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e7b161e7-f58e-4165-83df-7f365a9ede45"
+  },
   "item": [
     {
-      "id": "a71e4b76-50e7-424c-85c8-58b3c419399d",
-      "name": "Billing",
-      "description": {
-        "content": "Internal organization billing operations",
-        "type": "text/plain"
-      },
+      "name": "organizations",
       "item": [
         {
-          "id": "01457d60-0ef4-4e99-8e70-f8f584d5dd5d",
-          "name": "Create a billing checkout session",
-          "request": {
-            "name": "Create a billing checkout session",
-            "description": {
-              "content": "Creates a Stripe checkout session used to activate card billing for an organization.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations",
-                ":organizationID",
-                "billing",
-                "checkout-session"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "organizationID",
-                  "description": "(Required) Unique identifier for a specific organization"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "{organizationID}",
+          "item": [
             {
-              "id": "23b22e70-374c-48a5-b0a0-db09a95ca20b",
-              "name": "Billing checkout session created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "checkout-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "billing",
+              "item": [
+                {
+                  "name": "checkout-session",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
+                      "name": "Create a billing checkout session",
+                      "id": "4bf8a32a-1675-4f76-9b74-947752f0008c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/organizations/:organizationID/billing/checkout-session",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "organizations",
+                            ":organizationID",
+                            "billing",
+                            "checkout-session"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b21c1673-8c4f-4f28-a51b-9b0f81e67e07",
+                              "key": "organizationID",
+                              "value": "ADH8",
+                              "description": "(Required) Unique identifier for a specific organization"
+                            }
+                          ]
+                        },
+                        "description": "Creates a Stripe checkout session used to activate card billing for an organization."
+                      },
+                      "response": [
+                        {
+                          "id": "fa5693b2-d6ca-424c-9a10-cac2174f536f",
+                          "name": "Billing checkout session created",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/checkout-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "checkout-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"url\": \"<uri>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-fa5693b2-d6ca-424c-9a10-cac2174f536f"
+                        },
+                        {
+                          "id": "6929bbb0-683f-4662-8528-49a4bf8858ad",
+                          "name": "Error returned when the request is malformed or contains invalid parameters",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/checkout-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "checkout-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-6929bbb0-683f-4662-8528-49a4bf8858ad"
+                        },
+                        {
+                          "id": "7024f5eb-c444-4fd7-a9f4-698719e69f3a",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/checkout-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "checkout-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-7024f5eb-c444-4fd7-a9f4-698719e69f3a"
+                        },
+                        {
+                          "id": "3d1178b4-b428-4a1a-9d20-2e9ed816f009",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/checkout-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "checkout-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-3d1178b4-b428-4a1a-9d20-2e9ed816f009"
+                        },
+                        {
+                          "id": "d5748836-d014-485c-988c-0e13023691a0",
+                          "name": "Unexpected Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/checkout-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "checkout-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-d5748836-d014-485c-988c-0e13023691a0"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:59:26.000Z",
+                      "updatedAt": "2026-10-22T02:59:26.000Z",
+                      "uid": "35240-4bf8a32a-1675-4f76-9b74-947752f0008c"
                     }
-                  ]
+                  ],
+                  "id": "94749998-cc12-47df-a30f-fcc51dba51b1",
+                  "createdAt": "2026-10-22T02:59:26.000Z",
+                  "updatedAt": "2026-10-22T02:59:26.000Z",
+                  "uid": "35240-94749998-cc12-47df-a30f-fcc51dba51b1"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"url\": \"http://tdsGTTys.pmrU3TqGpUITNQOJ6uH+rBGwtaIcxF+gOdNv,D5n.Tanf8i7c-URtuTraYM,\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6af04950-9ad5-46ce-aa79-a51dfd66b4bf",
-              "name": "Error returned when the request is malformed or contains invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "checkout-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "name": "payment-method-session",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
+                      "name": "Create a billing payment method session",
+                      "id": "9b396b0f-3e34-49db-adbe-a9963503a0c9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/organizations/:organizationID/billing/payment-method-session",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "organizations",
+                            ":organizationID",
+                            "billing",
+                            "payment-method-session"
+                          ],
+                          "variable": [
+                            {
+                              "id": "de3f4904-ced3-444c-a33e-867307e80a34",
+                              "key": "organizationID",
+                              "value": "ADH8",
+                              "description": "(Required) Unique identifier for a specific organization"
+                            }
+                          ]
+                        },
+                        "description": "Creates a Stripe setup-mode checkout session used to add or update an organization payment method."
+                      },
+                      "response": [
+                        {
+                          "id": "2ca3504a-9fa5-40fd-9895-6b381671f372",
+                          "name": "Billing payment method session created",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/payment-method-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "payment-method-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"url\": \"<uri>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-2ca3504a-9fa5-40fd-9895-6b381671f372"
+                        },
+                        {
+                          "id": "fb8630f8-f56d-4997-bcfb-14c0e97b00ce",
+                          "name": "Error returned when the request is malformed or contains invalid parameters",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/payment-method-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "payment-method-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-fb8630f8-f56d-4997-bcfb-14c0e97b00ce"
+                        },
+                        {
+                          "id": "33b48437-6259-4c88-9bf2-e43bd6fc8584",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/payment-method-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "payment-method-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-33b48437-6259-4c88-9bf2-e43bd6fc8584"
+                        },
+                        {
+                          "id": "c0b2cf71-5333-45b9-97ee-c54142f94a6b",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/payment-method-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "payment-method-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-c0b2cf71-5333-45b9-97ee-c54142f94a6b"
+                        },
+                        {
+                          "id": "1921ed92-9a70-4b48-a4f6-1026ac702e07",
+                          "name": "Unexpected Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/payment-method-session",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "payment-method-session"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-1921ed92-9a70-4b48-a4f6-1026ac702e07"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:59:26.000Z",
+                      "updatedAt": "2026-10-22T02:59:26.000Z",
+                      "uid": "35240-9b396b0f-3e34-49db-adbe-a9963503a0c9"
                     }
-                  ]
+                  ],
+                  "id": "72d52770-ab08-442b-85ea-94ef52db3808",
+                  "createdAt": "2026-10-22T02:59:26.000Z",
+                  "updatedAt": "2026-10-22T02:59:26.000Z",
+                  "uid": "35240-72d52770-ab08-442b-85ea-94ef52db3808"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "76365a62-4a33-42b8-9eba-fdc5d96a3f29",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "checkout-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "name": "customer",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "af02e516-c99e-4920-be32-8c3d81df34d1",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "checkout-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c4bcc7d9-4ae6-43dc-a359-744468806368",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "checkout-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "0a2b7b72-de05-47c5-b360-bdde0f8934dd",
-          "name": "Create a billing payment method session",
-          "request": {
-            "name": "Create a billing payment method session",
-            "description": {
-              "content": "Creates a Stripe setup-mode checkout session used to add or update an organization payment method.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations",
-                ":organizationID",
-                "billing",
-                "payment-method-session"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "organizationID",
-                  "description": "(Required) Unique identifier for a specific organization"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "5f9f07dc-da61-4fb8-ba3b-80c0fe009d1e",
-              "name": "Billing payment method session created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "payment-method-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"url\": \"https://aYtlBMAVQqnojTqYmhkk.ugnaSJyRFdifVd7QU-W0OfjeQoXFBRUJbOoOyc1nRyYrlB+q-Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a9120871-11ed-4c8d-959a-5993a1174f6a",
-              "name": "Error returned when the request is malformed or contains invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "payment-method-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f5415f3d-6198-40f2-917e-652be1f29945",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "payment-method-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "22e51d5d-d805-40a1-af78-3b1d01477e51",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "payment-method-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1bdf260a-10ee-401e-8dba-36bd68c9895a",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "payment-method-session"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a74fde14-5e68-4209-b1fe-61e1938277a6",
-          "name": "Get billing customer details",
-          "request": {
-            "name": "Get billing customer details",
-            "description": {
-              "content": "Retrieves billing customer details for the specified organization.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations",
-                ":organizationID",
-                "billing",
-                "customer"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "organizationID",
-                  "description": "(Required) Unique identifier for a specific organization"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "3f6a7415-648b-43ca-b8a7-8c1a336e1c30",
-              "name": "Billing customer details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"billing_email\": \"R5oDn6@AukoIknrzuuEWaLuHhvcexU.lpi\",\n  \"has_payment_method\": false,\n  \"default_payment_method\": {\n    \"card\": {\n      \"brand\": \"string\",\n      \"last4\": \"string\",\n      \"expiry_month\": 6618,\n      \"expiry_year\": 1963\n    }\n  },\n  \"credits\": [\n    {\n      \"id\": \"string\",\n      \"balance\": 7764.626431006366,\n      \"effective_date\": \"2020-11-10T13:26:29.431Z\",\n      \"expiry_date\": \"1953-03-24T21:24:07.973Z\",\n      \"maximum_initial_balance\": 3676.7162539075416,\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"string\",\n      \"balance\": 7808.401528016297,\n      \"effective_date\": \"1958-09-04T22:40:33.492Z\",\n      \"expiry_date\": \"1969-06-10T13:48:20.578Z\",\n      \"maximum_initial_balance\": 1461.943251748421,\n      \"status\": \"pending_payment\"\n    }\n  ],\n  \"credit_details\": {\n    \"total_lifetime_credits\": 8284.299542628243,\n    \"last_expiry\": \"2022-02-23T09:02:14.557Z\",\n    \"last_expiry_with_balance\": \"1997-01-21T15:18:01.441Z\",\n    \"active_credits\": [\n      {\n        \"id\": \"string\",\n        \"balance\": 5973.253100255959,\n        \"effective_date\": \"2019-02-15T00:42:08.549Z\",\n        \"expiry_date\": \"2005-11-20T12:24:01.687Z\",\n        \"maximum_initial_balance\": 4521.1965168495835,\n        \"status\": \"active\"\n      },\n      {\n        \"id\": \"string\",\n        \"balance\": 6066.12642461147,\n        \"effective_date\": \"2003-06-19T13:00:22.654Z\",\n        \"expiry_date\": \"1960-04-09T16:18:32.910Z\",\n        \"maximum_initial_balance\": 980.5170095280569,\n        \"status\": \"pending_payment\"\n      }\n    ],\n    \"last_active_credit_expiry\": \"1949-12-04T09:22:27.210Z\",\n    \"total_active_credits\": 8584.387288348007,\n    \"days_until_last_active_credit_expiry\": 219,\n    \"days_until_last_expiry_with_balance\": 7124\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a243a14c-826e-4430-b71b-8f6891f80f22",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4eee4664-8646-42e4-90ae-02bdb925e99a",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "28f3f072-1c85-46e1-8bc5-adbed9a190ae",
-              "name": "Generic error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "44c4f5c5-e07b-4ffe-8088-e764cdbd761b",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "84c792fb-2c7d-4f4b-93ba-655e8a84d7f2",
-          "name": "Update billing customer details",
-          "request": {
-            "name": "Update billing customer details",
-            "description": {
-              "content": "Updates billing customer details for the specified organization.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations",
-                ":organizationID",
-                "billing",
-                "customer"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "organizationID",
-                  "description": "(Required) Unique identifier for a specific organization"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"billing_email\": \"<email>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "f051c584-2472-45d2-b727-50ffd7f4001f",
-              "name": "Billing customer updated",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"billing_email\": \"<email>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"billing_email\": \"feB1c@FwAiNBeTLxdyqRTKeJPoycfzvNAdKOhlc.kq\",\n  \"has_payment_method\": false,\n  \"default_payment_method\": {\n    \"card\": {\n      \"brand\": \"string\",\n      \"last4\": \"string\",\n      \"expiry_month\": 7342,\n      \"expiry_year\": 6615\n    }\n  },\n  \"credits\": [\n    {\n      \"id\": \"string\",\n      \"balance\": 3077.439572216126,\n      \"effective_date\": \"2016-12-17T03:29:18.593Z\",\n      \"expiry_date\": \"1977-02-08T22:26:30.781Z\",\n      \"maximum_initial_balance\": 7018.654171299853,\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"string\",\n      \"balance\": 4427.872043698957,\n      \"effective_date\": \"2012-05-07T05:45:12.623Z\",\n      \"expiry_date\": \"2025-08-01T19:54:37.876Z\",\n      \"maximum_initial_balance\": 3227.0862342895402,\n      \"status\": \"active\"\n    }\n  ],\n  \"credit_details\": {\n    \"total_lifetime_credits\": 3920.780125961466,\n    \"last_expiry\": \"1994-05-22T10:48:03.854Z\",\n    \"last_expiry_with_balance\": \"1974-05-27T20:59:51.786Z\",\n    \"active_credits\": [\n      {\n        \"id\": \"string\",\n        \"balance\": 3788.1852585579622,\n        \"effective_date\": \"1977-11-01T05:50:33.648Z\",\n        \"expiry_date\": \"2022-11-17T04:38:56.580Z\",\n        \"maximum_initial_balance\": 7391.693134983523,\n        \"status\": \"pending_payment\"\n      },\n      {\n        \"id\": \"string\",\n        \"balance\": 8882.771422328196,\n        \"effective_date\": \"2000-06-15T02:09:25.976Z\",\n        \"expiry_date\": \"2013-08-24T20:44:07.470Z\",\n        \"maximum_initial_balance\": 5743.82055804577,\n        \"status\": \"pending_payment\"\n      }\n    ],\n    \"last_active_credit_expiry\": \"1988-12-01T20:26:37.000Z\",\n    \"total_active_credits\": 1302.7709841843628,\n    \"days_until_last_active_credit_expiry\": 1361,\n    \"days_until_last_expiry_with_balance\": 3805\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "dccf5a4c-2fcd-40bb-bfcc-9df1e20397d4",
-              "name": "Error returned when the request is malformed or contains invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"billing_email\": \"<email>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "827313f0-84f6-4d9d-ba1c-ec635181141a",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"billing_email\": \"<email>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b8d48482-5765-4e7c-82bd-c8a2d239645d",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"billing_email\": \"<email>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ea2306fc-6755-4153-ade6-1d7db77057f1",
-              "name": "Generic error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"billing_email\": \"<email>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a943c628-7082-485c-82ca-f3e7a5ef93bd",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "customer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"billing_email\": \"<email>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a65e50f8-3953-42e4-9efb-2b7a745d57fa",
-          "name": "List billing invoices",
-          "request": {
-            "name": "List billing invoices",
-            "description": {
-              "content": "Retrieves billing invoices for the specified organization.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations",
-                ":organizationID",
-                "billing",
-                "invoices"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Pagination cursor from a previous response"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "20",
-                  "description": "Number of invoices to fetch"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "organizationID",
-                  "description": "(Required) Unique identifier for a specific organization"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "37039e67-bfef-4e93-8a69-3a3d326a8c1d",
-              "name": "Billing invoices",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "name": "Get billing customer details",
+                      "id": "c4704268-4580-4cf2-9996-4b93e630940b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "organizations",
+                            ":organizationID",
+                            "billing",
+                            "customer"
+                          ],
+                          "variable": [
+                            {
+                              "id": "8e6841fb-75cf-4878-a655-128327c53bd8",
+                              "key": "organizationID",
+                              "value": "ADH8",
+                              "description": "(Required) Unique identifier for a specific organization"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves billing customer details for the specified organization."
+                      },
+                      "response": [
+                        {
+                          "id": "b759e511-7291-4561-9f1c-27071bfe7abc",
+                          "name": "Billing customer details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"billing_email\": \"<email>\",\n  \"has_payment_method\": \"<boolean>\",\n  \"default_payment_method\": {\n    \"card\": {\n      \"brand\": \"<string>\",\n      \"last4\": \"<string>\",\n      \"expiry_month\": \"<integer>\",\n      \"expiry_year\": \"<integer>\"\n    }\n  },\n  \"credits\": [\n    {\n      \"id\": \"<string>\",\n      \"balance\": \"<double>\",\n      \"effective_date\": \"<dateTime>\",\n      \"expiry_date\": \"<string,null-date-time>\",\n      \"maximum_initial_balance\": \"<double>\",\n      \"status\": \"pending_payment\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"balance\": \"<double>\",\n      \"effective_date\": \"<dateTime>\",\n      \"expiry_date\": \"<string,null-date-time>\",\n      \"maximum_initial_balance\": \"<double>\",\n      \"status\": \"active\"\n    }\n  ],\n  \"credit_details\": {\n    \"total_lifetime_credits\": \"<double>\",\n    \"last_expiry\": \"<string,null-date-time>\",\n    \"last_expiry_with_balance\": \"<string,null-date-time>\",\n    \"active_credits\": [\n      {\n        \"id\": \"<string>\",\n        \"balance\": \"<double>\",\n        \"effective_date\": \"<dateTime>\",\n        \"expiry_date\": \"<string,null-date-time>\",\n        \"maximum_initial_balance\": \"<double>\",\n        \"status\": \"pending_payment\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"balance\": \"<double>\",\n        \"effective_date\": \"<dateTime>\",\n        \"expiry_date\": \"<string,null-date-time>\",\n        \"maximum_initial_balance\": \"<double>\",\n        \"status\": \"pending_payment\"\n      }\n    ],\n    \"last_active_credit_expiry\": \"<string,null-date-time>\",\n    \"total_active_credits\": \"<double>\",\n    \"days_until_last_active_credit_expiry\": \"<integer,null>\",\n    \"days_until_last_expiry_with_balance\": \"<integer,null>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-b759e511-7291-4561-9f1c-27071bfe7abc"
+                        },
+                        {
+                          "id": "4179aa1f-ba84-40d3-a889-b17be30247d5",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-4179aa1f-ba84-40d3-a889-b17be30247d5"
+                        },
+                        {
+                          "id": "97730b0e-4436-468a-90e5-e1eb4ee99e11",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-97730b0e-4436-468a-90e5-e1eb4ee99e11"
+                        },
+                        {
+                          "id": "358ef084-842e-4952-b535-cb24729d8c59",
+                          "name": "Generic error response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-358ef084-842e-4952-b535-cb24729d8c59"
+                        },
+                        {
+                          "id": "421a1e80-94eb-4ca7-bb8d-c2a594a3124b",
+                          "name": "Unexpected Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-421a1e80-94eb-4ca7-bb8d-c2a594a3124b"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:59:26.000Z",
+                      "updatedAt": "2026-10-22T02:59:26.000Z",
+                      "uid": "35240-c4704268-4580-4cf2-9996-4b93e630940b"
                     },
                     {
-                      "key": "limit",
-                      "value": "20"
+                      "name": "Update billing customer details",
+                      "id": "b55d6e20-bc52-496d-85f2-b3a7b54bc4fb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"billing_email\": \"<email>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "organizations",
+                            ":organizationID",
+                            "billing",
+                            "customer"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2b721a88-f194-4013-8c3b-df3855197cbe",
+                              "key": "organizationID",
+                              "value": "ADH8",
+                              "description": "(Required) Unique identifier for a specific organization"
+                            }
+                          ]
+                        },
+                        "description": "Updates billing customer details for the specified organization."
+                      },
+                      "response": [
+                        {
+                          "id": "3f4985fd-9dde-4da1-8588-62622c928b72",
+                          "name": "Billing customer updated",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"billing_email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"billing_email\": \"<email>\",\n  \"has_payment_method\": \"<boolean>\",\n  \"default_payment_method\": {\n    \"card\": {\n      \"brand\": \"<string>\",\n      \"last4\": \"<string>\",\n      \"expiry_month\": \"<integer>\",\n      \"expiry_year\": \"<integer>\"\n    }\n  },\n  \"credits\": [\n    {\n      \"id\": \"<string>\",\n      \"balance\": \"<double>\",\n      \"effective_date\": \"<dateTime>\",\n      \"expiry_date\": \"<string,null-date-time>\",\n      \"maximum_initial_balance\": \"<double>\",\n      \"status\": \"pending_payment\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"balance\": \"<double>\",\n      \"effective_date\": \"<dateTime>\",\n      \"expiry_date\": \"<string,null-date-time>\",\n      \"maximum_initial_balance\": \"<double>\",\n      \"status\": \"active\"\n    }\n  ],\n  \"credit_details\": {\n    \"total_lifetime_credits\": \"<double>\",\n    \"last_expiry\": \"<string,null-date-time>\",\n    \"last_expiry_with_balance\": \"<string,null-date-time>\",\n    \"active_credits\": [\n      {\n        \"id\": \"<string>\",\n        \"balance\": \"<double>\",\n        \"effective_date\": \"<dateTime>\",\n        \"expiry_date\": \"<string,null-date-time>\",\n        \"maximum_initial_balance\": \"<double>\",\n        \"status\": \"pending_payment\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"balance\": \"<double>\",\n        \"effective_date\": \"<dateTime>\",\n        \"expiry_date\": \"<string,null-date-time>\",\n        \"maximum_initial_balance\": \"<double>\",\n        \"status\": \"pending_payment\"\n      }\n    ],\n    \"last_active_credit_expiry\": \"<string,null-date-time>\",\n    \"total_active_credits\": \"<double>\",\n    \"days_until_last_active_credit_expiry\": \"<integer,null>\",\n    \"days_until_last_expiry_with_balance\": \"<integer,null>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-3f4985fd-9dde-4da1-8588-62622c928b72"
+                        },
+                        {
+                          "id": "aa4a4cc4-b25a-4039-985c-91e58734cbc7",
+                          "name": "Error returned when the request is malformed or contains invalid parameters",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"billing_email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-aa4a4cc4-b25a-4039-985c-91e58734cbc7"
+                        },
+                        {
+                          "id": "1df25b63-8fc6-4e3c-8faf-bef2f7e90b73",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"billing_email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-1df25b63-8fc6-4e3c-8faf-bef2f7e90b73"
+                        },
+                        {
+                          "id": "fb34b3d3-7d27-4245-b5c2-856ae1a4f07f",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"billing_email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-fb34b3d3-7d27-4245-b5c2-856ae1a4f07f"
+                        },
+                        {
+                          "id": "96953ac3-0bd0-43bb-8ff1-2c3d2e9b38d7",
+                          "name": "Generic error response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"billing_email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-96953ac3-0bd0-43bb-8ff1-2c3d2e9b38d7"
+                        },
+                        {
+                          "id": "2c73203b-f9a8-40b4-a7f6-764e65760ced",
+                          "name": "Unexpected Error",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"billing_email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/customer",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "customer"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-2c73203b-f9a8-40b4-a7f6-764e65760ced"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:59:26.000Z",
+                      "updatedAt": "2026-10-22T02:59:26.000Z",
+                      "uid": "35240-b55d6e20-bc52-496d-85f2-b3a7b54bc4fb"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
+                  "id": "e8b7ccda-870a-436a-8802-2eda52866252",
+                  "createdAt": "2026-10-22T02:59:26.000Z",
+                  "updatedAt": "2026-10-22T02:59:26.000Z",
+                  "uid": "35240-e8b7ccda-870a-436a-8802-2eda52866252"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "invoices",
+                  "item": [
+                    {
+                      "name": "upcoming",
+                      "item": [
+                        {
+                          "name": "Get upcoming billing invoice",
+                          "id": "d5c5aac0-22cb-4fd4-a1de-9b9f5f429f21",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "oauth2",
+                              "oauth2": [
+                                {
+                                  "key": "scope",
+                                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "authUrl",
+                                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "grant_type",
+                                  "value": "implicit",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices/upcoming",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "invoices",
+                                "upcoming"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b69fa8ad-b92b-402a-9294-f732eb91e4a8",
+                                  "key": "organizationID",
+                                  "value": "ADH8",
+                                  "description": "(Required) Unique identifier for a specific organization"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the upcoming billing invoice for the specified organization's active subscription. Organizations are expected to have at most one active subscription."
+                          },
+                          "response": [
+                            {
+                              "id": "a0fb54fa-e689-43ae-9513-5bbb1025c7bc",
+                              "name": "Upcoming billing invoice",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices/upcoming",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "organizations",
+                                    ":organizationID",
+                                    "billing",
+                                    "invoices",
+                                    "upcoming"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"created_at\": \"<dateTime>\",\n  \"amount_due\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"target_date\": \"<dateTime>\",\n  \"subtotal\": \"<double>\",\n  \"total\": \"<double>\",\n  \"hosted_invoice_url\": \"<string,null-uri>\"\n}",
+                              "createdAt": "2026-10-22T02:59:26.000Z",
+                              "updatedAt": "2026-10-22T02:59:26.000Z",
+                              "uid": "35240-a0fb54fa-e689-43ae-9513-5bbb1025c7bc"
+                            },
+                            {
+                              "id": "7739a0f3-5237-406b-a10f-fe61f2550c0c",
+                              "name": "Error returned when authentication or authorization fails",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices/upcoming",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "organizations",
+                                    ":organizationID",
+                                    "billing",
+                                    "invoices",
+                                    "upcoming"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:59:26.000Z",
+                              "updatedAt": "2026-10-22T02:59:26.000Z",
+                              "uid": "35240-7739a0f3-5237-406b-a10f-fe61f2550c0c"
+                            },
+                            {
+                              "id": "58a25698-8961-4ff4-87c8-d44642783fc6",
+                              "name": "Error returned when authentication or authorization fails",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices/upcoming",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "organizations",
+                                    ":organizationID",
+                                    "billing",
+                                    "invoices",
+                                    "upcoming"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:59:26.000Z",
+                              "updatedAt": "2026-10-22T02:59:26.000Z",
+                              "uid": "35240-58a25698-8961-4ff4-87c8-d44642783fc6"
+                            },
+                            {
+                              "id": "a1e662c2-43b5-40cd-9421-7d73be7dd78e",
+                              "name": "Generic error response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices/upcoming",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "organizations",
+                                    ":organizationID",
+                                    "billing",
+                                    "invoices",
+                                    "upcoming"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T02:59:26.000Z",
+                              "updatedAt": "2026-10-22T02:59:26.000Z",
+                              "uid": "35240-a1e662c2-43b5-40cd-9421-7d73be7dd78e"
+                            },
+                            {
+                              "id": "bcad232d-7f92-4956-b434-40edbd87b008",
+                              "name": "Unexpected Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices/upcoming",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "organizations",
+                                    ":organizationID",
+                                    "billing",
+                                    "invoices",
+                                    "upcoming"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T02:59:26.000Z",
+                              "updatedAt": "2026-10-22T02:59:26.000Z",
+                              "uid": "35240-bcad232d-7f92-4956-b434-40edbd87b008"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-d5c5aac0-22cb-4fd4-a1de-9b9f5f429f21"
+                        }
+                      ],
+                      "id": "3b7ddc26-2958-4955-90e9-d85ea3759d7e",
+                      "createdAt": "2026-10-22T02:59:26.000Z",
+                      "updatedAt": "2026-10-22T02:59:26.000Z",
+                      "uid": "35240-3b7ddc26-2958-4955-90e9-d85ea3759d7e"
+                    },
+                    {
+                      "name": "List billing invoices",
+                      "id": "e3396361-381f-48a0-b182-8485857c4e81",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices?cursor=<string>&limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "organizations",
+                            ":organizationID",
+                            "billing",
+                            "invoices"
+                          ],
+                          "query": [
+                            {
+                              "description": "Pagination cursor from a previous response",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Number of invoices to fetch",
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "86b4828b-31a2-4209-b5e9-423f712aaea5",
+                              "key": "organizationID",
+                              "value": "ADH8",
+                              "description": "(Required) Unique identifier for a specific organization"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves billing invoices for the specified organization."
+                      },
+                      "response": [
+                        {
+                          "id": "932483c3-673f-4017-9d44-550753273208",
+                          "name": "Billing invoices",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices?cursor=<string>&limit=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "invoices"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Pagination cursor from a previous response",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of invoices to fetch",
+                                  "key": "limit",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"invoice_number\": \"<string>\",\n      \"amount_due\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"invoice_date\": \"<dateTime>\",\n      \"status\": \"draft\",\n      \"invoice_pdf\": \"<string,null>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"invoice_number\": \"<string>\",\n      \"amount_due\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"invoice_date\": \"<dateTime>\",\n      \"status\": \"synced\",\n      \"invoice_pdf\": \"<string,null>\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": \"<boolean>\",\n    \"next_cursor\": \"<string,null>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-932483c3-673f-4017-9d44-550753273208"
+                        },
+                        {
+                          "id": "605e1ec1-18dc-4fa4-85c9-42fbc5f74344",
+                          "name": "Error returned when the request is malformed or contains invalid parameters",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices?cursor=<string>&limit=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "invoices"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Pagination cursor from a previous response",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of invoices to fetch",
+                                  "key": "limit",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-605e1ec1-18dc-4fa4-85c9-42fbc5f74344"
+                        },
+                        {
+                          "id": "0190eb81-4e91-41f5-97f6-e9bf1227cec6",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices?cursor=<string>&limit=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "invoices"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Pagination cursor from a previous response",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of invoices to fetch",
+                                  "key": "limit",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-0190eb81-4e91-41f5-97f6-e9bf1227cec6"
+                        },
+                        {
+                          "id": "8ff5e2bd-b850-4957-a79e-80977ed5e3f2",
+                          "name": "Error returned when authentication or authorization fails",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices?cursor=<string>&limit=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "invoices"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Pagination cursor from a previous response",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of invoices to fetch",
+                                  "key": "limit",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-8ff5e2bd-b850-4957-a79e-80977ed5e3f2"
+                        },
+                        {
+                          "id": "a30b7fb3-6455-4bc9-b6b7-5f6e6975fd02",
+                          "name": "Generic error response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices?cursor=<string>&limit=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "invoices"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Pagination cursor from a previous response",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of invoices to fetch",
+                                  "key": "limit",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"id\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-a30b7fb3-6455-4bc9-b6b7-5f6e6975fd02"
+                        },
+                        {
+                          "id": "d3a42043-7cf2-4087-8f03-3d16630bd5a8",
+                          "name": "Unexpected Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/organizations/:organizationID/billing/invoices?cursor=<string>&limit=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "organizations",
+                                ":organizationID",
+                                "billing",
+                                "invoices"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Pagination cursor from a previous response",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Number of invoices to fetch",
+                                  "key": "limit",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationID"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:59:26.000Z",
+                          "updatedAt": "2026-10-22T02:59:26.000Z",
+                          "uid": "35240-d3a42043-7cf2-4087-8f03-3d16630bd5a8"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:59:26.000Z",
+                      "updatedAt": "2026-10-22T02:59:26.000Z",
+                      "uid": "35240-e3396361-381f-48a0-b182-8485857c4e81"
+                    }
+                  ],
+                  "id": "9d3f8a9e-b0f6-4a67-bee6-e8653718c157",
+                  "createdAt": "2026-10-22T02:59:26.000Z",
+                  "updatedAt": "2026-10-22T02:59:26.000Z",
+                  "uid": "35240-9d3f8a9e-b0f6-4a67-bee6-e8653718c157"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"invoice_number\": \"string\",\n      \"amount_due\": 6209.696079320688,\n      \"currency\": \"string\",\n      \"invoice_date\": \"1979-08-22T13:36:22.835Z\",\n      \"status\": \"draft\",\n      \"invoice_pdf\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"invoice_number\": \"string\",\n      \"amount_due\": 3161.816594745165,\n      \"currency\": \"string\",\n      \"invoice_date\": \"1996-08-27T07:08:36.908Z\",\n      \"status\": \"draft\",\n      \"invoice_pdf\": \"string\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": false,\n    \"next_cursor\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2cae986e-5241-4e89-9c13-2bd2effdc617",
-              "name": "Error returned when the request is malformed or contains invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7541cfc9-20cb-456c-87f7-0e56c5535484",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3f991110-b2b3-4783-a21a-160ed3200a91",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a4441abc-1d0f-42fd-8618-5e75af622ff4",
-              "name": "Generic error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3fd1f007-58f7-4a1b-b28f-f36eb17c4df5",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "61f19038-02d2-4173-b8cb-9e0bf69f7287",
-          "name": "Get upcoming billing invoice",
-          "request": {
-            "name": "Get upcoming billing invoice",
-            "description": {
-              "content": "Retrieves the upcoming billing invoice for the specified organization's active subscription. Organizations are expected to have at most one active subscription.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations",
-                ":organizationID",
-                "billing",
-                "invoices",
-                "upcoming"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "organizationID",
-                  "description": "(Required) Unique identifier for a specific organization"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "org:read org:write keys:read keys:write project:read project:write branch:read branch:write metrics:read logs:read credentials:read credentials:write marketplace:write"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://auth.xata.io/realms/xata/protocol/openid-connect/auth"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "351f62af-afa3-47ee-8224-c11a32e5ab66",
-              "name": "Upcoming billing invoice",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices",
-                    "upcoming"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_at\": \"1957-12-03T14:07:12.049Z\",\n  \"amount_due\": 5419.438068912691,\n  \"currency\": \"string\",\n  \"target_date\": \"1982-07-26T17:39:07.405Z\",\n  \"subtotal\": 4913.353930642526,\n  \"total\": 6142.681384702586,\n  \"hosted_invoice_url\": \"https://nALJFsberiHBpLUbiMOZoaAQTmtCQVu.zhtnUT7eyXvVUs3sQPxLxXhwvAtwSGppp.+\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e8a998f7-5ed8-4c4e-84ce-0d45536c283c",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices",
-                    "upcoming"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "387d93f8-917b-4667-8252-218880a80111",
-              "name": "Error returned when authentication or authorization fails",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices",
-                    "upcoming"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"invalid API key\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "97283888-e96d-4652-bb51-3d7279f04421",
-              "name": "Generic error response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices",
-                    "upcoming"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"id\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "92471bd6-3f6e-4320-a281-412229d79b1e",
-              "name": "Unexpected Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":organizationID",
-                    "billing",
-                    "invoices",
-                    "upcoming"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "organizationID",
-                      "description": "(Required) Unique identifier for a specific organization"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "01ef5819-967b-4474-9b62-62cb1b4e81f9",
+              "createdAt": "2026-10-22T02:59:26.000Z",
+              "updatedAt": "2026-10-22T02:59:26.000Z",
+              "uid": "35240-01ef5819-967b-4474-9b62-62cb1b4e81f9"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f71cc033-f105-40c5-ad0f-77ef4b9a325e",
+          "createdAt": "2026-10-22T02:59:26.000Z",
+          "updatedAt": "2026-10-22T02:59:26.000Z",
+          "uid": "35240-f71cc033-f105-40c5-ad0f-77ef4b9a325e"
         }
       ],
-      "event": []
+      "id": "680aea6b-03a6-4454-a5a0-4335e2377e55",
+      "createdAt": "2026-10-22T02:59:26.000Z",
+      "updatedAt": "2026-10-22T02:59:26.000Z",
+      "uid": "35240-680aea6b-03a6-4454-a5a0-4335e2377e55"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.xata.tech",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.xata.tech"
     }
-  ],
-  "info": {
-    "_postman_id": "42191c31-d15c-4b04-a661-3dbd9f40988f",
-    "name": "Xata API Keys Billing API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "Xata API\n\nContact Support:\n Name: help@xata.io",
-      "type": "text/plain"
-    }
-  }
+  ]
 }
